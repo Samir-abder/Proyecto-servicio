@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ser.std.StdKeySerializers;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.HeadlessException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,27 +19,53 @@ public class Base extends javax.swing.JFrame {
     /**
      * Creates new form Base
      */
-    public Base() {
-        
+   public Base() {
+
         super("Coordinacion de trabajos de grado y pasantias");
-        
+
         initComponents();
-        this.setMinimumSize(new Dimension(800,650));
+        this.setMinimumSize(new Dimension(800, 650));
         this.setLocationRelativeTo(null);
-        
+
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         Fondo.setLayout(new BorderLayout());
-        Alumnos alumnos = new Alumnos();
-        alumnos.setSize(Fondo.getWidth(),Fondo.getHeight());
-        //alumnos.setBounds(0,0,900,500);
-        Fondo.removeAll();
-        Fondo.add(alumnos,  BorderLayout.CENTER);
-        Fondo.revalidate();
-        Fondo.repaint();
-        this.pack();
-        this.setMinimumSize(new Dimension(alumnos.getWidth(), alumnos.getHeight()));
-        
+
+        conexion objConexion = new conexion();
+        ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count FROM Periodos");
+        try {
+            if (rs.next()) {
+                int rowCount = rs.getInt("count");
+                if (rowCount == 0) {
+
+                    objConexion.cerrarConexion();
+                    jMenuBar1.setVisible(false);
+                    Periodo periodo = new Periodo();
+                    periodo.setLocation(0, 0);
+                    Fondo.removeAll();
+                    Fondo.add(periodo);
+                    Fondo.revalidate();
+                    Fondo.repaint();
+//                    jMenuBar1.setVisible(true);
+
+                } else {
+
+                    Alumnos alumnos = new Alumnos();
+                    alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
+                    //alumnos.setBounds(0,0,900,500);
+                    Fondo.removeAll();
+                    Fondo.add(alumnos, BorderLayout.CENTER);
+                    Fondo.revalidate();
+                    Fondo.repaint();
+                    this.pack();
+                    this.setMinimumSize(new Dimension(alumnos.getWidth(), alumnos.getHeight()));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        objConexion.cerrarConexion();
     }
+
     
     String url="jdbc:sqlite:database.s3db";
     Connection connect;
@@ -359,6 +386,24 @@ public class Base extends javax.swing.JFrame {
             System.out.println("este es " + e);
 
         }
+
+    }
+    public void cerrarVentana() {
+        // Obtiene el comando de inicio del programa actual
+        String javaCmd = System.getProperty("java.home") + "/bin/java";
+        String classpath = System.getProperty("java.class.path");
+        String className = Base.class.getCanonicalName();
+
+        // Lanza una nueva instancia del programa
+        ProcessBuilder processBuilder = new ProcessBuilder(javaCmd, "-cp", classpath, className);
+        try {
+            processBuilder.start();
+        } catch (IOException ex) {
+            
+        }
+
+        // Cierra la ventana actual
+        System.exit(0);
 
     }
     public static void main(String args[]) {
