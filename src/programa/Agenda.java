@@ -103,9 +103,16 @@ public class Agenda extends javax.swing.JPanel {
         try {
             conexion objConexion = new conexion();
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela='"+escuela+"'");
-            String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
+            
+            
             while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"),nombreCompleto};
+                String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
+                Object[] UsuarioD = {resultado.getString("Cedula"),
+                    nombreCompleto,
+                    resultado.getString("entrevistador"),
+                    resultado.getString("ci_entrevistador"),
+                    resultado.getString("fecha_hora_entrevista"),
+                    resultado.getString("lugar_entrevista")};
 
                 Entrevistas.modeloEntre.addRow(UsuarioD);
 //                objConexion.cerrarConexion();
@@ -132,11 +139,18 @@ public class Agenda extends javax.swing.JPanel {
         try {
             conexion objConexion = new conexion();
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela='"+escuela+"'");
-            String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
+            
+            
             while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"),nombreCompleto};
+                String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
+                Object[] UsuarioD = {resultado.getString("Cedula"),
+                    nombreCompleto,
+                    resultado.getString("jurado"),
+                    resultado.getString("ci_jurado"),
+                    resultado.getString("fecha_hora_presentacion"),
+                    resultado.getString("lugar_presentacion")};
 
-                Entrevistas.modeloEntre.addRow(UsuarioD);
+                Presentacion.modelopres.addRow(UsuarioD);
 //                objConexion.cerrarConexion();
             }
         } catch (SQLException e) {

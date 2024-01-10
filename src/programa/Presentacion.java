@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,11 +17,13 @@ import javax.swing.JPanel;
  */
 public class Presentacion extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Presentacion
-     */
+    public static DefaultTableModel modelopres;
+    int filaAnterior = -1;
+    int filaActual =-2;
+    
     public Presentacion() {
         initComponents();
+        modelopres = (DefaultTableModel) Presentacion.tablaPresentacion.getModel();
     }
 
     /**
@@ -33,7 +36,7 @@ public class Presentacion extends javax.swing.JPanel {
     private void initComponents() {
 
         ImprimirPresentacion = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        boton_edit = new javax.swing.JButton();
         basePresentacion = new javax.swing.JPanel();
         paneltablapresentacion = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -42,16 +45,20 @@ public class Presentacion extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(720, 470));
 
         ImprimirPresentacion.setText("Imprimir");
+        ImprimirPresentacion.setEnabled(false);
 
-        jButton2.setText("Editar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        boton_edit.setText("Editar");
+        boton_edit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        boton_edit.setEnabled(false);
+        boton_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                boton_editActionPerformed(evt);
             }
         });
 
         basePresentacion.setLayout(new java.awt.BorderLayout());
 
+        tablaPresentacion.setAutoCreateRowSorter(true);
         tablaPresentacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -60,6 +67,11 @@ public class Presentacion extends javax.swing.JPanel {
                 "Alumno", "C.I. Alumno", "Jurado", "C.I. Jurado", "Fecha y hora", "Lugar"
             }
         ));
+        tablaPresentacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPresentacionMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPresentacion);
 
         javax.swing.GroupLayout paneltablapresentacionLayout = new javax.swing.GroupLayout(paneltablapresentacion);
@@ -81,7 +93,7 @@ public class Presentacion extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boton_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ImprimirPresentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -93,13 +105,13 @@ public class Presentacion extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ImprimirPresentacion)
-                    .addComponent(jButton2))
+                    .addComponent(boton_edit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(basePresentacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void boton_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_editActionPerformed
         PresentacionEdit pred = new PresentacionEdit(); 
         basePresentacion.removeAll(); //se quita todo lo que esta en la base
         pred.setMinimumSize(new Dimension(200, 500));
@@ -118,21 +130,47 @@ public class Presentacion extends javax.swing.JPanel {
         base.repaint();
         base.revalidate();
         
+        int filaSeleccionada = tablaPresentacion.getSelectedRow();
+        PresentacionEdit.nombrejurado.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 2));
+        PresentacionEdit.cijurado.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 3));
+        PresentacionEdit.fechapresentacion.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 4));
+        PresentacionEdit.lugarpresentacion.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 5));
+        
+
         
         
         
         
         
+    }//GEN-LAST:event_boton_editActionPerformed
+
+    private void tablaPresentacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPresentacionMouseClicked
+        boton_edit.setEnabled(true);
+        ImprimirPresentacion.setEnabled(true);
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+        int filaSeleccionada = tablaPresentacion.getSelectedRow();
+                
+                // Si la fila seleccionada es la misma que la fila anterior, deseleccionarla
+                if(filaAnterior==filaActual){
+                    if(filaSeleccionada == filaAnterior){
+                        tablaPresentacion.clearSelection();
+                        boton_edit.setEnabled(false);
+                        ImprimirPresentacion.setEnabled(false);
+                        
+                    }
+                }
+                // Actualizar la fila anterior
+                filaAnterior = filaSeleccionada;
+                filaActual=tablaPresentacion.getSelectedRow();
+    }//GEN-LAST:event_tablaPresentacionMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ImprimirPresentacion;
     private javax.swing.JPanel basePresentacion;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton boton_edit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel paneltablapresentacion;
-    private javax.swing.JTable tablaPresentacion;
+    public static javax.swing.JTable tablaPresentacion;
     // End of variables declaration//GEN-END:variables
 }

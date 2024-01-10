@@ -16,11 +16,12 @@ import javax.swing.table.DefaultTableModel;
 public class Entrevistas extends javax.swing.JPanel {
 
     public static DefaultTableModel modeloEntre;
-    
+    int filaAnterior = -1;
+    int filaActual =-2;
     
     public Entrevistas() {
         initComponents();
-        modeloEntre = (DefaultTableModel) this.agendaEntrevista.getModel();
+        modeloEntre = (DefaultTableModel) Entrevistas.agendaEntrevista.getModel();
     }
 
     /**
@@ -32,8 +33,8 @@ public class Entrevistas extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        imprimir_entrevista = new javax.swing.JButton();
+        boton_edit = new javax.swing.JButton();
         baseEntrevista = new javax.swing.JPanel();
         paneltablaEntrevista = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -42,12 +43,14 @@ public class Entrevistas extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(720, 470));
 
-        jButton1.setText("Imprimir");
+        imprimir_entrevista.setText("Imprimir");
+        imprimir_entrevista.setEnabled(false);
 
-        jButton2.setText("Editar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        boton_edit.setText("Editar");
+        boton_edit.setEnabled(false);
+        boton_edit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                boton_editActionPerformed(evt);
             }
         });
 
@@ -56,6 +59,7 @@ public class Entrevistas extends javax.swing.JPanel {
 
         paneltablaEntrevista.setBackground(new java.awt.Color(255, 51, 102));
 
+        agendaEntrevista.setAutoCreateRowSorter(true);
         agendaEntrevista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -63,7 +67,20 @@ public class Entrevistas extends javax.swing.JPanel {
             new String [] {
                 "C.I. Alumno", "Alumno", "Entrevistador", "C.I. Entrevistador", "Fecha y hora", "Lugar"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        agendaEntrevista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                agendaEntrevistaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(agendaEntrevista);
 
         javax.swing.GroupLayout paneltablaEntrevistaLayout = new javax.swing.GroupLayout(paneltablaEntrevista);
@@ -85,9 +102,9 @@ public class Entrevistas extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(boton_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(imprimir_entrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(baseEntrevista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -96,15 +113,15 @@ public class Entrevistas extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(imprimir_entrevista)
+                    .addComponent(boton_edit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(baseEntrevista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(1, 1, 1))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void boton_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_editActionPerformed
         EntrevistaEdit pred = new EntrevistaEdit(); 
         baseEntrevista.removeAll(); //se quita todo lo que esta en la base
         pred.setMinimumSize(new Dimension(200, 500));
@@ -123,15 +140,43 @@ public class Entrevistas extends javax.swing.JPanel {
         base.repaint();
         base.revalidate();
         
+        int filaSeleccionada = agendaEntrevista.getSelectedRow();
+        EntrevistaEdit.nombrentrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 2));
+        EntrevistaEdit.cientrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 3));
+        EntrevistaEdit.fechaentrevista.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 4));
+        EntrevistaEdit.lugarentrevista.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 5));
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+
+        
+    }//GEN-LAST:event_boton_editActionPerformed
+
+    private void agendaEntrevistaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agendaEntrevistaMouseClicked
+        boton_edit.setEnabled(true);
+        imprimir_entrevista.setEnabled(true);
+        
+        int filaSeleccionada = agendaEntrevista.getSelectedRow();
+                
+                // Si la fila seleccionada es la misma que la fila anterior, deseleccionarla
+                if(filaAnterior==filaActual){
+                    if(filaSeleccionada == filaAnterior){
+                        agendaEntrevista.clearSelection();
+                        boton_edit.setEnabled(false);
+                        imprimir_entrevista.setEnabled(false);
+                        
+                    }
+                }
+                // Actualizar la fila anterior
+                filaAnterior = filaSeleccionada;
+                filaActual=agendaEntrevista.getSelectedRow();
+    }//GEN-LAST:event_agendaEntrevistaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable agendaEntrevista;
+    public static javax.swing.JTable agendaEntrevista;
     private javax.swing.JPanel baseEntrevista;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton boton_edit;
+    private javax.swing.JButton imprimir_entrevista;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel paneltablaEntrevista;
     // End of variables declaration//GEN-END:variables
