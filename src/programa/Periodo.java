@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package programa;
 
 import java.sql.SQLException;
@@ -143,17 +140,25 @@ public class Periodo extends javax.swing.JPanel {
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
         conexion objConexion = new conexion();
-        try{
+        try {
             if (!result.getText().isEmpty()) {
-            //String status = "En proceso";
-            String addSql = String.format("INSERT INTO Periodos (periodo, status, inicio, final) VALUES"
-                    + "('" + result.getText()
-                    + "','" + false + "','" + fechaInicio.getText() + "','" + " " + "') ");
-            objConexion.ejecutarSentenciaSQl(addSql);
-            //objConexion.cerrarConexion();
+                //String status = "En proceso";
+                String addSql = String.format("INSERT INTO Periodos (periodo, status, inicio, final) VALUES"
+                        + "('" + result.getText()
+                        + "','" + false + "','" + fechaInicio.getText() + "','" + " " + "') ");
+                objConexion.ejecutarSentenciaSQl(addSql);
+                //objConexion.cerrarConexion();
+                objConexion.cerrarConexion();
+                Base base = new Base();
+                base.cerrarVentana();
             } else {
-            JOptionPane.showMessageDialog(result,"Escoja un periodo cr");}
-        }          catch(Exception e){System.out.println("hello no funca");}
+                JOptionPane.showMessageDialog(result, "Escoja un periodo cr");
+            }
+        } catch (Exception e) {
+            System.out.println("hello no funca");
+        }
+//        Base.disp        
+        objConexion.cerrarConexion();
     }//GEN-LAST:event_guardarActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
