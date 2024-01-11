@@ -82,6 +82,7 @@ public class Base extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         listaAlumnos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -122,6 +123,14 @@ public class Base extends javax.swing.JFrame {
 
         jMenuItem7.setText("Administrador");
         jMenu1.add(jMenuItem7);
+
+        jMenuItem4.setText("Culminar semestre");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
@@ -310,23 +319,27 @@ public class Base extends javax.swing.JFrame {
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
         // TODO add your handling code here:
-         // TODO add your handling code here:
-        //rEGISTRO
-        conexion objConexion = new conexion();
-//        String bb= "SELECT status FROM Periodos WHERE status = '" + false + "'";
-//        if(bb.equals(false)){
-            
-        Periodo periodo = new Periodo();
-        periodo.setLocation(0,0);
-        Fondo.removeAll();
-        Fondo.add(periodo);
-        Fondo.revalidate();
-        Fondo.repaint();
+//         // TODO add your handling code here:
+//        //rEGISTRO
+//        conexion objConexion = new conexion();
+////        String bb= "SELECT status FROM Periodos WHERE status = '" + false + "'";
+////        if(bb.equals(false)){
+//            
+//        Periodo periodo = new Periodo();
+//        periodo.setLocation(0,0);
+//        Fondo.removeAll();
+//        Fondo.add(periodo);
+//        Fondo.revalidate();
+//        Fondo.repaint();
 //        }
 //        else{
 //            System.out.println("No hay periodo disponible por los momentos");
 //        }
     }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     public static void cargar() {
        
@@ -436,6 +449,7 @@ public class Base extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;

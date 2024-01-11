@@ -18,6 +18,7 @@ public class Periodo extends javax.swing.JPanel {
      */
     String resu;
     public Periodo() {
+        System.out.println("hoooooooooooooooooooo");
         initComponents();
         DateFormat dateFormatMain = new SimpleDateFormat("yyyy");
         String dateMain = dateFormatMain.format(new Date());
@@ -57,15 +58,12 @@ public class Periodo extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         guardar = new javax.swing.JButton();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jLabel1.setText("Registro de Periodo");
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
             }
         });
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, -1, -1));
 
         cr.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CR chooser", "1CR", "2CR", "3CR", "4CR" }));
         cr.addActionListener(new java.awt.event.ActionListener() {
@@ -73,37 +71,30 @@ public class Periodo extends javax.swing.JPanel {
                 crActionPerformed(evt);
             }
         });
-        add(cr, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, -1, -1));
 
         text.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textActionPerformed(evt);
             }
         });
-        add(text, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         fechaInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fechaInicioActionPerformed(evt);
             }
         });
-        add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
 
         jLabel2.setText("Introducir periodo Académico:");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
         result.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resultActionPerformed(evt);
             }
         });
-        add(result, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 70, -1));
 
         jLabel3.setText("Fecha en la que se está iniciando el registro de periodo académico");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 360, -1));
 
         jLabel4.setText("Resultado:");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, -1, -1));
 
         guardar.setText("Guardar Periodo");
         guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +102,60 @@ public class Periodo extends javax.swing.JPanel {
                 guardarActionPerformed(evt);
             }
         });
-        add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 300, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(183, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(88, 88, 88)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(16, 16, 16)
+                        .addComponent(cr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(result, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(227, 227, 227))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(292, 292, 292)
+                .addComponent(guardar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(text, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(result, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel3)
+                .addGap(34, 34, 34)
+                .addComponent(fechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(guardar)
+                .addGap(241, 241, 241))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void textActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textActionPerformed
@@ -166,12 +210,12 @@ public class Periodo extends javax.swing.JPanel {
         conexion objConexion = new conexion();
         try{
             if (!result.getText().isEmpty()) {
-            //String status = "En proceso";
-            String sql = "DELETE FROM Periodos WHERE inicio = '" + fechaInicio.getText() +"'";
+                //String status = "En proceso";
+                String sql = "DELETE FROM Periodos WHERE inicio = '" + fechaInicio.getText() +"'";
                 objConexion.ejecutarSentenciaSQl(sql);
-            //objConexion.cerrarConexion();
+                //objConexion.cerrarConexion();
             } else {
-            JOptionPane.showMessageDialog(result,"Escoja un periodo cr");}
+                JOptionPane.showMessageDialog(result,"Escoja un periodo cr");}
         }          catch(Exception e){System.out.println("hello no funca");}
     }//GEN-LAST:event_jLabel1MouseClicked
 
