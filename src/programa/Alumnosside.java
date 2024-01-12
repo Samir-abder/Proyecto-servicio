@@ -138,7 +138,7 @@ public class Alumnosside extends javax.swing.JPanel {
         jPanel1.add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 170, -1));
 
         jLabel10.setText("Tipo de proyecto");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
         TraGr.setText("Trabajo de grado");
         TraGr.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -319,6 +319,7 @@ public class Alumnosside extends javax.swing.JPanel {
         bas.setLocationRelativeTo(null);
         bas.repaint();
         bas.revalidate();
+        //luis jose mrk
     }//GEN-LAST:event_TraGrMouseClicked
 
     private void TraGrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TraGrActionPerformed
@@ -341,7 +342,13 @@ public void codigoAlumno(String nombre, String apellido,String cedula,String esc
     try {
         conexion objConexion = new conexion();
     String peri = "2023-2CR";
-
+ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+if (rst.next()) {
+                int rowCount = rst.getInt("count");
+                if (rowCount == 0) {
+ peri = rst.getString("periodo");
+                }}
+                    System.out.println(peri);
                 String sql = "select count(*) FROM estudiantes WHERE periodo = '" + peri + "' AND Escuela = '" + escuela + "'";
                 System.out.println("sentencia" + sql);
 

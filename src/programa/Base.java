@@ -31,7 +31,7 @@ public class Base extends javax.swing.JFrame {
         Fondo.setLayout(new BorderLayout());
 
         conexion objConexion = new conexion();
-        ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count FROM Periodos");
+ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
         try {
             if (rs.next()) {
                 int rowCount = rs.getInt("count");
@@ -48,7 +48,7 @@ public class Base extends javax.swing.JFrame {
 //                    jMenuBar1.setVisible(true);
 
                 } else {
-
+                       
                     Alumnos alumnos = new Alumnos();
                     alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
                     //alumnos.setBounds(0,0,900,500);
@@ -100,7 +100,7 @@ public class Base extends javax.swing.JFrame {
         getContentPane().add(Fondo, java.awt.BorderLayout.CENTER);
         Fondo.getAccessibleContext().setAccessibleDescription("");
 
-        jMenu1.setText("Archivos");
+        jMenu1.setText("Opciones");
 
         semestreActual.setText("Cargar semestre actual");
         semestreActual.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +136,7 @@ public class Base extends javax.swing.JFrame {
 
         jMenu2.setText("Alumnos");
 
-        listaAlumnos.setText("Mostrar lista de alumnos");
+        listaAlumnos.setText("Lista de alumnos");
         listaAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listaAlumnosActionPerformed(evt);

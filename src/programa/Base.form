@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Archivos"/>
+            <Property name="text" type="java.lang.String" value="Opciones"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="semestreActual">
@@ -52,7 +52,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="listaAlumnos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Mostrar lista de alumnos"/>
+                <Property name="text" type="java.lang.String" value="Lista de alumnos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="listaAlumnosActionPerformed"/>

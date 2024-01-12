@@ -147,14 +147,23 @@ public class Alumnos extends javax.swing.JPanel {
         paneltablaAlumnos.setBackground(new java.awt.Color(153, 153, 255));
         paneltablaAlumnos.setLayout(new java.awt.BorderLayout());
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cedula", "Nombre", "Apellido", "Facultad", "Escuela"
+                "Cedula", "Nombre", "Apellido", "Tipo", "Escuela", "estado"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -358,7 +367,7 @@ public static void cargar() {
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),resultado.getString("Facultad")
+                    resultado.getString("Apellido"),resultado.getString("Tipo")
                     , resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
@@ -460,7 +469,7 @@ public void cargarFiltros() {
             
             
         }else{//si el trabajo de grado es individual se ejecuta este codigo
-            modeloa.setColumnIdentifiers(new Object[] {"Cedula","Nombre","Apellido","Facultad", "Escuela"});
+//            modeloa.setColumnIdentifiers(new Object[] {"Cedula","Nombre","Apellido","Tipo", "Escuela","estado"});
             String sql = "SELECT * FROM estudiantes WHERE 1 = 1";
             while (modeloa.getRowCount() > 0) {
                    modeloa.removeRow(0);
@@ -498,11 +507,13 @@ public void cargarFiltros() {
                    ResultSet resultado = objConexion.consultaRegistrosParametrizados(sql,parametros);
                    while (resultado.next()) {
                        Object[] UsuarioD = {
+                           
                            resultado.getString("Cedula"),
                            resultado.getString("Nombre"),
                            resultado.getString("Apellido"),
-                           resultado.getString("Facultad"),
-                           resultado.getString("Escuela")
+                           resultado.getString("Tipo"),
+                           resultado.getString("Escuela"),
+                           false
                        };
 
                        modeloa.addRow(UsuarioD);
