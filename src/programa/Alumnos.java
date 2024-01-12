@@ -1,4 +1,3 @@
-
 package programa;
 
 import java.awt.Dimension;
@@ -15,8 +14,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.poi.ss.formula.functions.Index;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
-
-
+import static programa.Alumnosside.apellidoEst;
+import static programa.Alumnosside.cedulaEst;
+import static programa.Alumnosside.nombreEst;
 
 /**
  *
@@ -25,11 +25,11 @@ import org.netbeans.lib.awtextra.AbsoluteLayout;
 public class Alumnos extends javax.swing.JPanel {
 
     public static DefaultTableModel modeloa;
-    public static ButtonModel botonAgr;      
+    public static ButtonModel botonAgr;
     int filaAnterior = -1;
-    int filaActual =-2;
+    int filaActual = -2;
     public static String cedula;
-    
+
     public Alumnos() {
         initComponents();
         modeloa = (DefaultTableModel) this.jTable1.getModel();
@@ -40,7 +40,6 @@ public class Alumnos extends javax.swing.JPanel {
         ListSelectionModel modeloSeleccion = jTable1.getSelectionModel();
         modeloSeleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -57,6 +56,7 @@ public class Alumnos extends javax.swing.JPanel {
         tipoDeProyecto = new javax.swing.JComboBox<>();
         jButton3 = new javax.swing.JButton();
         TGmodo = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         paneltablaAlumnos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -142,6 +142,14 @@ public class Alumnos extends javax.swing.JPanel {
         });
         jPanel2.add(TGmodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 40, 110, -1));
 
+        jButton1.setText("Guardar cambios");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, -1, -1));
+
         baseAlumnos.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         paneltablaAlumnos.setBackground(new java.awt.Color(153, 153, 255));
@@ -153,11 +161,11 @@ public class Alumnos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Cedula", "Nombre", "Apellido", "Tipo", "Escuela", "estado"
+                "Cedula", "Nombre", "Apellido", "Nivel", "Tipo", "Escuela", "estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -184,51 +192,49 @@ public class Alumnos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
-     
+
         botonAgregar.setEnabled(false);
         Alumnosside alsi = new Alumnosside();
-Alumnosside.editB.setEnabled(false);
-        Alumnosside.agregarEstudiante.setEnabled(true);   
+        Alumnosside.editB.setEnabled(false);
+        Alumnosside.agregarEstudiante.setEnabled(true);
         baseAlumnos.removeAll();
-        
-        JPanel aux =new JPanel(new GridBagLayout());
+
+        JPanel aux = new JPanel(new GridBagLayout());
         //aux.setPreferredSize(null);
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
-        gbc1.gridy = 0; 
+        gbc1.gridy = 0;
         gbc1.weightx = 2;
         gbc1.fill = GridBagConstraints.BOTH;
-        aux.add(paneltablaAlumnos,gbc1);
-        
+        aux.add(paneltablaAlumnos, gbc1);
+
         gbc1.gridx = 1;
         gbc1.gridy = 0;
         gbc1.weightx = 0;
         gbc1.fill = GridBagConstraints.BOTH;
-        
-        aux.add(alsi,gbc1);
-        
+
+        aux.add(alsi, gbc1);
+
         baseAlumnos.add(aux);
 
-        
-        Base base = (Base)this.getRootPane().getParent();
-        base.setMinimumSize(new Dimension(1000,600));
+        Base base = (Base) this.getRootPane().getParent();
+        base.setMinimumSize(new Dimension(1000, 600));
         base.setLocationRelativeTo(null);
         base.repaint();
         base.revalidate();
-        
+
         //Base obj = new Base();
         //obj.cargar();
 
-
     }//GEN-LAST:event_botonAgregarActionPerformed
-    
+
     private void botonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImprimirActionPerformed
-            String Cedula =(String) jTable1.getValueAt(jTable1.getSelectedColumn(),1);
-            String Nombre =(String)jTable1.getValueAt(jTable1.getSelectedColumn(),2);
-            String Apellido =(String)jTable1.getValueAt(jTable1.getSelectedColumn(),3);
-            String Facultad =(String)jTable1.getValueAt(jTable1.getSelectedColumn(),4);
-        
-        
+        String Cedula = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 1);
+        String Nombre = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 2);
+        String Apellido = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 3);
+        String Facultad = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 4);
+
+
     }//GEN-LAST:event_botonImprimirActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -236,91 +242,91 @@ Alumnosside.editB.setEnabled(false);
         botonEliminar.setEnabled(true);
         botonEditar.setEnabled(true);
         int filaSeleccionada = jTable1.getSelectedRow();
-                
-                // Si la fila seleccionada es la misma que la fila anterior, deseleccionarla
-                if(filaAnterior==filaActual){
-                    if(filaSeleccionada == filaAnterior){
-                        jTable1.clearSelection();
-                        botonImprimir.setEnabled(false);
-                        botonEliminar.setEnabled(false);
-                        botonEditar.setEnabled(false);
-                    }
-                }
-                // Actualizar la fila anterior
-                filaAnterior = filaSeleccionada;
-                filaActual=jTable1.getSelectedRow();
+
+        // Si la fila seleccionada es la misma que la fila anterior, deseleccionarla
+        if (filaAnterior == filaActual) {
+            if (filaSeleccionada == filaAnterior) {
+                jTable1.clearSelection();
+                botonImprimir.setEnabled(false);
+                botonEliminar.setEnabled(false);
+                botonEditar.setEnabled(false);
+            }
+        }
+        // Actualizar la fila anterior
+        filaAnterior = filaSeleccionada;
+        filaActual = jTable1.getSelectedRow();
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
-        
+
     }//GEN-LAST:event_jTable1KeyPressed
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
         // aqui se coloca el panel Alumnosside 
         botonEditar.setEnabled(false);
         botonAgregar.setEnabled(false);
-       
+
         Alumnosside alsi = new Alumnosside();
-         Alumnosside.editB.setEnabled(true);
+        Alumnosside.editB.setEnabled(true);
         Alumnosside.agregarEstudiante.setEnabled(false);
         baseAlumnos.removeAll();
-        JPanel aux =new JPanel(new GridBagLayout());
+        JPanel aux = new JPanel(new GridBagLayout());
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
-        gbc1.gridy = 0; 
+        gbc1.gridy = 0;
         gbc1.weightx = 2;
         gbc1.fill = GridBagConstraints.BOTH;
-        aux.add(paneltablaAlumnos,gbc1);
+        aux.add(paneltablaAlumnos, gbc1);
         gbc1.gridx = 1;
         gbc1.gridy = 0;
         gbc1.weightx = 0;
         gbc1.fill = GridBagConstraints.BOTH;
-        aux.add(alsi,gbc1);
+        aux.add(alsi, gbc1);
         baseAlumnos.add(aux);
-        Base base = (Base)this.getRootPane().getParent();
-        base.setMinimumSize(new Dimension(1000,600));
+        Base base = (Base) this.getRootPane().getParent();
+        base.setMinimumSize(new Dimension(1000, 600));
         base.setLocationRelativeTo(null);
         base.repaint();
         base.revalidate();
         //En esta parte se le da la funcion de editar
-        
+
         int filaSeleccionada = jTable1.getSelectedRow();
-        cedula=String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
+        cedula = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
         Alumnosside.cedulaEst.setText(cedula);
         Alumnosside.nombreEst.setText((String) jTable1.getValueAt(filaSeleccionada, 1));
         Alumnosside.apellidoEst.setText((String) jTable1.getValueAt(filaSeleccionada, 2));
         try {
             conexion objConexion = new conexion();
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes where" + cedula);
-            
-            while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),resultado.getString("Facultad")
-                    , resultado.getString("Escuela")};
 
-               // Alumnos.modeloa.addRow(UsuarioD);
-               //objConexion.cerrarConexion();
+            while (resultado.next()) {
+                Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
+                    resultado.getString("Apellido"), resultado.getString("Facultad"),
+                     resultado.getString("Escuela")};
+
+                // Alumnos.modeloa.addRow(UsuarioD);
+                //objConexion.cerrarConexion();
             }
         } catch (SQLException e) {
             System.out.println("este es " + e);
         }
-        
+
         Base obj = new Base();
         obj.cargar();
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model; 
+        DefaultTableModel model;
         model = (DefaultTableModel) this.jTable1.getModel();
         jTable1.setModel(model);
         conexion objConexion = new conexion();
         int selectedRow = jTable1.getSelectedRow();
-        
+
         if (selectedRow != -1) { // Verifica si se ha seleccionado una fila
             String cedula = (String) jTable1.getValueAt(selectedRow, 0);
             try {
-                String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula +"'";
+                String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
                 objConexion.ejecutarSentenciaSQl(sql);
                 System.out.println(cedula);               // Elimina la fila de la tabla
                 model.removeRow(selectedRow);
@@ -328,9 +334,9 @@ Alumnosside.editB.setEnabled(false);
                 System.out.println("Error al eliminar los datos de la base de datos");
             }
         } else {
-            jTable1.setValueAt(false,selectedRow,0);
+            jTable1.setValueAt(false, selectedRow, 0);
         }
-        
+
         Base obj = new Base();
         obj.cargar();
     }//GEN-LAST:event_botonEliminarActionPerformed
@@ -354,11 +360,42 @@ Alumnosside.editB.setEnabled(false);
     }//GEN-LAST:event_tipoDeProyectoActionPerformed
 
     private void tipoDeProyectoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoDeProyectoItemStateChanged
-       
+
     }//GEN-LAST:event_tipoDeProyectoItemStateChanged
 
-public static void cargar() {
-       
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+// Obtener valores de la primera y última columna
+        conexion objConexion = new conexion();
+
+        try {
+            int rowCount = jTable1.getRowCount();
+            for (int i = 0; i < rowCount; i++) {
+                Object firstColumnValue = modeloa.getValueAt(i, 0);
+                Object lastColumnValue = modeloa.getValueAt(i, modeloa.getColumnCount() - 1);
+                Object tipoColumnValue = modeloa.getValueAt(i, 3);
+if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnValue) || "Pasantía".equals(tipoColumnValue)) {                // Imprimir los valores (puedes hacer lo que quieras con ellos)
+                String updateSql = String.format("UPDATE estudiantes SET Estado = '%s' WHERE Cedula = '" + firstColumnValue + "'",
+                        lastColumnValue
+                );
+                objConexion.ejecutarSentenciaSQl(updateSql);
+                }else{
+//                    JOptionPane.showMessageDialog(null, "El estudiante"+firstColumnValue + "no tiene ningun trabajo asignado");
+                }
+            }
+            JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
+        } catch (Exception e) {
+            // Manejar la excepción aquí, por ejemplo, imprimir el mensaje de error
+            e.printStackTrace();
+        } finally {
+            // Asegurarse de cerrar la conexión incluso si ocurre una excepción
+            objConexion.cerrarConexion();
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public static void cargar() {
+
         while (modeloa.getRowCount() > 0) {
             modeloa.removeRow(0);
         }
@@ -366,118 +403,116 @@ public static void cargar() {
             conexion objConexion = new conexion();
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
             while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),resultado.getString("Tipo")
-                    , resultado.getString("Escuela")};
+                Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
+                    resultado.getString("Apellido"), resultado.getString("Tipo"),
+                     resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
-               
+
 //                objConexion.cerrarConexion();
             }
         } catch (SQLException e) {
-          JOptionPane.showMessageDialog(null, "Error" + e);
+            JOptionPane.showMessageDialog(null, "Error" + e);
         }
     }
 
-public static void cargarTG() {
-       
+    public static void cargarTG() {
+
         while (modeloa.getRowCount() > 0) {
             modeloa.removeRow(0);
         }
         try {
             conexion objConexion = new conexion();
-            String sql="SELECT * FROM estudiantes WHERE id_trabajo != ''";
+            String sql = "SELECT * FROM estudiantes WHERE id_trabajo != ''";
             ResultSet resultado = objConexion.consultaRegistros(sql);
             while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),resultado.getString("Facultad")
-                    , resultado.getString("Escuela")};
+                Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
+                    resultado.getString("Apellido"), resultado.getString("Facultad"),
+                     resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
-                
+
 //                objConexion.cerrarConexion();
             }
         } catch (SQLException e) {
-          JOptionPane.showMessageDialog(null, "Error" + e);
+            JOptionPane.showMessageDialog(null, "Error" + e);
         }
     }
 
-public static void cargarPS() {
-       
+    public static void cargarPS() {
+
         while (modeloa.getRowCount() > 0) {
             modeloa.removeRow(0);
         }
         try {
             conexion objConexion = new conexion();
-            String sql="SELECT * FROM estudiantes WHERE id_pasantia != ''";
+            String sql = "SELECT * FROM estudiantes WHERE id_pasantia != ''";
             ResultSet resultado = objConexion.consultaRegistros(sql);
             while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),resultado.getString("Facultad")
-                    , resultado.getString("Escuela")};
+                Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
+                    resultado.getString("Apellido"), resultado.getString("Facultad"),
+                     resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
-                
+
 //                objConexion.cerrarConexion();
             }
         } catch (SQLException e) {
-          JOptionPane.showMessageDialog(null, "Error" + e);
+            JOptionPane.showMessageDialog(null, "Error" + e);
         }
     }
-public void cargarFiltros() {
-       conexion objConexion = new conexion();
-        if(TGmodo.getSelectedIndex()==1){ //si el trabajo de grado es en equipo se ejecuta este codigo
-            modeloa.setColumnIdentifiers(new Object[] {"Nombre de proyecto","Cedula 1","Alumno 1","Cedula 2","Alumno 2"});
+
+    public void cargarFiltros() {
+        conexion objConexion = new conexion();
+        if (TGmodo.getSelectedIndex() == 1) { //si el trabajo de grado es en equipo se ejecuta este codigo
+            modeloa.setColumnIdentifiers(new Object[]{"Nombre de proyecto", "Cedula 1", "Alumno 1", "Cedula 2", "Alumno 2"});
             while (modeloa.getRowCount() > 0) {
-                   modeloa.removeRow(0);
-            }   
-            try{
+                modeloa.removeRow(0);
+            }
+            try {
                 //Consulta para mostrar los nombres de los trabajos de grado en pareja
                 String sql = "SELECT * FROM trabajo_grado";
                 ResultSet resulta = objConexion.consultaRegistros(sql);
-                
+
                 while (resulta.next()) {
-                       Object[] UsuarioD1 = new Object[5];
-                       UsuarioD1[0]=resulta.getString("titulo");
-                       //Consulta para sacar los datos de los estudiantes
-                       
-                       String id_tr = resulta.getString("id_trabajo");
-                       String sql2 = "SELECT * FROM estudiantes WHERE id_trabajo="+id_tr;
-                       
-                       ResultSet resulta2 = objConexion.consultaRegistros(sql2);
-                       int i=0;
-                       int n=2;
-                       while(resulta2.next()) {
-                            
-                            String nom = resulta2.getString("Nombre");
-                            String ape = resulta2.getString("Apellido");
-                            String nombreCompleto = nom + " " + ape;
-                            UsuarioD1[n*i+1]=nombreCompleto;
-                            UsuarioD1[n*i+2]=resulta2.getString("Cedula");
-                            i++;
-                       }
-                       
-                       modeloa.addRow(UsuarioD1);
+                    Object[] UsuarioD1 = new Object[5];
+                    UsuarioD1[0] = resulta.getString("titulo");
+                    //Consulta para sacar los datos de los estudiantes
+
+                    String id_tr = resulta.getString("id_trabajo");
+                    String sql2 = "SELECT * FROM estudiantes WHERE id_trabajo=" + id_tr;
+
+                    ResultSet resulta2 = objConexion.consultaRegistros(sql2);
+                    int i = 0;
+                    int n = 2;
+                    while (resulta2.next()) {
+
+                        String nom = resulta2.getString("Nombre");
+                        String ape = resulta2.getString("Apellido");
+                        String nombreCompleto = nom + " " + ape;
+                        UsuarioD1[n * i + 1] = nombreCompleto;
+                        UsuarioD1[n * i + 2] = resulta2.getString("Cedula");
+                        i++;
+                    }
+
+                    modeloa.addRow(UsuarioD1);
                 }
-            }catch(SQLException e){
-                 JOptionPane.showMessageDialog(null, "Error" + e);
-            }finally {
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error" + e);
+            } finally {
                 objConexion.cerrarConexion();
             }
-            
-            
-            
-            
-        }else{//si el trabajo de grado es individual se ejecuta este codigo
+
+        } else {//si el trabajo de grado es individual se ejecuta este codigo
 //            modeloa.setColumnIdentifiers(new Object[] {"Cedula","Nombre","Apellido","Tipo", "Escuela","estado"});
             String sql = "SELECT * FROM estudiantes WHERE 1 = 1";
             while (modeloa.getRowCount() > 0) {
-                   modeloa.removeRow(0);
-            }  
+                modeloa.removeRow(0);
+            }
 
             // Agrega las condiciones según los campos seleccionados
             ArrayList<Object> parametros = new ArrayList<>();
-            
+
             if (!escf.getSelectedItem().equals("Escuela")) {
                 sql += " AND Escuela = ?";
                 parametros.add(escf.getSelectedItem());
@@ -492,46 +527,42 @@ public void cargarFiltros() {
                 sql += " AND Tipo = ?";
                 parametros.add(tipoDeProyecto.getSelectedItem());
             }
-            if (tipoDeProyecto.getSelectedIndex()!=1){
+            if (tipoDeProyecto.getSelectedIndex() != 1) {
                 TGmodo.setEnabled(false);
-            }else{
-                
+            } else {
+
                 TGmodo.setEnabled(true);
-                
+
             }
 
             while (modeloa.getRowCount() > 0) {
-                   modeloa.removeRow(0);
-               }
-               try {
-                   ResultSet resultado = objConexion.consultaRegistrosParametrizados(sql,parametros);
-                   while (resultado.next()) {
-                       Object[] UsuarioD = {
-                           
-                           resultado.getString("Cedula"),
-                           resultado.getString("Nombre"),
-                           resultado.getString("Apellido"),
-                           resultado.getString("Tipo"),
-                           resultado.getString("Escuela"),
-                           false
-                       };
+                modeloa.removeRow(0);
+            }
+            try {
+                ResultSet resultado = objConexion.consultaRegistrosParametrizados(sql, parametros);
+                while (resultado.next()) {
+                    Object[] UsuarioD = {
+                        resultado.getString("Cedula"),
+                        resultado.getString("Nombre"),
+                        resultado.getString("Apellido"),
+                        resultado.getString("Nivel"),
+                        resultado.getString("Tipo"),
+                        resultado.getString("Escuela"),
+                        Boolean.parseBoolean(resultado.getString("Estado"))
+                    };
 
-                       modeloa.addRow(UsuarioD);
+                    modeloa.addRow(UsuarioD);
 
-                   }
-               } catch (SQLException e) {
-                   JOptionPane.showMessageDialog(null, "Error" + e);
-               } finally {
-                   objConexion.cerrarConexion();
-               }
-            
-            
-            
-            
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error" + e);
+            } finally {
+                objConexion.cerrarConexion();
+            }
+
         }
- 
- 
-}
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> TGmodo;
@@ -541,6 +572,7 @@ public void cargarFiltros() {
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonImprimir;
     private javax.swing.JComboBox<String> escf;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -549,6 +581,5 @@ public void cargarFiltros() {
     private javax.swing.JComboBox<String> semestre;
     private javax.swing.JComboBox<String> tipoDeProyecto;
     // End of variables declaration//GEN-END:variables
-
 
 }
