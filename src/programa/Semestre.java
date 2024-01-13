@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static programa.Alumnosside.apellidoEst;
+import static programa.Alumnosside.cedulaEst;
+import static programa.Alumnosside.nombreEst;
 
 /**
  *
@@ -22,7 +25,7 @@ public class Semestre extends javax.swing.JPanel {
     /**
      * Creates new form Semestre
      */
-    String peri = "2023-2CR";
+    String peri = "";
 
     public Semestre() {
         initComponents();
@@ -31,7 +34,7 @@ public class Semestre extends javax.swing.JPanel {
         try {
             if (rst.next()) {
                 int rowCount = rst.getInt("count");
-                if (rowCount == 0) {
+                if (rowCount != 0) {
                     peri = rst.getString("periodo");
                 }
             }
@@ -39,8 +42,8 @@ public class Semestre extends javax.swing.JPanel {
             Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        System.out.println(peri);
-        jLabel7.setText(jLabel7.getText()+" " + peri);
-        
+        jLabel7.setText(jLabel7.getText() + " " + peri);
+
         ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) FROM trabajo_grado");
         try {
             if (rs.next()) {
@@ -51,8 +54,8 @@ public class Semestre extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         ResultSet rsp = objConexion.consultaRegistros("SELECT COUNT(*) FROM Pasantia");
+
+        ResultSet rsp = objConexion.consultaRegistros("SELECT COUNT(*) FROM Pasantia");
         try {
             if (rsp.next()) {
                 int rowCount = rsp.getInt(1);
@@ -62,7 +65,7 @@ public class Semestre extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
 //        ResultSet rsd = objConexion.consultaRegistros("SELECT COUNT(*) FROM Diseno");
 //        try {
 //            if (rsd.next()) {
@@ -73,7 +76,6 @@ public class Semestre extends javax.swing.JPanel {
 //        } catch (SQLException ex) {
 //            Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
         ResultSet rsea = objConexion.consultaRegistros("SELECT COUNT(*) FROM estudiantes WHERE estado = '" + true + "'");
         try {
             if (rsea.next()) {
@@ -84,7 +86,7 @@ public class Semestre extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         ResultSet rser = objConexion.consultaRegistros("SELECT COUNT(*) FROM estudiantes WHERE estado = '" + false + "'");
         try {
             if (rser.next()) {
@@ -95,6 +97,7 @@ public class Semestre extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
         }
+        objConexion.cerrarConexion();
     }
 
     /**
@@ -187,17 +190,15 @@ public class Semestre extends javax.swing.JPanel {
                 JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
-            System.out.println("Aceptr pulsado");
-            // Crear un nombre de archivo único para guardar la base de datos
             String rutaCarpeta = "Historial de semestres";
             String nombreArchivo = peri + ".s3db";
-
             // Crear el archivo de destino en la carpeta "Historial semestres"
             File archivoDestino = new File(rutaCarpeta, nombreArchivo);
-
             // Guardar la base de datos en el archivo de destino
             guardarBaseDeDatos(archivoDestino);
-
+            Actualizar();
+                        Base base = new Base();
+                base.cerrarVentana();
         } else if (result == JOptionPane.CANCEL_OPTION) {
             System.out.println("Cancelar pulsado");
         }
@@ -219,6 +220,52 @@ public class Semestre extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Error al guardar la Base de Datos");
         }
     }
+
+    public static void Actualizar() {
+        try {
+            System.out.println("actualizar");
+            conexion objConexion = new conexion();
+            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
+            while (resultado.next()) {
+                if ("true".equals(resultado.getString("Estado"))) {
+                    String ced = resultado.getString("cedula");
+                    if ("9vno".equals(resultado.getString("Nivel"))) {
+                        String updateSql = String.format("UPDATE estudiantes SET Nivel = '%s' , Estado = '%s' WHERE Cedula = '" + ced + "'",
+                                "10mo",
+                                false
+                        );
+
+                        objConexion.ejecutarSentenciaSQl(updateSql);
+                    } else {
+                        String tipo = resultado.getString("Tipo");
+                        if (tipo.equals("Trabajo de grado")) {
+                            String id_tg = resultado.getString("id_trabajo");
+                            String sql = "DELETE FROM trabajo_grado WHERE id_trabajo = '" + id_tg + "'";
+                            objConexion.ejecutarSentenciaSQl(sql);
+                        } //                    else if(tipo.equals("Diseño")){
+                        //                    String id_d =resultado.getString("id_diseno");
+                        //                       String sql = "DELETE FROM diseno WHERE diseno = '" + id_d + "'";
+                        //                       objConexion.ejecutarSentenciaSQl(sql);
+                        //                    }
+                        else if (tipo.equals("Pasantia")) {
+                            String id_tg = resultado.getString("id_pasantia");
+                            String sql = "DELETE FROM Pasantia WHERE id_pasantia = '" + id_tg + "'";
+                            objConexion.ejecutarSentenciaSQl(sql);
+                        }
+
+                        String sql2 = "DELETE FROM estudiantes WHERE Cedula = '" + ced + "'";
+                        objConexion.ejecutarSentenciaSQl(sql2);
+                    }
+                }
+            }
+            String sql= "Delete FROM Periodos";
+            objConexion.ejecutarSentenciaSQl(sql);
+            objConexion.cerrarConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

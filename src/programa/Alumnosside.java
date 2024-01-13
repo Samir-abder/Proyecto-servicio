@@ -253,7 +253,7 @@ public class Alumnosside extends javax.swing.JPanel {
                     && escuelaEst.getSelectedItem() != "Default" && tipo.getSelectedItem() != "Tipo" && nivel.getSelectedItem() != "Semestre") {
 
                 codigoAlumno(nombreEst.getText(), apellidoEst.getText(), cedulaEst.getText(), escuelaEst.getSelectedItem().toString(),
-                        hoy, tipo.getSelectedItem().toString(), nivel.getSelectedItem().toString());
+                        hoy, nivel.getSelectedItem().toString(), tipo.getSelectedItem().toString());
 
                 nombreEst.setText("");
                 apellidoEst.setText("");

@@ -302,7 +302,7 @@ public class Alumnos extends javax.swing.JPanel {
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
                     resultado.getString("Apellido"), resultado.getString("Facultad"),
-                     resultado.getString("Escuela")};
+                    resultado.getString("Escuela")};
 
                 // Alumnos.modeloa.addRow(UsuarioD);
                 //objConexion.cerrarConexion();
@@ -373,13 +373,13 @@ public class Alumnos extends javax.swing.JPanel {
             for (int i = 0; i < rowCount; i++) {
                 Object firstColumnValue = modeloa.getValueAt(i, 0);
                 Object lastColumnValue = modeloa.getValueAt(i, modeloa.getColumnCount() - 1);
-                Object tipoColumnValue = modeloa.getValueAt(i, 3);
-if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnValue) || "Pasantía".equals(tipoColumnValue)) {                // Imprimir los valores (puedes hacer lo que quieras con ellos)
-                String updateSql = String.format("UPDATE estudiantes SET Estado = '%s' WHERE Cedula = '" + firstColumnValue + "'",
-                        lastColumnValue
-                );
-                objConexion.ejecutarSentenciaSQl(updateSql);
-                }else{
+                Object tipoColumnValue = modeloa.getValueAt(i, 4);
+                if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnValue) || "Pasantia".equals(tipoColumnValue)) {                // Imprimir los valores (puedes hacer lo que quieras con ellos)
+                    String updateSql = String.format("UPDATE estudiantes SET Estado = '%s' WHERE Cedula = '" + firstColumnValue + "'",
+                            lastColumnValue
+                    );
+                    objConexion.ejecutarSentenciaSQl(updateSql);
+                } else {
 //                    JOptionPane.showMessageDialog(null, "El estudiante"+firstColumnValue + "no tiene ningun trabajo asignado");
                 }
             }
@@ -405,7 +405,7 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
                     resultado.getString("Apellido"), resultado.getString("Tipo"),
-                     resultado.getString("Escuela")};
+                    resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
 
@@ -428,7 +428,7 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
                     resultado.getString("Apellido"), resultado.getString("Facultad"),
-                     resultado.getString("Escuela")};
+                    resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
 
@@ -451,7 +451,7 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
                     resultado.getString("Apellido"), resultado.getString("Facultad"),
-                     resultado.getString("Escuela")};
+                    resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
 

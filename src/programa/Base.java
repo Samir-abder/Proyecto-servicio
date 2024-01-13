@@ -436,7 +436,7 @@ ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Fondo;
+    public javax.swing.JPanel Fondo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
