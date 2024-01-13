@@ -211,6 +211,7 @@ public class profesoresside extends javax.swing.JPanel {
                 profesion.getText());
         
             objConexion.ejecutarSentenciaSQl(sql);
+            System.out.println("updatio?");
             nombreP.setText("");
             apellidoP.setText("");
             cedulaP.setText("");

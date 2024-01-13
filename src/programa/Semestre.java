@@ -95,6 +95,7 @@ public class Semestre extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
         }
+        objConexion.cerrarConexion();
     }
 
     /**

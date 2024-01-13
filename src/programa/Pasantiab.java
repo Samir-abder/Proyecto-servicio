@@ -80,11 +80,8 @@ public class Pasantiab extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(79, Short.MAX_VALUE)
+                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(jLabel16))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(10, 10, 10)
@@ -101,15 +98,18 @@ public class Pasantiab extends javax.swing.JPanel {
                         .addGap(98, 98, 98)
                         .addComponent(anteEdit1)
                         .addGap(8, 8, 8)
-                        .addComponent(anteDelete1)))
-                .addGap(94, 94, 94))
+                        .addComponent(anteDelete1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jLabel16)))
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel16)
-                .addGap(14, 14, 14)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel17)
                     .addComponent(estudtext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -126,7 +126,7 @@ public class Pasantiab extends javax.swing.JPanel {
                     .addComponent(anteSave1)
                     .addComponent(anteEdit1)
                     .addComponent(anteDelete1))
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

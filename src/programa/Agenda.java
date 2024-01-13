@@ -115,8 +115,9 @@ public class Agenda extends javax.swing.JPanel {
                     resultado.getString("lugar_entrevista")};
 
                 Entrevistas.modeloEntre.addRow(UsuarioD);
-//                objConexion.cerrarConexion();
+//                
             }
+            objConexion.cerrarConexion();
         } catch (SQLException e) {
             System.out.println("este es " + e);
         }
