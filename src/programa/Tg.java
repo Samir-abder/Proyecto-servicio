@@ -94,6 +94,11 @@ public class Tg extends javax.swing.JPanel {
         jLabel30.setText("Estudiante 1");
 
         Tutorcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        Tutorcombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TutorcomboActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -137,10 +142,10 @@ public class Tg extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 231, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 9, Short.MAX_VALUE)
+                    .addGap(0, 98, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(10, 10, 10)
@@ -164,7 +169,7 @@ public class Tg extends javax.swing.JPanel {
                         .addComponent(aSave)
                         .addComponent(aEdit)
                         .addComponent(aDelete))
-                    .addGap(0, 9, Short.MAX_VALUE)))
+                    .addGap(0, 99, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -372,6 +377,10 @@ try {
 habana.cerrarConexion();
         }
     }//GEN-LAST:event_aDeleteActionPerformed
+
+    private void TutorcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TutorcomboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TutorcomboActionPerformed
   private boolean ambosEstudiantesExisten(String cedula1, String cedula2) {
         conexion habana=new conexion();
         String consultaEstudiante1 = String.format("SELECT COUNT(*) FROM estudiantes WHERE Cedula = '%s'", cedula1);

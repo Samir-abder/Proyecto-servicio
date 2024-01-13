@@ -178,9 +178,9 @@ public class Alumnos extends javax.swing.JPanel {
      
         botonAgregar.setEnabled(false);
         Alumnosside alsi = new Alumnosside();
-Alumnosside.editB.setEnabled(false);
+        Alumnosside.editB.setEnabled(false);
         Alumnosside.agregarEstudiante.setEnabled(true);   
-        baseAlumnos.removeAll();
+        //baseAlumnos.removeAll();
         
         JPanel aux =new JPanel(new GridBagLayout());
         //aux.setPreferredSize(null);
