@@ -126,8 +126,10 @@ public class Alumnosside extends javax.swing.JPanel {
         });
         jPanel1.add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 170, -1));
 
+
         jLabel3.setText("Modo:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, -1, -1));
+
 
         ComboModo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Pareja" }));
         jPanel1.add(ComboModo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 170, -1));
@@ -262,8 +264,8 @@ public class Alumnosside extends javax.swing.JPanel {
                     && !cedulaEst.getText().isEmpty()
                     && escuelaEst.getSelectedItem() != "Default" && tipo.getSelectedItem() != "Tipo" && nivel.getSelectedItem() != "Semestre") {
 
-                codigoAlumno(nombreEst.getText(), apellidoEst.getText(), cedulaEst.getText(),  escuelaEst.getSelectedItem().toString(), 
-                        hoy, tipo.getSelectedItem().toString(), nivel.getSelectedItem().toString());
+                codigoAlumno(nombreEst.getText(), apellidoEst.getText(), cedulaEst.getText(), escuelaEst.getSelectedItem().toString(),
+                        hoy, nivel.getSelectedItem().toString(), tipo.getSelectedItem().toString());
 
                 nombreEst.setEnabled(false);
                 apellidoEst.setEnabled(false);
@@ -337,115 +339,117 @@ public class Alumnosside extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nivelActionPerformed
 
-public void codigoAlumno(String nombre, String apellido,String cedula,String escuela, String fecha, String nivel, String tipo) {
-    try {
-        conexion objConexion = new conexion();
-    String peri = "2023-2CR";
-
-                String sql = "select count(*) FROM estudiantes WHERE periodo = '" + peri + "' AND Escuela = '" + escuela + "'";
-                System.out.println("sentencia" + sql);
-
-                ResultSet count = objConexion.consultaRegistros(sql);
-                int resultado = 0;
-                if (count.next()) {
-        
-            resultado = Integer.parseInt(count.getString(1)) + 1;
-        
+    public void codigoAlumno(String nombre, String apellido, String cedula, String escuela, String fecha, String nivel, String tipo) {
+        try {
+            conexion objConexion = new conexion();
+            String peri = "2023-2CR";
+            ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+            if (rst.next()) {
+                int rowCount = rst.getInt("count");
+                if (rowCount == 0) {
+                    peri = rst.getString("periodo");
                 }
-                System.out.println("count" + resultado);
+            }
+            System.out.println(peri);
+            String sql = "select count(*) FROM estudiantes WHERE periodo = '" + peri + "' AND Escuela = '" + escuela + "'";
+            System.out.println("sentencia" + sql);
 
-                String formatonum = "%03d";
-                String resultadoC = String.format(formatonum, resultado);
-boolean existeEstudiante = estudianteExiste(cedula);
-if (existeEstudiante) {
-    System.out.println("El estudiante existe en la base de datos.");
-} else {
-     System.out.println("ESTE ES COUNT"+objConexion.ejecutarSentenciaSQl(sql));
+            ResultSet count = objConexion.consultaRegistros(sql);
+            int resultado = 0;
+            if (count.next()) {
+
+                resultado = Integer.parseInt(count.getString(1)) + 1;
+
+            }
+            System.out.println("count" + resultado);
+
+            String formatonum = "%03d";
+            String resultadoC = String.format(formatonum, resultado);
+            boolean existeEstudiante = estudianteExiste(cedula);
+            if (existeEstudiante) {
+                System.out.println("El estudiante existe en la base de datos.");
+            } else {
+                System.out.println("ESTE ES COUNT" + objConexion.ejecutarSentenciaSQl(sql));
                 String addSql = String.format("INSERT INTO estudiantes (Nombre, Apellido, Cedula, Facultad, Escuela, fecha_registro, periodo, num_est, Nivel, Tipo) VALUES"
                         + "('" + nombre
                         + "','" + apellido + "','" + cedula + "','" + "Ingeniería"
                         + "','" + escuela + "','" + fecha + "','" + peri + "','" + resultadoC + "','" + nivel + "','" + tipo + "') ");
                 objConexion.ejecutarSentenciaSQl(addSql);
-}
+            }
 //              
 
-                String sql2 = "SELECT num_est, periodo, Escuela FROM estudiantes WHERE Cedula = '" + cedula + "'";
-                ResultSet rs = objConexion.consultaRegistros(sql2);
+            String sql2 = "SELECT num_est, periodo, Escuela FROM estudiantes WHERE Cedula = '" + cedula + "'";
+            ResultSet rs = objConexion.consultaRegistros(sql2);
 
-                // Obtener los valores de las columnas y guardarlos en variables
-                String num_est = rs.getString("num_est");
-                String periodo = rs.getString("periodo");
-                String escuela1 = rs.getString("Escuela");
+            // Obtener los valores de las columnas y guardarlos en variables
+            String num_est = rs.getString("num_est");
+            String periodo = rs.getString("periodo");
+            String escuela1 = rs.getString("Escuela");
 
-                switch (escuela1) {
-                    case "Computación":
+            switch (escuela1) {
+                case "Computación":
 
-                        escuela1 = "C";
-                        break;
-                    case "Industrial":
-                        escuela1 = "I";
-                        break;
-                    case "Civil":
-                        escuela1 = "L";
-                        break;
-                    case "Electrónica":
-                        escuela1 = "Et";
-                        break;
-                    case "Telecomunicaciones":
-                        escuela1 = "T";
-                        break;
-                    case "Mecánica":
-                        escuela1 = "N";
-                        break;
-                    case "Arquitectura":
-                        escuela1 = "Q";
-                        break;
-                    default:
-                    // código que se ejecuta si no se cumple ninguna de las opciones anteriores
+                    escuela1 = "C";
+                    break;
+                case "Industrial":
+                    escuela1 = "I";
+                    break;
+                case "Civil":
+                    escuela1 = "L";
+                    break;
+                case "Electrónica":
+                    escuela1 = "Et";
+                    break;
+                case "Telecomunicaciones":
+                    escuela1 = "T";
+                    break;
+                case "Mecánica":
+                    escuela1 = "N";
+                    break;
+                case "Arquitectura":
+                    escuela1 = "Q";
+                    break;
+                default:
+                // código que se ejecuta si no se cumple ninguna de las opciones anteriores
                 }
-                String cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "";
-if(tipo=="Trabajo de grado"){
+            String cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "";
+            if (tipo == "Trabajo de grado") {
                 cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "TG";
-}
-else if(tipo == "Pasantia"){
-    cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "PS";
-}
-else if(tipo == "Diseño" && nivel=="9vno") {
-    cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "DIX";
-}
-else{
-    cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "DX";
-    }
-                String sql3 = String.format("UPDATE estudiantes SET codigo = '%s' WHERE Cedula = '" + cedula + "'",
-                        cod);
-                objConexion.ejecutarSentenciaSQl(sql3);
-                objConexion.cerrarConexion();
-                } catch (SQLException ex) {
-                    System.out.println("errororor");
+            } else if (tipo == "Pasantia") {
+                cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "PS";
+            } else if (tipo == "Diseño" && nivel == "9vno") {
+                cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "DIX";
+            } else {
+                cod = "FI-" + escuela + "-" + resultadoC + "-" + periodo + "-" + "DX";
+            }
+            String sql3 = String.format("UPDATE estudiantes SET codigo = '%s' WHERE Cedula = '" + cedula + "'",
+                    cod);
+            objConexion.ejecutarSentenciaSQl(sql3);
+            objConexion.cerrarConexion();
+        } catch (SQLException ex) {
+            System.out.println("errororor");
             Logger.getLogger(Alumnosside.class.getName()).log(Level.SEVERE, null, ex);
         }
-}
-
-public boolean estudianteExiste(String cedula) {
-    conexion objConexion = new conexion();
-    String sql = "SELECT 1 FROM estudiantes WHERE Cedula = ?";
-
-    try {
-        
-        
-
-        ResultSet resultado = objConexion.consultaRegistros("SELECT 1 FROM estudiantes WHERE Cedula = '" + cedula + "'");
-
-        boolean existe = resultado.next(); // true si se encuentra al menos un registro
-        resultado.close();
-        return existe;
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
-    } finally {
-        objConexion.cerrarConexion();
     }
-}
+
+    public boolean estudianteExiste(String cedula) {
+        conexion objConexion = new conexion();
+        String sql = "SELECT 1 FROM estudiantes WHERE Cedula = ?";
+
+        try {
+
+            ResultSet resultado = objConexion.consultaRegistros("SELECT 1 FROM estudiantes WHERE Cedula = '" + cedula + "'");
+
+            boolean existe = resultado.next(); // true si se encuentra al menos un registro
+            resultado.close();
+            return existe;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            objConexion.cerrarConexion();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboModo;

@@ -31,7 +31,7 @@ public class Base extends javax.swing.JFrame {
         Fondo.setLayout(new BorderLayout());
 
         conexion objConexion = new conexion();
-        ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count FROM Periodos");
+ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
         try {
             if (rs.next()) {
                 int rowCount = rs.getInt("count");
@@ -48,7 +48,6 @@ public class Base extends javax.swing.JFrame {
 //                    jMenuBar1.setVisible(true);
 
                 } else {
-
                     Alumnos alumnos = new Alumnos();
                     alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
                     //alumnos.setBounds(0,0,900,500);
@@ -80,8 +79,7 @@ public class Base extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         semestreActual = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         listaAlumnos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -99,7 +97,7 @@ public class Base extends javax.swing.JFrame {
         getContentPane().add(Fondo, java.awt.BorderLayout.CENTER);
         Fondo.getAccessibleContext().setAccessibleDescription("");
 
-        jMenu1.setText("Archivos");
+        jMenu1.setText("Opciones");
 
         semestreActual.setText("Cargar semestre actual");
         semestreActual.addActionListener(new java.awt.event.ActionListener() {
@@ -117,17 +115,19 @@ public class Base extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setText("Busqueda");
-        jMenu1.add(jMenuItem3);
-
-        jMenuItem7.setText("Administrador");
-        jMenu1.add(jMenuItem7);
+        jMenuItem4.setText("Culminar semestre");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Alumnos");
 
-        listaAlumnos.setText("Mostrar lista de alumnos");
+        listaAlumnos.setText("Lista de alumnos");
         listaAlumnos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listaAlumnosActionPerformed(evt);
@@ -310,23 +310,33 @@ public class Base extends javax.swing.JFrame {
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
         // TODO add your handling code here:
-         // TODO add your handling code here:
-        //rEGISTRO
-        conexion objConexion = new conexion();
-//        String bb= "SELECT status FROM Periodos WHERE status = '" + false + "'";
-//        if(bb.equals(false)){
-            
-        Periodo periodo = new Periodo();
-        periodo.setLocation(0,0);
-        Fondo.removeAll();
-        Fondo.add(periodo);
-        Fondo.revalidate();
-        Fondo.repaint();
+//         // TODO add your handling code here:
+//        //rEGISTRO
+//        conexion objConexion = new conexion();
+////        String bb= "SELECT status FROM Periodos WHERE status = '" + false + "'";
+////        if(bb.equals(false)){
+//            
+//        Periodo periodo = new Periodo();
+//        periodo.setLocation(0,0);
+//        Fondo.removeAll();
+//        Fondo.add(periodo);
+//        Fondo.revalidate();
+//        Fondo.repaint();
 //        }
 //        else{
 //            System.out.println("No hay periodo disponible por los momentos");
 //        }
     }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        Semestre semestre = new Semestre();
+        semestre.setLocation(0,0);
+        Fondo.removeAll();
+        Fondo.add(semestre);
+        Fondo.revalidate();
+        Fondo.repaint();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     public static void cargar() {
        
@@ -426,7 +436,7 @@ public class Base extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Fondo;
+    public javax.swing.JPanel Fondo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -435,8 +445,7 @@ public class Base extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem listaAlumnos;
