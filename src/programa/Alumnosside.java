@@ -63,28 +63,22 @@ public class Alumnosside extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel4.setText("Tipo:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 50, -1));
-
-        cedulaEst.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cedulaEstActionPerformed(evt);
-            }
-        });
-        jPanel1.add(cedulaEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 170, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 60, 50, -1));
+        jPanel1.add(cedulaEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 170, -1));
 
         jLabel5.setText("Escuela:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
 
         jLabel6.setText("Cedula:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, 20));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 20));
 
-        escuelaEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Default", "Arquitectura", "Civil", "Computación", "Electrónica", "Industrial", "Mecánica", "Telecomunicaciones" }));
+        escuelaEst.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "  ", "Arquitectura", "Civil", "Computación", "Electrónica", "Industrial", "Mecánica", "Telecomunicaciones" }));
         escuelaEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 escuelaEstActionPerformed(evt);
             }
         });
-        jPanel1.add(escuelaEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 170, -1));
+        jPanel1.add(escuelaEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 170, -1));
 
         agregarEstudiante.setText("Guardar");
         agregarEstudiante.addActionListener(new java.awt.event.ActionListener() {
@@ -92,23 +86,23 @@ public class Alumnosside extends javax.swing.JPanel {
                 agregarEstudianteActionPerformed(evt);
             }
         });
-        jPanel1.add(agregarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, -1));
+        jPanel1.add(agregarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 120, 90, -1));
 
-        cancelar.setText("Cancel");
+        cancelar.setText("X");
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, -1));
+        jPanel1.add(cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, -1, -1));
 
         jLabel1.setText("Nombre");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         jLabel2.setText("Apellido");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-        jPanel1.add(nombreEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 170, -1));
-        jPanel1.add(apellidoEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 170, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        jPanel1.add(nombreEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 170, -1));
+        jPanel1.add(apellidoEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 170, -1));
 
         editB.setText("edit");
         editB.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +110,7 @@ public class Alumnosside extends javax.swing.JPanel {
                 editBActionPerformed(evt);
             }
         });
-        jPanel1.add(editB, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
+        jPanel1.add(editB, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, -1, -1));
 
         tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia", "Diseño", "Sin asignar" }));
         tipo.addActionListener(new java.awt.event.ActionListener() {
@@ -124,26 +118,19 @@ public class Alumnosside extends javax.swing.JPanel {
                 tipoActionPerformed(evt);
             }
         });
-        jPanel1.add(tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 170, -1));
+        jPanel1.add(tipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 170, -1));
 
         nivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semestre","9vno", "10mo"}));
-        nivel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nivelActionPerformed(evt);
-            }
-        });
-        jPanel1.add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 170, -1));
-
+        jPanel1.add(nivel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 170, -1));
 
         jLabel3.setText("Modo:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 70, -1, -1));
-
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
 
         ComboModo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Pareja" }));
-        jPanel1.add(ComboModo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 170, -1));
+        jPanel1.add(ComboModo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 170, -1));
 
         jLabel7.setText("Semestre");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, -1, -1));
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 170));
 
@@ -166,8 +153,21 @@ public class Alumnosside extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-
+    
     Alumnos.botonAgr.setEnabled(true);
+    
+    nombreEst.setText("");
+    apellidoEst.setText("");
+    cedulaEst.setText("");
+    escuelaEst.setSelectedIndex(0);
+    nivel.setSelectedIndex(0);
+    tipo.setSelectedIndex(0);
+    ComboModo.setSelectedIndex(0);
+    agregarEstudiante.setEnabled(false);
+    
+    
+    
+    
     Base base = (Base) this.getRootPane().getParent();
     JPanel Fondo = (JPanel) base.getContentPane().getComponent(0);
     Fondo.removeAll();
@@ -179,34 +179,12 @@ public class Alumnosside extends javax.swing.JPanel {
     Fondo.add(alumnos, BorderLayout.CENTER);
     
     // Validar y repintar el panel Fondo
+    
     Fondo.revalidate();
     Fondo.repaint();
 
     }//GEN-LAST:event_cancelarActionPerformed
 
-//    private void cargar() {
-//        Alumnos al = new Alumnos();
-//        while (al.modeloa.getRowCount() > 0) {
-//            al.modeloa.removeRow(0);
-//        }
-//        try {
-//            conexion objConexion = new conexion();
-//            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
-//            while (resultado.next()) {
-//                Object[] oUsuarioD = {false, resultado.getString("Nombre"),
-//                    resultado.getString("Apellido"), resultado.getString("Cedula"),
-//                    resultado.getString("Facultad"), resultado.getString("Escuela")};
-//
-//                al.modeloa.addRow(oUsuarioD);
-//
-////                objConexion.cerrarConexion();
-//            }
-//        } catch (Exception e) {
-//            System.out.println("este es " + e);
-//
-//        }
-//
-//    }
     private void escuelaEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escuelaEstActionPerformed
 
         if(escuelaEst.getSelectedIndex()!=1){
@@ -377,14 +355,6 @@ public class Alumnosside extends javax.swing.JPanel {
     
     }//GEN-LAST:event_tipoActionPerformed
 
-    private void nivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nivelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nivelActionPerformed
-
-    private void cedulaEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedulaEstActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cedulaEstActionPerformed
-
     public void codigoAlumno(String nombre, String apellido, String cedula, String escuela, String fecha, String nivel, String tipo) {
         try {
             
@@ -498,9 +468,17 @@ public class Alumnosside extends javax.swing.JPanel {
             objConexion.cerrarConexion();
         }
     }
+    
+    public String primeraMayuscula(String texto) {
+    if (texto == null || texto.isEmpty()) {
+        return texto;
+    } else {
+        return texto.substring(0, 1).toUpperCase() + texto.substring(1).toLowerCase();
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboModo;
+    public static javax.swing.JComboBox<String> ComboModo;
     public static javax.swing.JButton agregarEstudiante;
     public static javax.swing.JTextField apellidoEst;
     private javax.swing.JPanel base;
@@ -508,7 +486,7 @@ public class Alumnosside extends javax.swing.JPanel {
     private javax.swing.JButton cancelar;
     public static javax.swing.JTextField cedulaEst;
     public static javax.swing.JButton editB;
-    private javax.swing.JComboBox<String> escuelaEst;
+    public static javax.swing.JComboBox<String> escuelaEst;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -517,8 +495,8 @@ public class Alumnosside extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> nivel;
+    public static javax.swing.JComboBox<String> nivel;
     public static javax.swing.JTextField nombreEst;
-    private javax.swing.JComboBox<String> tipo;
+    public static javax.swing.JComboBox<String> tipo;
     // End of variables declaration//GEN-END:variables
 }

@@ -266,8 +266,9 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside alsi = new Alumnosside();
         Alumnosside.editB.setEnabled(true);
         Alumnosside.agregarEstudiante.setEnabled(false);
-        baseAlumnos.removeAll();
         JPanel aux = new JPanel(new GridBagLayout());
+        baseAlumnos.removeAll();
+        
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
         gbc1.gridy = 0;
@@ -294,9 +295,53 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.nombreEst.setText((String) jTable1.getValueAt(filaSeleccionada, 1));
         Alumnosside.apellidoEst.setText((String) jTable1.getValueAt(filaSeleccionada, 2));
         
+        conexion objConexion = new conexion();
+        try {
+                String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
+                ResultSet resulta = objConexion.consultaRegistros(sql);
+                if("9vno".equals(resulta.getString("Nivel"))){
+                    Alumnosside.nivel.setSelectedIndex(1);
+                }else{
+                    Alumnosside.nivel.setSelectedIndex(2);
+                }
+                
+                if("Arquitectura".equals(resulta.getString("Escuela"))){
+                    Alumnosside.escuelaEst.setSelectedIndex(1);
+                }else if("Civil".equals(resulta.getString("Escuela"))){
+                    Alumnosside.escuelaEst.setSelectedIndex(2);
+                }else if("Computación".equals(resulta.getString("Escuela"))){
+                    Alumnosside.escuelaEst.setSelectedIndex(3);
+                }else if("Electrónica".equals(resulta.getString("Escuela"))){
+                    Alumnosside.escuelaEst.setSelectedIndex(4);
+                }else if("Industrial".equals(resulta.getString("Escuela"))){
+                    Alumnosside.escuelaEst.setSelectedIndex(5);
+                }else if("Mecánica".equals(resulta.getString("Escuela"))){
+                    Alumnosside.escuelaEst.setSelectedIndex(6);
+                }else if("Telecomunicaciones".equals(resulta.getString("Escuela"))){
+                    Alumnosside.escuelaEst.setSelectedIndex(7);
+                }
+                
+                if("Trabajo de grado".equals(resulta.getString("Tipo"))){
+                    Alumnosside.tipo.setSelectedIndex(1);
+                }else if("Pasantia".equals(resulta.getString("Tipo"))){
+                    Alumnosside.tipo.setSelectedIndex(2);
+                }else if("Diseño".equals(resulta.getString("Tipo"))){
+                    Alumnosside.tipo.setSelectedIndex(3);
+                }else if("Sin asignar".equals(resulta.getString("Tipo"))){
+                    Alumnosside.tipo.setSelectedIndex(4);
+                }
+                
+                if("Individual".equals(resulta.getString("Tipo"))){
+                    Alumnosside.ComboModo.setSelectedIndex(0);
+                }else if("Pareja".equals(resulta.getString("Tipo"))){
+                    Alumnosside.ComboModo.setSelectedIndex(1);
+                }
+             
+            } catch (Exception ex) {
+                System.out.println("Error de la base de datos");
+            }
 
-//        Base obj = new Base();
-//        obj.cargar();
+
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
@@ -322,6 +367,32 @@ public class Alumnos extends javax.swing.JPanel {
         }
 
         Base obj = new Base();
+        
+        // TODO add your handling code here:
+        String cedulaEstudiante = (String) jTable1.getValueAt(selectedRow, 0);
+        
+        conexion habana = new conexion();
+        
+        String deleteSql = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedulaEstudiante);
+
+        try {
+            habana.ejecutarSentenciaSQl(deleteSql);
+            JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+            // Luego de la eliminación exitosa, actualiza la tabla Estudiantes para vaciar la columna id_pasantia
+            String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_pasantia = NULL WHERE Cedula = '%s'", cedulaEstudiante);
+
+            habana.ejecutarSentenciaSQl(updateEstudiantesSql);
+
+            JOptionPane.showMessageDialog(null, "La columna id_pasantia en la tabla Estudiantes ha sido vaciada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    habana.cerrarConexion();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    habana.cerrarConexion();
+
+        }
+
         obj.cargar();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
