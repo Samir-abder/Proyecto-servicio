@@ -11,6 +11,7 @@ import java.util.List;
 public class conexion {
     private static String strconexionDB; // Hacerla estática para conservar la última ruta
     Connection conn= null;
+    
     public conexion(){
        if (getConexionDB() != null) {
             try {

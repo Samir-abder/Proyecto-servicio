@@ -8,10 +8,10 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.ButtonModel;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
-import javax.swing.plaf.RootPaneUI;
+//import javax.swing.plaf.RootPaneUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -225,20 +225,22 @@ public class Profesores extends javax.swing.JPanel {
                     aux2.add(profagr, gbc1);aux2.setLocation(0, 0);baseProfes.add(aux2);
                     baseProfes.repaint();baseProfes.revalidate(); Base base = (Base) this.getRootPane().getParent();
                     base.setMinimumSize(new Dimension(900, 600));base.setLocationRelativeTo(null);
-                    profesoresside.cedulaP.setEnabled(false);
+                    profesoresside.cedulaP.setEnabled(true);
+                    profesoresside.cedulaP.setEditable(true);
                     
                     
                     
                     String nombre = (String) modelP.getValueAt(selectedRow, 0);
                     String apellido = (String) modelP.getValueAt(selectedRow, 1);
-                    String cedulaP = (String) modelP.getValueAt(selectedRow, 2);
+                    cedula = (String) modelP.getValueAt(selectedRow, 2);
                     String profesionp = (String) modelP.getValueAt(selectedRow,3);
                     
                     profesoresside.nombreP.setText(nombre);
                     profesoresside.apellidoP.setText(apellido);
-                    profesoresside.cedulaP.setText(cedulaP);
+                    profesoresside.cedulaP.setText(cedula);
                     profesoresside.profesion.setText(profesionp);
 
+                    
         } else {
             jTable1.setValueAt(false,selectedRow,0);
         }

@@ -309,23 +309,7 @@ ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo 
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
-        // TODO add your handling code here:
-//         // TODO add your handling code here:
-//        //rEGISTRO
-//        conexion objConexion = new conexion();
-////        String bb= "SELECT status FROM Periodos WHERE status = '" + false + "'";
-////        if(bb.equals(false)){
-//            
-//        Periodo periodo = new Periodo();
-//        periodo.setLocation(0,0);
-//        Fondo.removeAll();
-//        Fondo.add(periodo);
-//        Fondo.revalidate();
-//        Fondo.repaint();
-//        }
-//        else{
-//            System.out.println("No hay periodo disponible por los momentos");
-//        }
+   
     }//GEN-LAST:event_jMenu5MouseClicked
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -436,7 +420,7 @@ ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JPanel Fondo;
+    private javax.swing.JPanel Fondo;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

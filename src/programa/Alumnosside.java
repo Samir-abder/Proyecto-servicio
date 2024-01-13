@@ -4,36 +4,22 @@
  */
 package programa;
 
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.TextField;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 
 public class Alumnosside extends javax.swing.JPanel {
 
     public Alumnosside() {
         initComponents();
-//        buttonGroup1.add(TraGr);
-//        buttonGroup1.add(Pas);
-//         base.removeAll();
-//        Pasantia ps = new Pasantia();
-//        ps.setBounds(0,0, base.getWidth(), 600);
-//        base.add(ps);
-//        Base bas = (Base)this.getRootPane().getParent();
-//        bas.setMinimumSize(new Dimension(1000,600));
-//        bas.setLocationRelativeTo(null);
-//        bas.repaint();
-//        bas.revalidate();
+
     }
 
     /**
@@ -74,6 +60,12 @@ public class Alumnosside extends javax.swing.JPanel {
 
         jLabel4.setText("Facultad:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 50, -1));
+
+        cedulaEst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cedulaEstActionPerformed(evt);
+            }
+        });
         jPanel1.add(cedulaEst, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 170, -1));
 
         jLabel5.setText("Escuela:");
@@ -185,53 +177,9 @@ public class Alumnosside extends javax.swing.JPanel {
         //forma correcta
         Alumnos.botonAgr.setEnabled(true);
         this.setVisible(false);
-
-        /*forma incorrecta de hacer las cosas down below
-        // Obtener la referencia al frame principal
-
-        Base base = (Base) this.getRootPane().getParent();
-
-        // Obtener la referencia al panel Fondo
-        JPanel Fondo = (JPanel) base.getContentPane().getComponent(0);
-
-        // Eliminar el panel AlumnosAgregar
-        Fondo.removeAll();
-
-        // Agregar el panel Alumnos
-        Alumnos alumnos = new Alumnos();
-        alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
-        alumnos.setLocation(0, 0);
-        Fondo.add(alumnos, BorderLayout.CENTER);
-
-        // Validar y repintar el panel Fondo
-        Fondo.revalidate();
-        Fondo.repaint();
-         */
     }//GEN-LAST:event_cancelarActionPerformed
 
-//    private void cargar() {
-//        Alumnos al = new Alumnos();
-//        while (al.modeloa.getRowCount() > 0) {
-//            al.modeloa.removeRow(0);
-//        }
-//        try {
-//            conexion objConexion = new conexion();
-//            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
-//            while (resultado.next()) {
-//                Object[] oUsuarioD = {false, resultado.getString("Nombre"),
-//                    resultado.getString("Apellido"), resultado.getString("Cedula"),
-//                    resultado.getString("Facultad"), resultado.getString("Escuela")};
-//
-//                al.modeloa.addRow(oUsuarioD);
-//
-////                objConexion.cerrarConexion();
-//            }
-//        } catch (Exception e) {
-//            System.out.println("este es " + e);
-//
-//        }
-//
-//    }
+
     private void escuelaEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escuelaEstActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_escuelaEstActionPerformed
@@ -239,9 +187,7 @@ public class Alumnosside extends javax.swing.JPanel {
     private void agregarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarEstudianteActionPerformed
         // TODO add your handling code here:
         conexion objConexion = new conexion();
-//        Connection conn = null;
-// PreparedStatement pstmt = null;
-// conn = SQLiteConnection.connect();
+
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date creacion = new Date();
         String hoy = formato.format(creacion);
@@ -249,11 +195,14 @@ public class Alumnosside extends javax.swing.JPanel {
         try {
 
             if (!nombreEst.getText().isEmpty() && !apellidoEst.getText().isEmpty()
-                    && !cedulaEst.getText().isEmpty()
-                    && escuelaEst.getSelectedItem() != "Default" && tipo.getSelectedItem() != "Tipo" && nivel.getSelectedItem() != "Semestre") {
+                    && cedulaEst.getText().matches("\\d{8}") 
+                    && escuelaEst.getSelectedItem() != "Default" && nivel.getSelectedItem() != "Tipo" && tipo.getSelectedItem() != "Semestre") {
 
+                
+                
+                
                 codigoAlumno(nombreEst.getText(), apellidoEst.getText(), cedulaEst.getText(), escuelaEst.getSelectedItem().toString(),
-                        hoy, nivel.getSelectedItem().toString(), tipo.getSelectedItem().toString());
+                        hoy, tipo.getSelectedItem().toString(), nivel.getSelectedItem().toString());
 
                 nombreEst.setText("");
                 apellidoEst.setText("");
@@ -261,11 +210,14 @@ public class Alumnosside extends javax.swing.JPanel {
                 escuelaEst.setSelectedIndex(0);
 
             } else {
-                System.out.println("Llene todos los campos...");
-                JOptionPane.showMessageDialog(null, "llene todos los campos...");
+                
+                
+                //System.out.println("Asegurese de llenar todos los campos del formulario correctamente");
+                JOptionPane.showMessageDialog(null, "Por favor asegurese que el campo de cedula solo contenga números(8) y rellenar los campos del formulario correctamente");
                 objConexion.cerrarConexion();
             }
             objConexion.cerrarConexion();
+            
         } catch (Exception e) {
             System.out.println("Error al guardar los datos con la base de datos");
             objConexion.cerrarConexion();
@@ -284,29 +236,33 @@ public class Alumnosside extends javax.swing.JPanel {
 
         conexion objConexion = new conexion();
         if (!nombreEst.getText().isEmpty() && !apellidoEst.getText().isEmpty()
-                && !cedulaEst.getText().isEmpty()
-                && escuelaEst.getSelectedItem() != "Default") {
+                && cedulaEst.getText().matches("\\d{8}")
+                && escuelaEst.getSelectedItem() != "Default" && nivel.getSelectedItem() != "Tipo" && tipo.getSelectedItem() != "Semestre") {
             try {
-                String updateSql = String.format("UPDATE estudiantes SET Nombre = '%s', Apellido = '%s', Facultad = '%s', Escuela = '%s' WHERE Cedula = '" + Alumnos.cedula + "'",
+                String updateSql = String.format("UPDATE estudiantes SET Nombre = '%s', Apellido = '%s', Facultad = '%s', Escuela = '%s', Cedula = '%s' WHERE Cedula = '" + Alumnos.cedula + "'",
                         nombreEst.getText(),
                         apellidoEst.getText(),
                         facultadEst.getText(),
                         escuelaEst.getSelectedItem().toString(),
                         cedulaEst.getText()
                 );
-
+                
                 objConexion.ejecutarSentenciaSQl(updateSql);
-            } catch (Exception e) {
+            } 
+            catch (Exception e) {
                 System.out.println("Error al guardar los datos con la base de datos");
                 objConexion.cerrarConexion();
             }
-
+            
         } else {
-            System.out.println("Llene todos los campos...");
-            JOptionPane.showMessageDialog(null, "llene todos los campos...");
+            //System.out.println("Llene todos los campos...");
+            JOptionPane.showMessageDialog(null, "Por favor asegurese que el campo de cedula solo contenga números(8) y rellenar los campos del formulario correctamente");
             objConexion.cerrarConexion();
         }
-        Alumnos.cargar();
+        //Alumnos.cargar();
+        
+        Base.cargar();
+        objConexion.cerrarConexion();
     }//GEN-LAST:event_editBActionPerformed
 
     private void TraGrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TraGrMouseClicked
@@ -338,8 +294,13 @@ public class Alumnosside extends javax.swing.JPanel {
         bas.revalidate();
     }//GEN-LAST:event_PasMouseClicked
 
+    private void cedulaEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedulaEstActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cedulaEstActionPerformed
+
     public void codigoAlumno(String nombre, String apellido, String cedula, String escuela, String fecha, String nivel, String tipo) {
         try {
+            
             conexion objConexion = new conexion();
             String peri = "2023-2CR";
             ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
@@ -367,6 +328,7 @@ public class Alumnosside extends javax.swing.JPanel {
             boolean existeEstudiante = estudianteExiste(cedula);
             if (existeEstudiante) {
                 System.out.println("El estudiante existe en la base de datos.");
+                JOptionPane.showMessageDialog(null, "El estudiante con la cedula " + cedula +" ya existe en la base de datos");
             } else {
                 System.out.println("ESTE ES COUNT" + objConexion.ejecutarSentenciaSQl(sql));
                 String addSql = String.format("INSERT INTO estudiantes (Nombre, Apellido, Cedula, Facultad, Escuela, fecha_registro, periodo, num_est, Nivel, Tipo) VALUES"

@@ -86,6 +86,7 @@ public class Periodo extends javax.swing.JPanel {
 
         jLabel2.setText("Introducir periodo Académico:");
 
+        result.setEditable(false);
         result.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resultActionPerformed(evt);

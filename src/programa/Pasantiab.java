@@ -233,7 +233,7 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
 
                 String cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + "TP";
 
-                String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Pasantia' WHERE Cedula = '%s'", cod, estudtext.getText());
+                String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Pasantía' WHERE Cedula = '%s'", cod, estudtext.getText());
 
                 habana.ejecutarSentenciaSQl(sql3);
                                 }

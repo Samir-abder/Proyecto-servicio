@@ -1,13 +1,13 @@
 
 package programa;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+//import static programa.Alumnosside.cedulaEst;
 
 
 /**
@@ -19,6 +19,9 @@ public class profesoresside extends javax.swing.JPanel {
 
     public profesoresside() {
         initComponents();
+        cedulaP.setEnabled(true);
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -37,6 +40,7 @@ public class profesoresside extends javax.swing.JPanel {
         beditar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         profesion = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -54,6 +58,13 @@ public class profesoresside extends javax.swing.JPanel {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
         jPanel1.add(nombreP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 230, -1));
         jPanel1.add(apellidoP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 230, -1));
+
+        cedulaP.setActionCommand("<Not Set>");
+        cedulaP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cedulaPActionPerformed(evt);
+            }
+        });
         jPanel1.add(cedulaP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 230, -1));
 
         baceptar.setText("Aceptar");
@@ -90,6 +101,9 @@ public class profesoresside extends javax.swing.JPanel {
         });
         jPanel1.add(profesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 230, -1));
 
+        jLabel5.setText("Profesore");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
+
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -97,7 +111,7 @@ public class profesoresside extends javax.swing.JPanel {
     
     Profesores.botonagr.setEnabled(true);
     this.setVisible(false);
-    //Profesores.botonedit.setEnabled(true);
+   
     cedulaP.setText("");
     nombreP.setText("");
     apellidoP.setText("");
@@ -116,14 +130,16 @@ public class profesoresside extends javax.swing.JPanel {
         try {
             //Se verifica si el profesor esta repetido usando su numero de cedula
             if (rsVerificar.next()) {
-            JOptionPane.showMessageDialog(null, "Profesor repetido");
-            objConexion.cerrarConexion();
-            }else{
+            JOptionPane.showMessageDialog(null, "El profesor con la cedula "+cedulaP.getText()+" Existe");
+            //objConexion.cerrarConexion();
+            
+            }
+            else{
                 
                 try {
                     //Se Verifica si alguno de los campos esta vacio
                     if (!nombreP.getText().isEmpty() && !apellidoP.getText().isEmpty()
-                            && !cedulaP.getText().isEmpty()) {
+                            && cedulaP.getText().matches("\\d{8}") && !profesion.getText().isEmpty()) {
                         //Si no estan vacios se procede a tomar los valores de los campos e incertarlos en la base de datos
                         String addSql = String.format("INSERT INTO Docentes (Nombre, Apellido, Cedula,Profesion) VALUES"
                                 + "('" + nombreP.getText()
@@ -138,7 +154,7 @@ public class profesoresside extends javax.swing.JPanel {
                         profesion.setText("");                   
                     } else {
                         System.out.println("Llene todos los campos...");
-                        JOptionPane.showMessageDialog(null, "llene todos los campos...");
+                        JOptionPane.showMessageDialog(null, "llene los campos correctamente y asegurese que la cedula tenga 8 digitos");
                     }
                     
                     
@@ -148,7 +164,10 @@ public class profesoresside extends javax.swing.JPanel {
                 
                
             }
-        } catch (SQLException ex) {
+            
+        } 
+        
+        catch (SQLException ex) {
             Logger.getLogger(profesoresside.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -180,18 +199,22 @@ public class profesoresside extends javax.swing.JPanel {
         // TODO add your handling code here:
         conexion objConexion = new conexion();
         
-
-        String sql = String.format("UPDATE Docentes SET Nombre = '%s', Apellido = '%s', Cedula = '%s', Profesion = '%s' "
-                + "WHERE Cedula = '" + cedulaP.getText() + "'",
+        if(!nombreP.getText().isEmpty() && 
+                !apellidoP.getText().isEmpty()
+                && cedulaP.getText().matches("\\d{8}") 
+                && !profesion.getText().isEmpty()){
+            
+            String sql = String.format("UPDATE Docentes SET Nombre = '%s', Apellido = '%s', Cedula = '%s', Profesion = '%s' WHERE Cedula = '" + Profesores.cedula + "'",
                 nombreP.getText(),
                 apellidoP.getText(),
                 cedulaP.getText(),
                 profesion.getText());
-        objConexion.ejecutarSentenciaSQl(sql);
-        nombreP.setText("");
-        apellidoP.setText("");
-        cedulaP.setText("");
-        profesion.setText("");
+        
+            objConexion.ejecutarSentenciaSQl(sql);
+            nombreP.setText("");
+            apellidoP.setText("");
+            cedulaP.setText("");
+            profesion.setText("");
             
         try {
             while (Profesores.modelP.getRowCount() > 0) {
@@ -211,12 +234,19 @@ public class profesoresside extends javax.swing.JPanel {
                 System.out.println("este es " + e);
             }
          Base.cargarProfesores();
-         objConexion.cerrarConexion();
+         objConexion.cerrarConexion();}
+        
+        else{JOptionPane.showMessageDialog(null, "llene los campos correctamente y asegurese que la cedula tenga 8 digitos");}
     }//GEN-LAST:event_beditarActionPerformed
 
     private void profesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profesionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_profesionActionPerformed
+
+    private void cedulaPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cedulaPActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cedulaPActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -229,6 +259,7 @@ public class profesoresside extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     public static javax.swing.JTextField nombreP;
     public static javax.swing.JTextField profesion;
