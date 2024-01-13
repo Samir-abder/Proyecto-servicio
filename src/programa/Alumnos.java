@@ -286,29 +286,17 @@ public class Alumnos extends javax.swing.JPanel {
         base.repaint();
         base.revalidate();
         //En esta parte se le da la funcion de editar
+           
 
         int filaSeleccionada = jTable1.getSelectedRow();
         cedula = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
         Alumnosside.cedulaEst.setText(cedula);
         Alumnosside.nombreEst.setText((String) jTable1.getValueAt(filaSeleccionada, 1));
         Alumnosside.apellidoEst.setText((String) jTable1.getValueAt(filaSeleccionada, 2));
-        try {
-            conexion objConexion = new conexion();
-            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes where" + cedula);
+        
 
-            while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
-                    resultado.getString("Apellido"), resultado.getString("Facultad"),
-                     resultado.getString("Escuela")};
-
-                
-            }
-        } catch (SQLException e) {
-            System.out.println("este es " + e);
-        }
-
-        Base obj = new Base();
-        obj.cargar();
+//        Base obj = new Base();
+//        obj.cargar();
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
@@ -400,8 +388,9 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
-                    resultado.getString("Apellido"), resultado.getString("Tipo"),
-                     resultado.getString("Escuela")};
+                    resultado.getString("Apellido"), resultado.getString("Nivel"),
+                     resultado.getString("Tipo"),resultado.getString("Escuela"),
+                      Boolean.parseBoolean(resultado.getString("Estado"))};
 
                 modeloa.addRow(UsuarioD);
 

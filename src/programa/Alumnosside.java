@@ -356,10 +356,12 @@ public class Alumnosside extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Por favor asegurese que el campo de cedula solo contenga números(8) y rellenar los campos del formulario correctamente");
             objConexion.cerrarConexion();
         }
-        //Alumnos.cargar();
+//        Alumnos al = new Alumnos();
+//        al.cargarFiltros();
         
-        Base.cargar();
+//        Base.cargar();
         objConexion.cerrarConexion();
+        Alumnos.cargar();
     }//GEN-LAST:event_editBActionPerformed
 
     private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed

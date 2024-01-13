@@ -228,8 +228,8 @@ ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo 
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),resultado.getString("Facultad")
-                    , resultado.getString("Escuela"), resultado.getString("Profesion")};
+                    resultado.getString("Apellido"),resultado.getString("Nivel")
+                    , resultado.getString("Tipo"), resultado.getString("Escuela"),resultado.getString("Estado")};
 
                 Alumnos.modeloa.addRow(UsuarioD);
 //                objConexion.cerrarConexion();
