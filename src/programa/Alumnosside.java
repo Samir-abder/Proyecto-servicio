@@ -4,7 +4,6 @@
  */
 package programa;
 
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.sql.ResultSet;
@@ -19,11 +18,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 public class Alumnosside extends javax.swing.JPanel {
- public static String tipoEC;
- public static String escuelaEC;
- 
+
+    public static String tipoEC;
+    public static String escuelaEC;
+
     public Alumnosside() {
         initComponents();
 
@@ -155,119 +154,65 @@ public class Alumnosside extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-    
-    Alumnos.botonAgr.setEnabled(true);
-    
-    nombreEst.setText("");
-    apellidoEst.setText("");
-    cedulaEst.setText("");
-    escuelaEst.setSelectedIndex(0);
-    nivel.setSelectedIndex(0);
-    tipo.setSelectedIndex(0);
-    ComboModo.setSelectedIndex(0);
-    agregarEstudiante.setEnabled(false);
-    
-    
-    
-    
-    Base base = (Base) this.getRootPane().getParent();
-    JPanel Fondo = (JPanel) base.getContentPane().getComponent(0);
-    Fondo.removeAll();
 
-    // Agregar el panel Alumnos
-    Alumnos alumnos = new Alumnos();
-    alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
-    alumnos.setLocation(0, 0);
-    Fondo.add(alumnos, BorderLayout.CENTER);
-    
-    // Validar y repintar el panel Fondo
-    
-    Fondo.revalidate();
-    Fondo.repaint();
+        Alumnos.botonAgr.setEnabled(true);
+
+        nombreEst.setText("");
+        apellidoEst.setText("");
+        cedulaEst.setText("");
+        escuelaEst.setSelectedIndex(0);
+        nivel.setSelectedIndex(0);
+        tipo.setSelectedIndex(0);
+        ComboModo.setSelectedIndex(0);
+        agregarEstudiante.setEnabled(false);
+
+        Base base = (Base) this.getRootPane().getParent();
+        JPanel Fondo = (JPanel) base.getContentPane().getComponent(0);
+        Fondo.removeAll();
+
+        // Agregar el panel Alumnos
+        Alumnos alumnos = new Alumnos();
+        alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
+        alumnos.setLocation(0, 0);
+        Fondo.add(alumnos, BorderLayout.CENTER);
+
+        // Validar y repintar el panel Fondo
+        Fondo.revalidate();
+        Fondo.repaint();
 
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void escuelaEstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escuelaEstActionPerformed
 
-        if(escuelaEst.getSelectedIndex()!=1){
-            tipo.setModel(new DefaultComboBoxModel<>(new String[]{ "Tipo",
+        if (escuelaEst.getSelectedIndex() != 1) {
+            tipo.setModel(new DefaultComboBoxModel<>(new String[]{"Tipo",
                 "Trabajo de grado",
                 "Pasantia",
-                "Sin asignar" }));
-        }else{
-            tipo.setModel(new DefaultComboBoxModel<>(new String[]{ "Tipo",
+                "Sin asignar"}));
+        } else {
+            tipo.setModel(new DefaultComboBoxModel<>(new String[]{"Tipo",
                 "Trabajo de grado",
                 "Pasantia",
                 "Diseño",
-                "Sin asignar" }));
+                "Sin asignar"}));
 
         }
-        if(escuelaEst.getSelectedIndex()==1){
+        if (escuelaEst.getSelectedIndex() == 1) {
             tipo.setSelectedIndex(3);
             tipo.setEnabled(false);
             ComboModo.setEnabled(false);
-        }else{
+        } else {
             tipo.setSelectedIndex(0);
             tipo.setEnabled(true);
             ComboModo.setEnabled(true);
-        }  
-      
+        }
+
     }//GEN-LAST:event_escuelaEstActionPerformed
 
     private void agregarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarEstudianteActionPerformed
+
         
-        
-        if(tipo.getSelectedIndex()==1){ //si se selecciona el trabajo de grado
-            
-            if(ComboModo.getSelectedIndex()==0){//si se trabaja individual
-                
-                baseSide.removeAll();
-                Tg tg = new Tg();
-                tg.setBounds(0,0, baseSide.getWidth(), 600);
-                baseSide.add(tg);
-                Base bas = (Base)this.getRootPane().getParent();
-                bas.setMinimumSize(new Dimension(1000,600));
-                bas.setLocationRelativeTo(null);
-                bas.repaint();
-                bas.revalidate();
-                
-            }else if(ComboModo.getSelectedIndex()==1){//si se trabaja en pareja
-                
-                baseSide.removeAll();
-                Tg tg = new Tg();
-                tg.setBounds(0,0, baseSide.getWidth(), 600);
-                baseSide.add(tg);
-                Base bas = (Base)this.getRootPane().getParent();
-                bas.setMinimumSize(new Dimension(1000,600));
-                bas.setLocationRelativeTo(null);
-                bas.repaint();
-                bas.revalidate();
-                
-            }
-        }else if(tipo.getSelectedIndex()==2){//si se selecciona las pasantias
-            baseSide.removeAll();
-            Pasantiab ps = new Pasantiab();
-            ps.setBounds(0,0, baseSide.getWidth(), 600);
-            baseSide.add(ps);
-            Base bas = (Base)this.getRootPane().getParent();
-            bas.setMinimumSize(new Dimension(1000,600));
-            bas.setLocationRelativeTo(null);
-            bas.repaint();
-            bas.revalidate();
-        }else if(tipo.getSelectedIndex()==3){
-         baseSide.removeAll();
-            Diseno ps = new Diseno();
-            ps.setBounds(0,0, baseSide.getWidth(), 600);
-            baseSide.add(ps);
-            Base bas = (Base)this.getRootPane().getParent();
-            bas.setMinimumSize(new Dimension(1000,600));
-            bas.setLocationRelativeTo(null);
-            bas.repaint();
-            bas.revalidate();
-        }
-        
-        
-        
+
         conexion objConexion = new conexion();
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -276,49 +221,94 @@ public class Alumnosside extends javax.swing.JPanel {
 
         try {
 
-            if (!nombreEst.getText().isEmpty() && !apellidoEst.getText().isEmpty()
-                    && cedulaEst.getText().matches("\\d{8}") 
-                    && escuelaEst.getSelectedItem() != "Default" && nivel.getSelectedItem() != "Tipo" && tipo.getSelectedItem() != "Semestre") {
+            if (!nombreEst.getText().isEmpty()
+                    && !apellidoEst.getText().isEmpty()
+                    && cedulaEst.getText().matches("\\d{8}")
+                    && !"Default".equals(escuelaEst.getSelectedItem())
+                    && !"Semestre".equals(nivel.getSelectedItem())
+                    && !"Tipo".equals(tipo.getSelectedItem())) {
 
-                
-                
-                
                 codigoAlumno(nombreEst.getText(), apellidoEst.getText(), cedulaEst.getText(), escuelaEst.getSelectedItem().toString(),
                         hoy, nivel.getSelectedItem().toString(), tipo.getSelectedItem().toString(), ComboModo.getSelectedItem().toString());
-                
+
                 nombreEst.setEnabled(false);
                 apellidoEst.setEnabled(false);
-                cedulaEst.setEnabled(false) ;
+                cedulaEst.setEnabled(false);
                 escuelaEst.setEnabled(false);
                 nivel.setEnabled(false);
                 tipo.setEnabled(false);
                 ComboModo.setEnabled(false);
                 agregarEstudiante.setEnabled(false);
+                objConexion.cerrarConexion();
+if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
 
+            if (ComboModo.getSelectedIndex() == 0) {//si se trabaja individual
+
+                baseSide.removeAll();
+                Tg tg = new Tg();
+                tg.setBounds(0, 0, baseSide.getWidth(), 600);
+                baseSide.add(tg);
+                Base bas = (Base) this.getRootPane().getParent();
+                bas.setMinimumSize(new Dimension(1000, 600));
+                bas.setLocationRelativeTo(null);
+                bas.repaint();
+                bas.revalidate();
+
+            } else if (ComboModo.getSelectedIndex() == 1) {//si se trabaja en pareja
+
+                baseSide.removeAll();
+                Tg tg = new Tg();
+                tg.setBounds(0, 0, baseSide.getWidth(), 600);
+                baseSide.add(tg);
+                Base bas = (Base) this.getRootPane().getParent();
+                bas.setMinimumSize(new Dimension(1000, 600));
+                bas.setLocationRelativeTo(null);
+                bas.repaint();
+                bas.revalidate();
+
+            }
+        } else if (tipo.getSelectedIndex() == 2) {//si se selecciona las pasantias
+            baseSide.removeAll();
+            Pasantiab ps = new Pasantiab();
+            ps.setBounds(0, 0, baseSide.getWidth(), 600);
+            baseSide.add(ps);
+            Base bas = (Base) this.getRootPane().getParent();
+            bas.setMinimumSize(new Dimension(1000, 600));
+            bas.setLocationRelativeTo(null);
+            bas.repaint();
+            bas.revalidate();
+        } else if (tipo.getSelectedIndex() == 3) {
+            baseSide.removeAll();
+            Diseno ps = new Diseno();
+            ps.setBounds(0, 0, baseSide.getWidth(), 600);
+            baseSide.add(ps);
+            Base bas = (Base) this.getRootPane().getParent();
+            bas.setMinimumSize(new Dimension(1000, 600));
+            bas.setLocationRelativeTo(null);
+            bas.repaint();
+            bas.revalidate();
+        }
             } else {
-                
-                
+
                 //System.out.println("Asegurese de llenar todos los campos del formulario correctamente");
                 JOptionPane.showMessageDialog(null, "Por favor asegurese que el campo de cedula solo contenga números(8) y rellenar los campos del formulario correctamente");
                 objConexion.cerrarConexion();
             }
             objConexion.cerrarConexion();
-            
+
         } catch (Exception e) {
             System.out.println("Error al guardar los datos con la base de datos");
             objConexion.cerrarConexion();
         }
         objConexion.cerrarConexion();
 
-        Base.cargar();
-        Base bass=  new Base();
-        bass.cargar();
+        Alumnos.cargar();
     }//GEN-LAST:event_agregarEstudianteActionPerformed
 
-    
+
     private void editBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBActionPerformed
         // TODO add your handling code here:
- SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date creacion = new Date();
         String hoy = formato.format(creacion);
         conexion objConexion = new conexion();
@@ -329,24 +319,22 @@ public class Alumnosside extends javax.swing.JPanel {
                 String updateSql = String.format("UPDATE estudiantes SET Nombre = '%s', Apellido = '%s', Escuela = '%s', Nivel = '%s', Tipo = '%s', Cedula = '%s', Modo = '%s' WHERE Cedula = '" + Alumnos.cedula + "'",
                         nombreEst.getText(),
                         apellidoEst.getText(),
-                        
                         escuelaEst.getSelectedItem().toString(),
                         nivel.getSelectedItem().toString(),
                         tipo.getSelectedItem().toString(),
                         cedulaEst.getText(),
                         ComboModo.getSelectedItem().toString()
                 );
-                
+
                 objConexion.ejecutarSentenciaSQl(updateSql);
                 codigoAlumno(nombreEst.getText(), apellidoEst.getText(), cedulaEst.getText(), escuelaEst.getSelectedItem().toString(),
                         hoy, nivel.getSelectedItem().toString(), tipo.getSelectedItem().toString(), ComboModo.getSelectedItem().toString());
-                
-            } 
-            catch (Exception e) {
+
+            } catch (Exception e) {
                 System.out.println("Error al guardar los datos con la base de datos");
                 objConexion.cerrarConexion();
             }
-            
+
         } else {
             //System.out.println("Llene todos los campos...");
             JOptionPane.showMessageDialog(null, "Por favor asegurese que el campo de cedula solo contenga números(8) y rellenar los campos del formulario correctamente");
@@ -354,19 +342,19 @@ public class Alumnosside extends javax.swing.JPanel {
         }
 //        Alumnos al = new Alumnos();
 //        al.cargarFiltros();
-        
+
 //        Base.cargar();
         objConexion.cerrarConexion();
         Alumnos.cargar();
         try {
-        objConexion = new conexion();
+            objConexion = new conexion();
 
             // Paso 1: Obtener resultados
             ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '" + tipoEC + "' AND Escuela = '" + escuelaEC + "'");
 
             // Paso 2 y 3: Iterar sobre los resultados y actualizar numest
             int nuevoNumEst = 1;
-             String peri = "2023-2CR";
+            String peri = "2023-2CR";
             ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
             if (rst.next()) {
                 int rowCount = rst.getInt("count");
@@ -394,21 +382,21 @@ public class Alumnosside extends javax.swing.JPanel {
     }//GEN-LAST:event_editBActionPerformed
 
     private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
-          if (tipo.getSelectedIndex()==1) {
+        if (tipo.getSelectedIndex() == 1) {
             // Si es el ítem 1, activa el botón
             ComboModo.setEnabled(true);
         } else {
             // Si no es el ítem 1, desactiva el botón
             ComboModo.setSelectedIndex(0);
             ComboModo.setEnabled(false);
-            
+
         }
-    
+
     }//GEN-LAST:event_tipoActionPerformed
 
     public void codigoAlumno(String nombre, String apellido, String cedula, String escuela, String fecha, String nivel, String tipo, String modo) {
         try {
-            
+
             conexion objConexion = new conexion();
             String peri = "2023-2CR";
             ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
@@ -432,7 +420,7 @@ public class Alumnosside extends javax.swing.JPanel {
             String resultadoC = String.format(formatonum, resultado);
             boolean existeEstudiante = estudianteExiste(cedula);
             if (existeEstudiante) {
-                JOptionPane.showMessageDialog(null, "El estudiante con la cedula " + cedula +" ya existe en la base de datos");
+                JOptionPane.showMessageDialog(null, "El estudiante con la cedula " + cedula + " ya existe en la base de datos");
             } else {
                 String addSql = String.format("INSERT INTO estudiantes (Nombre, Apellido, Cedula, Facultad, Escuela, fecha_registro, periodo, num_est, Nivel, Tipo, Modo) VALUES"
                         + "('" + nombre
@@ -484,7 +472,7 @@ public class Alumnosside extends javax.swing.JPanel {
             } else if (tipo == "Diseño" && nivel == "9vno") {
                 cod = "FI-" + escuela1 + "-" + resultadoC + "-" + peri + "-" + "DIX";
             } else {
-                cod = "FI-" + escuela1 + "-" + resultadoC + "-" + peri+ "-" + "DX";
+                cod = "FI-" + escuela1 + "-" + resultadoC + "-" + peri + "-" + "DX";
             }
             String sql3 = String.format("UPDATE estudiantes SET codigo = '%s' WHERE Cedula = '" + cedula + "'",
                     cod);
@@ -514,19 +502,20 @@ public class Alumnosside extends javax.swing.JPanel {
             objConexion.cerrarConexion();
         }
     }
-    
+
     public String primeraMayuscula(String texto) {
-    if (texto == null || texto.isEmpty()) {
-        return texto;
-    } else {
-        return texto.substring(0, 1).toUpperCase() + texto.substring(1).toLowerCase();
+        if (texto == null || texto.isEmpty()) {
+            return texto;
+        } else {
+            return texto.substring(0, 1).toUpperCase() + texto.substring(1).toLowerCase();
+        }
     }
-}
-private static void actualizarNumEstYCodigo(conexion objConexion, String tipo, String escuela, int nuevoNumEst, String cedulac, String peri, String nivel) throws SQLException {
+
+    private static void actualizarNumEstYCodigo(conexion objConexion, String tipo, String escuela, int nuevoNumEst, String cedulac, String peri, String nivel) throws SQLException {
         // Formatear el nuevo número como cadena de tres dígitos
         String formatoNumEst = "%03d";
         String nuevoNumEstFormateado = String.format(formatoNumEst, nuevoNumEst);
-String escuelaW= escuela;
+        String escuelaW = escuela;
         switch (escuela) {
             case "Computación":
 
@@ -553,18 +542,17 @@ String escuelaW= escuela;
             default:
             // código que se ejecuta si no se cumple ninguna de las opciones anteriores
         }
-        
-String cod = "FI-" + escuela + "-" + nuevoNumEstFormateado + "-" + peri + "-";
-if ("Trabajo de grado".equals(tipo)) {
-    cod += "TG";
-} else if ("Pasantia".equals(tipo)) {
-    cod += "PS";
-} else if ("Diseño".equals(tipo) && "9vno".equals(nivel)) {
-    cod += "DIX";
-} else if ("Diseño".equals(tipo) && "10mo".equals(nivel)) {
-    cod += "DX";
-}
 
+        String cod = "FI-" + escuela + "-" + nuevoNumEstFormateado + "-" + peri + "-";
+        if ("Trabajo de grado".equals(tipo)) {
+            cod += "TG";
+        } else if ("Pasantia".equals(tipo)) {
+            cod += "PS";
+        } else if ("Diseño".equals(tipo) && "9vno".equals(nivel)) {
+            cod += "DIX";
+        } else if ("Diseño".equals(tipo) && "10mo".equals(nivel)) {
+            cod += "DX";
+        }
 
         // Sentencia SQL para actualizar num_est y codigo
         String updateSql = String.format("UPDATE estudiantes SET num_est = '%s', codigo = '%s' WHERE Tipo = '%s' AND Escuela = '%s' AND Cedula = '%s'", nuevoNumEstFormateado, cod, tipo, escuelaW, cedulac);

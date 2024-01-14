@@ -37,7 +37,7 @@ public class Diseno extends javax.swing.JPanel {
         jLabel26 = new javax.swing.JLabel();
         tutorCombo = new javax.swing.JComboBox<>();
 
-        jLabel16.setText("Pasantias");
+        jLabel16.setText("Diseño");
 
         jLabel24.setText("Titulo del proyecto");
 

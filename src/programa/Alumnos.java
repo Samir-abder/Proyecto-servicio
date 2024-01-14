@@ -439,7 +439,7 @@ Alumnosside.tipoEC= (String)jTable1.getValueAt(filaSeleccionada, 4);
     }//GEN-LAST:event_tipoDeProyectoItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+         // TODO add your handling code here:
 // Obtener valores de la primera y última columna
         conexion objConexion = new conexion();
 
@@ -448,8 +448,8 @@ Alumnosside.tipoEC= (String)jTable1.getValueAt(filaSeleccionada, 4);
             for (int i = 0; i < rowCount; i++) {
                 Object firstColumnValue = modeloa.getValueAt(i, 0);
                 Object lastColumnValue = modeloa.getValueAt(i, modeloa.getColumnCount() - 1);
-                Object tipoColumnValue = modeloa.getValueAt(i, 3);
-                if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnValue) || "Pasantía".equals(tipoColumnValue)) {                // Imprimir los valores (puedes hacer lo que quieras con ellos)
+                Object tipoColumnValue = modeloa.getValueAt(i, 4);
+                if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnValue) || "Pasantia".equals(tipoColumnValue)) {                // Imprimir los valores (puedes hacer lo que quieras con ellos)
                     String updateSql = String.format("UPDATE estudiantes SET Estado = '%s' WHERE Cedula = '" + firstColumnValue + "'",
                             lastColumnValue
                     );
@@ -485,8 +485,9 @@ Alumnosside.tipoEC= (String)jTable1.getValueAt(filaSeleccionada, 4);
 
                 modeloa.addRow(UsuarioD);
 
-//                objConexion.cerrarConexion();
+//                
             }
+            objConexion.cerrarConexion();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error" + e);
         }

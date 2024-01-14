@@ -322,6 +322,46 @@ public class Base extends javax.swing.JFrame {
             String nuevaRuta = fileChooser.getSelectedFile().getAbsolutePath();
             conexion miConexion = new conexion(); // Crear una instancia de conexion
         miConexion.setConexionDB(nuevaRuta);
+        Alumnos alumnos = new Alumnos();
+        alumnos.setLocation(0,0);
+   
+        Fondo.removeAll();
+        Fondo.add(alumnos);
+        Fondo.revalidate();
+        Fondo.repaint();
+        this.setMinimumSize(new Dimension(900,600));
+        this.setLocationRelativeTo(null);
+
+        /*try {
+            connect = DriverManager.getConnection(url);
+            if(connect!=null){
+                JOptionPane.showMessageDialog(null, "Conectado!!!!");
+            }  
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }*/
+        while (Alumnos.modeloa.getRowCount() > 0) {
+            Alumnos.modeloa.removeRow(0);
+        }
+        conexion objConexion = new conexion();
+        try {
+            
+            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
+            while (resultado.next()) {
+                Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
+                    resultado.getString("Apellido"),resultado.getString("Nivel")
+                    , resultado.getString("Tipo"), resultado.getString("Escuela"),
+                    Boolean.parseBoolean(resultado.getString("Estado"))};
+
+                Alumnos.modeloa.addRow(UsuarioD);
+//                objConexion.cerrarConexion();
+            }
+        } catch (SQLException e) {
+            System.out.println("este es " + e);
+        }finally{
+            objConexion.cerrarConexion();
+        }
+        Alumnos.cargar();
         } else {
             // El usuario canceló la selección de archivo.
         }
