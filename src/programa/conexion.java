@@ -17,7 +17,6 @@ public class conexion {
             try {
                 Class.forName("org.sqlite.JDBC");
                 String path = new File(getConexionDB()).getAbsolutePath();
-                System.out.println("path " + path);
                 conn = DriverManager.getConnection("jdbc:sqlite:" + path);
                 System.out.println("Conexión establecida");
             } catch (Exception e) {
@@ -30,7 +29,6 @@ public class conexion {
              try {
                 Class.forName("org.sqlite.JDBC");
                 String path = new File(strconexionDB).getAbsolutePath();
-                System.out.println("path "+ path);
                 conn = DriverManager.getConnection("jdbc:sqlite:" + path);
                 System.out.println("Conexión establecida");
             } catch (Exception e) {

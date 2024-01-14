@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author lujop
@@ -192,10 +191,10 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside alsi = new Alumnosside();
         Alumnosside.editB.setEnabled(false);
 
-        Alumnosside.agregarEstudiante.setEnabled(true);   
+        Alumnosside.agregarEstudiante.setEnabled(true);
         //baseAlumnos.removeAll();
-        
-        JPanel aux =new JPanel(new GridBagLayout());
+
+        JPanel aux = new JPanel(new GridBagLayout());
 
         //aux.setPreferredSize(null);
         GridBagConstraints gbc1 = new GridBagConstraints();
@@ -268,7 +267,7 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.agregarEstudiante.setEnabled(false);
         JPanel aux = new JPanel(new GridBagLayout());
         baseAlumnos.removeAll();
-        
+
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
         gbc1.gridy = 0;
@@ -287,7 +286,6 @@ public class Alumnos extends javax.swing.JPanel {
         base.repaint();
         base.revalidate();
         //En esta parte se le da la funcion de editar
-           
 
         int filaSeleccionada = jTable1.getSelectedRow();
         cedula = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
@@ -295,61 +293,58 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.nombreEst.setText((String) jTable1.getValueAt(filaSeleccionada, 1));
         Alumnosside.apellidoEst.setText((String) jTable1.getValueAt(filaSeleccionada, 2));
         Alumnosside.nivel.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 3));
-        
+
         Alumnosside.escuelaEst.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 5));
         Alumnosside.tipo.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 4));
 
-        
         conexion objConexion = new conexion();
         try {
-                String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
-                ResultSet resulta = objConexion.consultaRegistros(sql);
-                Alumnosside.ComboModo.setSelectedItem(resulta.getString("Modo"));
-                
-            } catch (Exception ex) {
-                System.out.println("Error de la base de datos");
-                objConexion.cerrarConexion();
+            String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
+            ResultSet resulta = objConexion.consultaRegistros(sql);
+            Alumnosside.ComboModo.setSelectedItem(resulta.getString("Modo"));
+
+        } catch (Exception ex) {
+            System.out.println("Error de la base de datos");
+            objConexion.cerrarConexion();
+
+        }
+        objConexion.cerrarConexion();
+        if (Alumnosside.tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
+
+            if (Alumnosside.ComboModo.getSelectedIndex() == 0) {//si se trabaja individual
+
+                Tg tg = new Tg();
+                tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
+                Alumnosside.baseSide.add(tg);
+
+                base.setMinimumSize(new Dimension(1000, 600));
+                base.setLocationRelativeTo(null);
+                base.repaint();
+                base.revalidate();
+
+            } else if (Alumnosside.ComboModo.getSelectedIndex() == 1) {//si se trabaja en pareja
+
+                Tg tg = new Tg();
+                tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 600);
+                Alumnosside.baseSide.add(tg);
+
+                base.setMinimumSize(new Dimension(1000, 600));
+                base.setLocationRelativeTo(null);
+                base.repaint();
+                base.revalidate();
 
             }
-objConexion.cerrarConexion();
-if(Alumnosside.tipo.getSelectedIndex()==1){ //si se selecciona el trabajo de grado
-
-                if(Alumnosside.ComboModo.getSelectedIndex()==0){//si se trabaja individual
-
-
-                    Tg tg = new Tg();
-                    tg.setBounds(1,1, Alumnosside.baseSide.getWidth(), 400);
-                    Alumnosside.baseSide.add(tg);
-
-                    base.setMinimumSize(new Dimension(1000,600));
-                    base.setLocationRelativeTo(null);
-                    base.repaint();
-                    base.revalidate();
-
-                }else if(Alumnosside.ComboModo.getSelectedIndex()==1){//si se trabaja en pareja
-
-
-                    Tg tg = new Tg();
-                    tg.setBounds(1,1, Alumnosside.baseSide.getWidth(), 600);
-                     Alumnosside.baseSide.add(tg);
-
-                    base.setMinimumSize(new Dimension(1000,600));
-                    base.setLocationRelativeTo(null);
-                    base.repaint();
-                    base.revalidate();
-
-                }
-        }else if(Alumnosside.tipo.getSelectedIndex()==2){//si se selecciona las pasantias
+        } else if (Alumnosside.tipo.getSelectedIndex() == 2) {//si se selecciona las pasantias
 
             Pasantiab ps = new Pasantiab();
-            ps.setBounds(1,1, Alumnosside.baseSide.getWidth(), 600);
+            ps.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 600);
             Alumnosside.baseSide.add(ps);
 
-            base.setMinimumSize(new Dimension(1000,600));
+            base.setMinimumSize(new Dimension(1000, 600));
             base.setLocationRelativeTo(null);
             base.repaint();
             base.revalidate();
-        }else if(Alumnosside.tipo.getSelectedIndex()==3){//si se selecciona diseño
+        } else if (Alumnosside.tipo.getSelectedIndex() == 3) {//si se selecciona diseño
 
         }
     }//GEN-LAST:event_botonEditarActionPerformed
@@ -370,13 +365,13 @@ if(Alumnosside.tipo.getSelectedIndex()==1){ //si se selecciona el trabajo de gra
                 String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
                 objConexion.ejecutarSentenciaSQl(sql);
                 String deleteSql = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedula);
-                 objConexion.ejecutarSentenciaSQl(deleteSql);
-                  String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s'", cedula);
-                 objConexion.ejecutarSentenciaSQl(deleteSql1);
-//                  String deleteSql2 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
-//                 objConexion.ejecutarSentenciaSQl(deleteSql2);
-                 cargar();
-                 objConexion.cerrarConexion();
+                objConexion.ejecutarSentenciaSQl(deleteSql);
+                String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s'", cedula);
+                objConexion.ejecutarSentenciaSQl(deleteSql1);
+                  String deleteSql2 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
+                 objConexion.ejecutarSentenciaSQl(deleteSql2);
+                cargar();
+                objConexion.cerrarConexion();
             } catch (Exception ex) {
                 System.out.println("Error al eliminar los datos de la base de datos");
             }
@@ -387,20 +382,28 @@ if(Alumnosside.tipo.getSelectedIndex()==1){ //si se selecciona el trabajo de gra
             objConexion = new conexion();
 
             // Paso 1: Obtener resultados
-            ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '"+TIPO+"' AND Escuela = '"+ESCUELA+"'");
-
+            ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '" + TIPO + "' AND Escuela = '" + ESCUELA + "'");
 
             // Paso 2 y 3: Iterar sobre los resultados y actualizar numest
             int nuevoNumEst = 1;
+             String peri = "2023-2CR";
+            ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+            if (rst.next()) {
+                int rowCount = rst.getInt("count");
+                if (rowCount != 0) {
+                    peri = rst.getString("periodo");
+                }
+            }
             while (resultados.next()) {
                 String tipo = resultados.getString("Tipo");
                 String cedul = resultados.getString("Cedula");
                 String escuela = resultados.getString("Escuela");
-                System.out.println("numero"+nuevoNumEst);         
+                String nivel = resultados.getString("Nivel");
+                System.out.println("numero" + nuevoNumEst);
 
                 // Actualizar numest para todas las filas que coinciden con tipo y escuela
-                actualizarNumEst(objConexion, tipo, escuela, nuevoNumEst,cedul);
-                nuevoNumEst=nuevoNumEst+1;
+                actualizarNumEstYCodigo(objConexion, tipo, escuela, nuevoNumEst, cedul, peri, nivel);
+                nuevoNumEst = nuevoNumEst + 1;
             }
 
             // Cerrar la conexión
@@ -408,7 +411,7 @@ if(Alumnosside.tipo.getSelectedIndex()==1){ //si se selecciona el trabajo de gra
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    
+
 
     }//GEN-LAST:event_botonEliminarActionPerformed
 
@@ -445,12 +448,12 @@ if(Alumnosside.tipo.getSelectedIndex()==1){ //si se selecciona el trabajo de gra
                 Object firstColumnValue = modeloa.getValueAt(i, 0);
                 Object lastColumnValue = modeloa.getValueAt(i, modeloa.getColumnCount() - 1);
                 Object tipoColumnValue = modeloa.getValueAt(i, 3);
-if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnValue) || "Pasantía".equals(tipoColumnValue)) {                // Imprimir los valores (puedes hacer lo que quieras con ellos)
-                String updateSql = String.format("UPDATE estudiantes SET Estado = '%s' WHERE Cedula = '" + firstColumnValue + "'",
-                        lastColumnValue
-                );
-                objConexion.ejecutarSentenciaSQl(updateSql);
-                }else{
+                if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnValue) || "Pasantía".equals(tipoColumnValue)) {                // Imprimir los valores (puedes hacer lo que quieras con ellos)
+                    String updateSql = String.format("UPDATE estudiantes SET Estado = '%s' WHERE Cedula = '" + firstColumnValue + "'",
+                            lastColumnValue
+                    );
+                    objConexion.ejecutarSentenciaSQl(updateSql);
+                } else {
 //                    JOptionPane.showMessageDialog(null, "El estudiante"+firstColumnValue + "no tiene ningun trabajo asignado");
                 }
             }
@@ -476,8 +479,8 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
                     resultado.getString("Apellido"), resultado.getString("Nivel"),
-                     resultado.getString("Tipo"),resultado.getString("Escuela"),
-                      Boolean.parseBoolean(resultado.getString("Estado"))};
+                    resultado.getString("Tipo"), resultado.getString("Escuela"),
+                    Boolean.parseBoolean(resultado.getString("Estado"))};
 
                 modeloa.addRow(UsuarioD);
 
@@ -500,7 +503,7 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
                     resultado.getString("Apellido"), resultado.getString("Facultad"),
-                     resultado.getString("Escuela")};
+                    resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
 
@@ -523,7 +526,7 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
             while (resultado.next()) {
                 Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
                     resultado.getString("Apellido"), resultado.getString("Facultad"),
-                     resultado.getString("Escuela")};
+                    resultado.getString("Escuela")};
 
                 modeloa.addRow(UsuarioD);
 
@@ -635,12 +638,58 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
         }
 
     }
-    
-    private static void actualizarNumEst(conexion objConexion, String tipo, String escuela, int nuevoNumEst, String cedulac) throws SQLException {
-        // Sentencia SQL para actualizar numest
-        String updateSql = String.format("UPDATE estudiantes SET num_est = %d WHERE Tipo = '%s' AND Escuela = '%s' AND Cedula = '%s'", nuevoNumEst, tipo, escuela, cedulac);
+
+    private static void actualizarNumEstYCodigo(conexion objConexion, String tipo, String escuela, int nuevoNumEst, String cedulac, String peri, String nivel) throws SQLException {
+        // Formatear el nuevo número como cadena de tres dígitos
+        String formatoNumEst = "%03d";
+        String nuevoNumEstFormateado = String.format(formatoNumEst, nuevoNumEst);
+String escuelaW= escuela;
+        switch (escuela) {
+            case "Computación":
+
+                escuela = "C";
+                break;
+            case "Industrial":
+                escuela = "I";
+                break;
+            case "Civil":
+                escuela = "L";
+                break;
+            case "Electrónica":
+                escuela = "Et";
+                break;
+            case "Telecomunicaciones":
+                escuela = "T";
+                break;
+            case "Mecánica":
+                escuela = "N";
+                break;
+            case "Arquitectura":
+                escuela = "Q";
+                break;
+            default:
+            // código que se ejecuta si no se cumple ninguna de las opciones anteriores
+        }
+        System.out.println("tipo " + tipo);
+String cod = "FI-" + escuela + "-" + nuevoNumEstFormateado + "-" + peri + "-";
+if ("Trabajo de grado".equals(tipo)) {
+    cod += "TG";
+} else if ("Pasantia".equals(tipo)) {
+    cod += "PS";
+} else if ("Diseño".equals(tipo) && "9vno".equals(nivel)) {
+    cod += "DIX";
+} else if ("Diseño".equals(tipo) && "10mo".equals(nivel)) {
+    cod += "DX";
+}
+
+
+        // Sentencia SQL para actualizar num_est y codigo
+        String updateSql = String.format("UPDATE estudiantes SET num_est = '%s', codigo = '%s' WHERE Tipo = '%s' AND Escuela = '%s' AND Cedula = '%s'", nuevoNumEstFormateado, cod, tipo, escuelaW, cedulac);
+        System.out.println(updateSql);
+        // Ejecutar la actualización
         objConexion.ejecutarSentenciaSQl(updateSql);
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> TGmodo;

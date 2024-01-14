@@ -378,9 +378,7 @@ public class Alumnosside extends javax.swing.JPanel {
                     peri = rst.getString("periodo");
                 }
             }
-            System.out.println(peri);
             String sql = "select count(*) FROM estudiantes WHERE Tipo = '" + tipo + "' AND Escuela = '" + escuela + "'";
-            System.out.println("sentencia" + sql);
 
             ResultSet count = objConexion.consultaRegistros(sql);
             int resultado = 0;
@@ -389,16 +387,13 @@ public class Alumnosside extends javax.swing.JPanel {
                 resultado = Integer.parseInt(count.getString(1)) + 1;
 
             }
-            System.out.println("count" + resultado);
 
             String formatonum = "%03d";
             String resultadoC = String.format(formatonum, resultado);
             boolean existeEstudiante = estudianteExiste(cedula);
             if (existeEstudiante) {
-                System.out.println("El estudiante existe en la base de datos.");
                 JOptionPane.showMessageDialog(null, "El estudiante con la cedula " + cedula +" ya existe en la base de datos");
             } else {
-                System.out.println("ESTE ES COUNT" + objConexion.ejecutarSentenciaSQl(sql));
                 String addSql = String.format("INSERT INTO estudiantes (Nombre, Apellido, Cedula, Facultad, Escuela, fecha_registro, periodo, num_est, Nivel, Tipo, Modo) VALUES"
                         + "('" + nombre
                         + "','" + apellido + "','" + cedula + "','" + "Ingeniería"
@@ -414,7 +409,6 @@ public class Alumnosside extends javax.swing.JPanel {
             String num_est = rs.getString("num_est");
             String periodo = rs.getString("periodo");
             String escuela1 = rs.getString("Escuela");
-            System.out.println("aqui esto"+ escuela1);
 
             switch (escuela1) {
                 case "Computación":
