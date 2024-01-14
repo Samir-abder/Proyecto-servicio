@@ -1,11 +1,12 @@
-
 package programa;
 
 import java.awt.Color;
-import java.awt.Panel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -13,75 +14,95 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.swing.JRViewer;
+import static programa.Alumnos.modeloa;
 
-/**
- *
- * @author lujop
- */
 public class jas extends JFrame {
+
     private JRViewer jrViewer;
     private JPanel panel;
-    public jas(){  
-    setSize(900, 768);
+
+    public jas() {
+        setSize(900, 768);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Sistema de inventario y facturacion");
-        FacturaVistaPrevia();
+        setTitle("Sistema de inventario y facturación");
+        FacturaVistaPrevia(3); // Cambiar a la cantidad de páginas deseadas
     }
 
-    public void FacturaVistaPrevia(){
+    public void FacturaVistaPrevia(int cantidadPaginas) {
         panel = new JPanel();
         panel.setLayout(null);
         this.getContentPane().add(panel);
         panel.setBackground(Color.decode("#FFFFFF"));
-        
 
-        // Simulamos cargar datos de la factura para el informe
-        Map<String, Object> datosFactura = cargarDatosFactura();
+        // Crear un JasperPrint para almacenar todas las páginas
+        JasperPrint jasperPrintCombined = new JasperPrint();
+//        JasperPrint jasperPrintCombined = new JasperPrint();
+        jasperPrintCombined.setPageWidth(595); // Ancho de página en puntos (A4)
+        jasperPrintCombined.setPageHeight(842); // Altura de página en puntos (A4)
 
         // Cargar el informe compilado
         JasperReport jasperReport = cargarInformeJasper();
 
         try {
-            // Llenar el informe con los datos de la factura
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, datosFactura, new JREmptyDataSource());
+            try {
+                conexion objConexion = new conexion();
+                ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
+                while (resultado.next()) {
+                   
+// Simulamos cargar datos para el informe
+                    Map<String, Object> datosInforme = cargarDatosInforme(resultado.getString("Cedula"));
 
-            // Componente de JasperReports para visualizar el informe
-            jrViewer = new JRViewer(jasperPrint);
+                    // Llenar el informe con los datos
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, datosInforme, new JREmptyDataSource());
+
+//                 Agregar cada página al JasperPrint combinado
+                    for (int pageIndex = 0; pageIndex < jasperPrint.getPages().size(); pageIndex++) {
+                        jasperPrintCombined.addPage(jasperPrint.getPages().get(pageIndex));
+                    }
+//                
+                }
+                objConexion.cerrarConexion();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error" + e);
+            }
+
+            // Crear un JRViewer para el JasperPrint combinado
+            jrViewer = new JRViewer(jasperPrintCombined);
             jrViewer.setBounds(20, 20, 850, 700);
-            //add(jrViewer);
             panel.add(jrViewer);
-            panel.repaint();
-            panel.revalidate();
-
-            // Botón para guardar como PDF (similar al ejemplo anterior)
-            // Mostrar la vista previa
-//            pack();
-//            setLocationRelativeTo(null);
-//            setVisible(true);
         } catch (JRException e) {
             e.printStackTrace();
         }
+
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
-    
-    private Map<String, Object> cargarDatosFactura() {
-        // Aquí simulamos cargar datos de la factura en un Map
-        // Puedes reemplazar esto con los datos reales de la factura
+    private Map<String, Object> cargarDatosInforme(String cedula) {
+        Map<String, Object> datosInforme = new HashMap<>();
 
-        Map<String, Object> datosFactura = new HashMap<>();
-        //DOLARES
-        datosFactura.put("Parameter1", "luisito gay");
+        try {
+            conexion objConexion = new conexion();
+            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
+            while (resultado.next()) {
+                datosInforme.put("Nombre", resultado.getString("Nombre"));
+                //Falta poner los datos de todo lo q pida la carta igual q arriba
+            }
+            objConexion.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
 
-        // Agregar más datos según el diseño de tu informe
-        return datosFactura;
+        return datosInforme;
     }
 
     private JasperReport cargarInformeJasper() {
         try {
-
             // Ruta del archivo JRXML generado por JasperSoft Studio
-            String rutaInformeJRXML = "Blank_A4.jrxml";
+            String rutaInformeJRXML = "Proyecto.jrxml";
             panel.repaint();
             panel.revalidate();
 
@@ -93,9 +114,9 @@ public class jas extends JFrame {
             return null;
         }
     }
-    
- /*   public static void main(String[] args) {
+
+    public static void main(String[] args) {
         jas ventana = new jas();
         ventana.setVisible(true);
-    }*/
+    }
 }
