@@ -229,7 +229,8 @@ public class Alumnos extends javax.swing.JPanel {
         String Nombre = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 2);
         String Apellido = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 3);
         String Facultad = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 4);
-
+        jas ventana = new jas();
+        ventana.setVisible(true);
 
     }//GEN-LAST:event_botonImprimirActionPerformed
 

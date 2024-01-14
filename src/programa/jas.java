@@ -89,7 +89,19 @@ public class jas extends JFrame {
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
             while (resultado.next()) {
                 datosInforme.put("Nombre", resultado.getString("Nombre"));
+                datosInforme.put("Cedula", resultado.getString("Nombre"));
+                datosInforme.put("Apellido", resultado.getString("Nombre"));
+                datosInforme.put("Codigo", resultado.getString("Nombre"));
+                datosInforme.put("NombreProyecto", "las nalgas de juanga");
+                datosInforme.put("fechalarga", "Viernes 11 de Marzo del 2024");
+                datosInforme.put("fechacorta", "11/03/2024");
+                datosInforme.put("Ingeniero", resultado.getString("Escuela"));
+                datosInforme.put("Tutor", "miguel");
+                datosInforme.put("Cedulatutor", "12394");
                 //Falta poner los datos de todo lo q pida la carta igual q arriba
+                
+                
+                
             }
             objConexion.cerrarConexion();
         } catch (Exception e) {
@@ -115,8 +127,8 @@ public class jas extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         jas ventana = new jas();
         ventana.setVisible(true);
-    }
+    }*/
 }
