@@ -21,7 +21,9 @@ import javax.swing.JPanel;
 
 
 public class Alumnosside extends javax.swing.JPanel {
-
+ public static String tipoEC;
+ public static String escuelaEC;
+ 
     public Alumnosside() {
         initComponents();
 
@@ -316,7 +318,9 @@ public class Alumnosside extends javax.swing.JPanel {
     
     private void editBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBActionPerformed
         // TODO add your handling code here:
-
+ SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date creacion = new Date();
+        String hoy = formato.format(creacion);
         conexion objConexion = new conexion();
         if (!nombreEst.getText().isEmpty() && !apellidoEst.getText().isEmpty()
                 && cedulaEst.getText().matches("\\d{8}")
@@ -334,6 +338,9 @@ public class Alumnosside extends javax.swing.JPanel {
                 );
                 
                 objConexion.ejecutarSentenciaSQl(updateSql);
+                codigoAlumno(nombreEst.getText(), apellidoEst.getText(), cedulaEst.getText(), escuelaEst.getSelectedItem().toString(),
+                        hoy, nivel.getSelectedItem().toString(), tipo.getSelectedItem().toString(), ComboModo.getSelectedItem().toString());
+                
             } 
             catch (Exception e) {
                 System.out.println("Error al guardar los datos con la base de datos");
@@ -351,6 +358,39 @@ public class Alumnosside extends javax.swing.JPanel {
 //        Base.cargar();
         objConexion.cerrarConexion();
         Alumnos.cargar();
+        try {
+        objConexion = new conexion();
+
+            // Paso 1: Obtener resultados
+            ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '" + tipoEC + "' AND Escuela = '" + escuelaEC + "'");
+
+            // Paso 2 y 3: Iterar sobre los resultados y actualizar numest
+            int nuevoNumEst = 1;
+             String peri = "2023-2CR";
+            ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+            if (rst.next()) {
+                int rowCount = rst.getInt("count");
+                if (rowCount != 0) {
+                    peri = rst.getString("periodo");
+                }
+            }
+            while (resultados.next()) {
+                String tipo = resultados.getString("Tipo");
+                String cedul = resultados.getString("Cedula");
+                String escuela = resultados.getString("Escuela");
+                String nivel = resultados.getString("Nivel");
+                System.out.println("numero" + nuevoNumEst);
+
+                // Actualizar numest para todas las filas que coinciden con tipo y escuela
+                actualizarNumEstYCodigo(objConexion, tipo, escuela, nuevoNumEst, cedul, peri, nivel);
+                nuevoNumEst = nuevoNumEst + 1;
+            }
+
+            // Cerrar la conexión
+            objConexion.cerrarConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_editBActionPerformed
 
     private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
@@ -482,6 +522,57 @@ public class Alumnosside extends javax.swing.JPanel {
         return texto.substring(0, 1).toUpperCase() + texto.substring(1).toLowerCase();
     }
 }
+private static void actualizarNumEstYCodigo(conexion objConexion, String tipo, String escuela, int nuevoNumEst, String cedulac, String peri, String nivel) throws SQLException {
+        // Formatear el nuevo número como cadena de tres dígitos
+        String formatoNumEst = "%03d";
+        String nuevoNumEstFormateado = String.format(formatoNumEst, nuevoNumEst);
+String escuelaW= escuela;
+        switch (escuela) {
+            case "Computación":
+
+                escuela = "C";
+                break;
+            case "Industrial":
+                escuela = "I";
+                break;
+            case "Civil":
+                escuela = "L";
+                break;
+            case "Electrónica":
+                escuela = "Et";
+                break;
+            case "Telecomunicaciones":
+                escuela = "T";
+                break;
+            case "Mecánica":
+                escuela = "N";
+                break;
+            case "Arquitectura":
+                escuela = "Q";
+                break;
+            default:
+            // código que se ejecuta si no se cumple ninguna de las opciones anteriores
+        }
+        
+String cod = "FI-" + escuela + "-" + nuevoNumEstFormateado + "-" + peri + "-";
+if ("Trabajo de grado".equals(tipo)) {
+    cod += "TG";
+} else if ("Pasantia".equals(tipo)) {
+    cod += "PS";
+} else if ("Diseño".equals(tipo) && "9vno".equals(nivel)) {
+    cod += "DIX";
+} else if ("Diseño".equals(tipo) && "10mo".equals(nivel)) {
+    cod += "DX";
+}
+
+
+        // Sentencia SQL para actualizar num_est y codigo
+        String updateSql = String.format("UPDATE estudiantes SET num_est = '%s', codigo = '%s' WHERE Tipo = '%s' AND Escuela = '%s' AND Cedula = '%s'", nuevoNumEstFormateado, cod, tipo, escuelaW, cedulac);
+        System.out.println(updateSql);
+        // Ejecutar la actualización
+        objConexion.ejecutarSentenciaSQl(updateSql);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JComboBox<String> ComboModo;

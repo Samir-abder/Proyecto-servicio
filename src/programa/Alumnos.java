@@ -293,10 +293,11 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.nombreEst.setText((String) jTable1.getValueAt(filaSeleccionada, 1));
         Alumnosside.apellidoEst.setText((String) jTable1.getValueAt(filaSeleccionada, 2));
         Alumnosside.nivel.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 3));
-
         Alumnosside.escuelaEst.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 5));
         Alumnosside.tipo.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 4));
 
+        Alumnosside.escuelaEC= (String)jTable1.getValueAt(filaSeleccionada, 5);
+Alumnosside.tipoEC= (String)jTable1.getValueAt(filaSeleccionada, 4);
         conexion objConexion = new conexion();
         try {
             String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
