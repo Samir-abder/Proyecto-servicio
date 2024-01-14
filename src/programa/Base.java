@@ -31,7 +31,7 @@ public class Base extends javax.swing.JFrame {
         Fondo.setLayout(new BorderLayout());
 
         conexion objConexion = new conexion();
-ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+        ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
         try {
             if (rs.next()) {
                 int rowCount = rs.getInt("count");
@@ -57,6 +57,24 @@ ResultSet rs = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo 
                     Fondo.repaint();
                     this.pack();
                     this.setMinimumSize(new Dimension(alumnos.getWidth(), alumnos.getHeight()));
+                    
+                    try {
+            
+                        ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
+                        while (resultado.next()) {
+                            Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
+                                resultado.getString("Apellido"),resultado.getString("Nivel")
+                                , resultado.getString("Tipo"), resultado.getString("Escuela"),
+                                Boolean.parseBoolean(resultado.getString("Estado"))};
+
+                            Alumnos.modeloa.addRow(UsuarioD);
+           
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("este es " + e);
+                    }finally{
+                        objConexion.cerrarConexion();
+                    }
                 }
             }
         } catch (SQLException e) {
