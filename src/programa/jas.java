@@ -1,10 +1,12 @@
 package programa;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,15 +26,30 @@ public class jas extends JFrame {
     private JPanel panel;
 
     public jas() {
-        setSize(900, 768);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Sistema de inventario y facturación");
-        FacturaVistaPrevia(3); // Cambiar a la cantidad de páginas deseadas
+           setDefaultCloseOperation(EXIT_ON_CLOSE);
+            setTitle("Carta de aprobacion de trabajo de grado");
+            FacturaVistaPrevia(3); // Cambiar a la cantidad de páginas deseadas
+            pack();
+            setSize(900, 768);
+            setLocationRelativeTo(null);
+            setVisible(true);
+        
+        
+        
+        
+        
+        
+       // setSize(900, 768);
+       // setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //setTitle("Carta de aprobacion de trabajo de grado");
+       // FacturaVistaPrevia(3); // Cambiar a la cantidad de páginas deseadas
     }
 
     public void FacturaVistaPrevia(int cantidadPaginas) {
         panel = new JPanel();
         panel.setLayout(null);
+        panel.setSize(new Dimension(700,769));
+        
         this.getContentPane().add(panel);
         panel.setBackground(Color.decode("#FFFFFF"));
 
