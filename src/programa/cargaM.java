@@ -210,7 +210,7 @@ private void analizarArchivoExcel(String rutaArchivo, String Escuela, String Sem
 //                            + "('" + valoresDivididos[1].substring(1) + "','" + valoresDivididos[0] + "','" + datos.get(0) + "','" + "Ingeniería"
 //                            + "','" + Escuela + "','" + hoy + "','" + Semestre + "') ");
 //                    objConexion.ejecutarSentenciaSQl(addSql);
-                    nose.codigoAlumno(valoresDivididos[1].substring(1), valoresDivididos[0], datos.get(0), Escuela, hoy, Semestre, Tipo); // Cambia de línea después de cada fila
+                    nose.codigoAlumno(valoresDivididos[1].substring(1), valoresDivididos[0], datos.get(0), Escuela, hoy, Semestre, Tipo, "Pareja"); // Cambia de línea después de cada fila
 
                     datos.clear();
                     objConexion.cerrarConexion();

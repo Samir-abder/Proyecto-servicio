@@ -80,17 +80,8 @@
         </Component>
         <Component class="javax.swing.JComboBox" name="escuelaEst">
           <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="8">
-                <StringItem index="0" value="  "/>
-                <StringItem index="1" value="Arquitectura"/>
-                <StringItem index="2" value="Civil"/>
-                <StringItem index="3" value="Computaci&#xf3;n"/>
-                <StringItem index="4" value="Electr&#xf3;nica"/>
-                <StringItem index="5" value="Industrial"/>
-                <StringItem index="6" value="Mec&#xe1;nica"/>
-                <StringItem index="7" value="Telecomunicaciones"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Default&quot;, &quot;Arquitectura&quot;, &quot;Civil&quot;, &quot;Computaci&#xf3;n&quot;, &quot;Electr&#xf3;nica&quot;, &quot;Industrial&quot;, &quot;Mec&#xe1;nica&quot;, &quot;Telecomunicaciones&quot; })" type="code"/>
             </Property>
           </Properties>
           <Events>
@@ -267,7 +258,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="base">
+    <Container class="javax.swing.JPanel" name="baseSide">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="0" red="0" type="rgb"/>
@@ -277,6 +268,9 @@
           <Dimension value="[100, 483]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="0" y="140" width="570" height="460"/>

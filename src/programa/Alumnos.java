@@ -294,54 +294,64 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.cedulaEst.setText(cedula);
         Alumnosside.nombreEst.setText((String) jTable1.getValueAt(filaSeleccionada, 1));
         Alumnosside.apellidoEst.setText((String) jTable1.getValueAt(filaSeleccionada, 2));
+        Alumnosside.nivel.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 3));
+        
+        Alumnosside.escuelaEst.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 5));
+        Alumnosside.tipo.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 4));
+
         
         conexion objConexion = new conexion();
         try {
                 String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
                 ResultSet resulta = objConexion.consultaRegistros(sql);
-                if("9vno".equals(resulta.getString("Nivel"))){
-                    Alumnosside.nivel.setSelectedIndex(1);
-                }else{
-                    Alumnosside.nivel.setSelectedIndex(2);
-                }
+                Alumnosside.ComboModo.setSelectedItem(resulta.getString("Modo"));
                 
-                if("Arquitectura".equals(resulta.getString("Escuela"))){
-                    Alumnosside.escuelaEst.setSelectedIndex(1);
-                }else if("Civil".equals(resulta.getString("Escuela"))){
-                    Alumnosside.escuelaEst.setSelectedIndex(2);
-                }else if("Computación".equals(resulta.getString("Escuela"))){
-                    Alumnosside.escuelaEst.setSelectedIndex(3);
-                }else if("Electrónica".equals(resulta.getString("Escuela"))){
-                    Alumnosside.escuelaEst.setSelectedIndex(4);
-                }else if("Industrial".equals(resulta.getString("Escuela"))){
-                    Alumnosside.escuelaEst.setSelectedIndex(5);
-                }else if("Mecánica".equals(resulta.getString("Escuela"))){
-                    Alumnosside.escuelaEst.setSelectedIndex(6);
-                }else if("Telecomunicaciones".equals(resulta.getString("Escuela"))){
-                    Alumnosside.escuelaEst.setSelectedIndex(7);
-                }
-                
-                if("Trabajo de grado".equals(resulta.getString("Tipo"))){
-                    Alumnosside.tipo.setSelectedIndex(1);
-                }else if("Pasantia".equals(resulta.getString("Tipo"))){
-                    Alumnosside.tipo.setSelectedIndex(2);
-                }else if("Diseño".equals(resulta.getString("Tipo"))){
-                    Alumnosside.tipo.setSelectedIndex(3);
-                }else if("Sin asignar".equals(resulta.getString("Tipo"))){
-                    Alumnosside.tipo.setSelectedIndex(4);
-                }
-                
-                if("Individual".equals(resulta.getString("Tipo"))){
-                    Alumnosside.ComboModo.setSelectedIndex(0);
-                }else if("Pareja".equals(resulta.getString("Tipo"))){
-                    Alumnosside.ComboModo.setSelectedIndex(1);
-                }
-             
             } catch (Exception ex) {
                 System.out.println("Error de la base de datos");
+                objConexion.cerrarConexion();
+
             }
+objConexion.cerrarConexion();
+if(Alumnosside.tipo.getSelectedIndex()==1){ //si se selecciona el trabajo de grado
+
+                if(Alumnosside.ComboModo.getSelectedIndex()==0){//si se trabaja individual
 
 
+                    Tg tg = new Tg();
+                    tg.setBounds(1,1, Alumnosside.baseSide.getWidth(), 400);
+                    Alumnosside.baseSide.add(tg);
+
+                    base.setMinimumSize(new Dimension(1000,600));
+                    base.setLocationRelativeTo(null);
+                    base.repaint();
+                    base.revalidate();
+
+                }else if(Alumnosside.ComboModo.getSelectedIndex()==1){//si se trabaja en pareja
+
+
+                    Tg tg = new Tg();
+                    tg.setBounds(1,1, Alumnosside.baseSide.getWidth(), 600);
+                     Alumnosside.baseSide.add(tg);
+
+                    base.setMinimumSize(new Dimension(1000,600));
+                    base.setLocationRelativeTo(null);
+                    base.repaint();
+                    base.revalidate();
+
+                }
+        }else if(Alumnosside.tipo.getSelectedIndex()==2){//si se selecciona las pasantias
+
+            Pasantiab ps = new Pasantiab();
+            ps.setBounds(1,1, Alumnosside.baseSide.getWidth(), 600);
+            Alumnosside.baseSide.add(ps);
+
+            base.setMinimumSize(new Dimension(1000,600));
+            base.setLocationRelativeTo(null);
+            base.repaint();
+            base.revalidate();
+        }else if(Alumnosside.tipo.getSelectedIndex()==3){//si se selecciona diseño
+
+        }
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
@@ -351,49 +361,55 @@ public class Alumnos extends javax.swing.JPanel {
         jTable1.setModel(model);
         conexion objConexion = new conexion();
         int selectedRow = jTable1.getSelectedRow();
+        String TIPO = (String) jTable1.getValueAt(selectedRow, 4);
+        String ESCUELA = (String) jTable1.getValueAt(selectedRow, 5);
 
         if (selectedRow != -1) { // Verifica si se ha seleccionado una fila
             String cedula = (String) jTable1.getValueAt(selectedRow, 0);
             try {
                 String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
                 objConexion.ejecutarSentenciaSQl(sql);
-                System.out.println(cedula);               // Elimina la fila de la tabla
-                model.removeRow(selectedRow);
+                String deleteSql = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedula);
+                 objConexion.ejecutarSentenciaSQl(deleteSql);
+                  String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s'", cedula);
+                 objConexion.ejecutarSentenciaSQl(deleteSql1);
+//                  String deleteSql2 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
+//                 objConexion.ejecutarSentenciaSQl(deleteSql2);
+                 cargar();
+                 objConexion.cerrarConexion();
             } catch (Exception ex) {
                 System.out.println("Error al eliminar los datos de la base de datos");
             }
         } else {
             jTable1.setValueAt(false, selectedRow, 0);
         }
-
-        Base obj = new Base();
-        
-        // TODO add your handling code here:
-        String cedulaEstudiante = (String) jTable1.getValueAt(selectedRow, 0);
-        
-        conexion habana = new conexion();
-        
-        String deleteSql = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedulaEstudiante);
-
         try {
-            habana.ejecutarSentenciaSQl(deleteSql);
-            JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            objConexion = new conexion();
 
-            // Luego de la eliminación exitosa, actualiza la tabla Estudiantes para vaciar la columna id_pasantia
-            String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_pasantia = NULL WHERE Cedula = '%s'", cedulaEstudiante);
+            // Paso 1: Obtener resultados
+            ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '"+TIPO+"' AND Escuela = '"+ESCUELA+"'");
 
-            habana.ejecutarSentenciaSQl(updateEstudiantesSql);
 
-            JOptionPane.showMessageDialog(null, "La columna id_pasantia en la tabla Estudiantes ha sido vaciada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                    habana.cerrarConexion();
+            // Paso 2 y 3: Iterar sobre los resultados y actualizar numest
+            int nuevoNumEst = 1;
+            while (resultados.next()) {
+                String tipo = resultados.getString("Tipo");
+                String cedul = resultados.getString("Cedula");
+                String escuela = resultados.getString("Escuela");
+                System.out.println("numero"+nuevoNumEst);         
 
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    habana.cerrarConexion();
+                // Actualizar numest para todas las filas que coinciden con tipo y escuela
+                actualizarNumEst(objConexion, tipo, escuela, nuevoNumEst,cedul);
+                nuevoNumEst=nuevoNumEst+1;
+            }
 
+            // Cerrar la conexión
+            objConexion.cerrarConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    
 
-        obj.cargar();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -618,6 +634,12 @@ if ("Trabajo de grado".equals(tipoColumnValue) || "Diseño".equals(tipoColumnVal
 
         }
 
+    }
+    
+    private static void actualizarNumEst(conexion objConexion, String tipo, String escuela, int nuevoNumEst, String cedulac) throws SQLException {
+        // Sentencia SQL para actualizar numest
+        String updateSql = String.format("UPDATE estudiantes SET num_est = %d WHERE Tipo = '%s' AND Escuela = '%s' AND Cedula = '%s'", nuevoNumEst, tipo, escuela, cedulac);
+        objConexion.ejecutarSentenciaSQl(updateSql);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

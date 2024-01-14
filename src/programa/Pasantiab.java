@@ -218,9 +218,9 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
                     // código que se ejecuta si no se cumple ninguna de las opciones anteriores
                 }
 
-                String cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + "TP";
+                String cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + "PS";
 
-                String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Pasantía' WHERE Cedula = '%s'", cod, Alumnosside.cedulaEst.getText());
+                String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Pasantia' WHERE Cedula = '%s'", cod, Alumnosside.cedulaEst.getText());
 
                 habana.ejecutarSentenciaSQl(sql3);
                                 }
