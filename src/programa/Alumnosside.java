@@ -253,7 +253,15 @@ public class Alumnosside extends javax.swing.JPanel {
             bas.repaint();
             bas.revalidate();
         }else if(tipo.getSelectedIndex()==3){
-        
+         baseSide.removeAll();
+            Diseno ps = new Diseno();
+            ps.setBounds(0,0, baseSide.getWidth(), 600);
+            baseSide.add(ps);
+            Base bas = (Base)this.getRootPane().getParent();
+            bas.setMinimumSize(new Dimension(1000,600));
+            bas.setLocationRelativeTo(null);
+            bas.repaint();
+            bas.revalidate();
         }
         
         
