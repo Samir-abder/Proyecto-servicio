@@ -277,7 +277,7 @@ if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
             bas.setMinimumSize(new Dimension(1000, 600));
             bas.setLocationRelativeTo(null);
             bas.repaint();
-            bas.revalidate();
+            bas.revalidate(); 
             
         } else if (tipo.getSelectedIndex() == 3) {
             baseSide.removeAll();
