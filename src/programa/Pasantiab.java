@@ -35,7 +35,10 @@ public class Pasantiab extends javax.swing.JPanel {
         anteSave1 = new javax.swing.JButton();
         anteEdit1 = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
-        tutorCombo = new javax.swing.JComboBox<>();
+        tutorAcad = new javax.swing.JTextField();
+        cedulaTutor = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         jLabel16.setText("Pasantias");
 
@@ -63,58 +66,83 @@ public class Pasantiab extends javax.swing.JPanel {
 
         jLabel26.setText("Tutor Académico");
 
-        tutorCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tutorAcad.setEnabled(false);
+
+        jLabel1.setText("Cedula del tutor");
+
+        jButton1.setText("buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(183, 183, 183)
-                .addComponent(jLabel16)
-                .addGap(149, 149, 149))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel26)
-                        .addGap(9, 9, 9)
-                        .addComponent(tutorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(razontext, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(razontext, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(77, 77, 77)
+                                        .addComponent(anteEdit1)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(anteSave1))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel26)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(tutorAcad, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cedulaTutor, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addGap(77, 77, 77))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(anteEdit1)
-                        .addGap(60, 60, 60)
-                        .addComponent(anteSave1)))
-                .addGap(43, 43, 43))
+                        .addGap(223, 223, 223)
+                        .addComponent(jLabel16)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(razontext, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cedulaTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(tutorCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(tutorAcad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(anteEdit1)
                     .addComponent(anteSave1))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(60, 60, 60))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void anteSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteSave1ActionPerformed
 String cedula1 = Alumnosside.cedulaEst.getText();
 String razonSocial = razontext.getText();
-String tutorAcademico = tutorCombo.getSelectedItem().toString();
+String tutorAcademico = tutorAcad.getText();
 String cedulaEstudiante = Alumnosside.cedulaEst.getText();
+String cedulatutor = cedulaTutor.getText();
 String periodo = "Periodo"; // No está claro de dónde obtienes este valor
 
 // Verifica que los campos no estén vacíos
@@ -135,16 +163,19 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
         ResultSet rs = habana.consultaRegistros(find);
 
         try {
-            if (rs.next()) {
-                int cantidad = rs.getInt(1);
-                if (cantidad > 0) {
+            if (rs.next()) {//Verifica si en la tabla de estudiantes con la cedula 
+                
+                int cantidad = rs.getInt(1); //si hay un estudiante con esa cedula cantidad se va a volver 1
+                
+                if (cantidad > 0) {//si cantidad es mayor a 0 es que tenemos un estudiante con esa cedula y procedemos a agregar la pasantia
 
                     try {
+                        //aqui verificamos que ya el estudiante no tenga una pasantia asignada
                         String consultaPasantia = "SELECT id_pasantia FROM estudiantes WHERE Cedula = '" + cedula1 + "'";
                         ResultSet rsPasantia = habana.consultaRegistros(consultaPasantia);
                         int idPasantia = rsPasantia.getInt("id_pasantia");
 
-                        if (idPasantia != 0) {
+                        if (idPasantia != 0) {//si tiene una pasantia asignada se manda mensaje de error
 
                             // Aquí tienes el valor de id_pasantia para el estudiante con la cédula especificada
                             JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene una pasantia asignada.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -160,9 +191,9 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
                                     JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene un trabajo de grado asignado.", "Error", JOptionPane.ERROR_MESSAGE);
                                 } else {
                                     // El estudiante no tiene una pasantía asignada
-                                    String addSql = String.format("INSERT INTO Pasantia (razon_social, tutor_academico, cedula_estudiante, periodo) VALUES"
-                                        + "('%s', '%s', '%s', '%s')",
-                                        razontext.getText(), tutorCombo.getSelectedItem(), Alumnosside.cedulaEst.getText(), "Periodo");
+                                    String addSql = String.format("INSERT INTO Pasantia (razon_social, tutor_academico, cedula_estudiante, periodo, cedula_tutor) VALUES"
+                                        + "('%s', '%s', '%s', '%s', '%s')",
+                                        razontext.getText(), tutorAcad.getText(), Alumnosside.cedulaEst.getText(),cedulatutor, "Periodo");
 
                                     habana.ejecutarSentenciaSQl(addSql);
                                     
@@ -255,14 +286,15 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
     private void anteEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteEdit1ActionPerformed
        conexion habana = new conexion();
 String razonSocial = razontext.getText();
-String tutorAcademico = tutorCombo.getSelectedItem().toString();
+String tutorAcademico = tutorAcad.getText();
+String tutorci = cedulaTutor.getText();
 String cedulaEstudiante = Alumnosside.cedulaEst.getText();
 String periodo = "Periodo"; // No está claro de dónde obtienes este valor
 
 // Verifica que los campos no estén vacíos
 if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isEmpty()) {
-    String updateSql = String.format("UPDATE Pasantia SET razon_social = '%s', tutor_academico = '%s', periodo = '%s' WHERE cedula_estudiante = '%s'",
-            razonSocial, tutorAcademico, periodo, cedulaEstudiante);
+    String updateSql = String.format("UPDATE Pasantia SET razon_social = '%s', tutor_academico = '%s', periodo = '%s', cedula_tutor = '%s' WHERE cedula_estudiante = '%s'",
+            razonSocial, tutorAcademico, periodo, cedulaEstudiante,tutorci);
 
     try {
         habana.ejecutarSentenciaSQl(updateSql);
@@ -285,14 +317,47 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
         // TODO add your handling code here:
     }//GEN-LAST:event_razontextActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        conexion busquedaProf = new conexion();
+        String consultaPasantia = String.format("SELECT COUNT(*) FROM Docentes WHERE Cedula = '" + cedulaTutor.getText() + "'");
+        ResultSet prof = busquedaProf.consultaRegistros(consultaPasantia);
+          try {
+            if (prof.next()) {
+                int cantidad = prof.getInt(1);
+                if(cantidad > 0){
+                    String Pasantia = "SELECT * FROM Docentes WHERE Cedula = '" + cedulaTutor.getText() + "'";
+                    ResultSet AgregarProf = busquedaProf.consultaRegistros(Pasantia);
+                    String titulo = AgregarProf.getString("Profesion");
+                    String nom = AgregarProf.getString("Nombre");
+                    String ape = AgregarProf.getString("Apellido");
+                    String tutor = titulo + " " + nom + " " + ape;
+                    tutorAcad.setText(tutor);
+                }else {
+                    JOptionPane.showMessageDialog(null, "El profesor " + cedulaTutor.getText() + " no existe.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+          } catch (SQLException e) {
+            // Manejar excepciones de SQL
+            e.printStackTrace();
+        }finally{
+          busquedaProf.cerrarConexion();
+          }
+       
+        
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton anteEdit1;
     private javax.swing.JButton anteSave1;
+    private javax.swing.JTextField cedulaTutor;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JTextField razontext;
-    private javax.swing.JComboBox<String> tutorCombo;
+    private javax.swing.JTextField tutorAcad;
     // End of variables declaration//GEN-END:variables
 }

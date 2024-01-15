@@ -268,6 +268,7 @@ if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
 
             }
         } else if (tipo.getSelectedIndex() == 2) {//si se selecciona las pasantias
+            
             baseSide.removeAll();
             Pasantiab ps = new Pasantiab();
             ps.setBounds(0, 0, baseSide.getWidth(), 600);
@@ -277,6 +278,7 @@ if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
             bas.setLocationRelativeTo(null);
             bas.repaint();
             bas.revalidate();
+            
         } else if (tipo.getSelectedIndex() == 3) {
             baseSide.removeAll();
             Diseno ps = new Diseno();

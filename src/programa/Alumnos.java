@@ -295,7 +295,7 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.tipo.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 4));
 
         Alumnosside.escuelaEC= (String)jTable1.getValueAt(filaSeleccionada, 5);
-Alumnosside.tipoEC= (String)jTable1.getValueAt(filaSeleccionada, 4);
+        Alumnosside.tipoEC= (String)jTable1.getValueAt(filaSeleccionada, 4);
         conexion objConexion = new conexion();
         try {
             String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
@@ -336,7 +336,7 @@ Alumnosside.tipoEC= (String)jTable1.getValueAt(filaSeleccionada, 4);
         } else if (Alumnosside.tipo.getSelectedIndex() == 2) {//si se selecciona las pasantias
 
             Pasantiab ps = new Pasantiab();
-            ps.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 600);
+            ps.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
             Alumnosside.baseSide.add(ps);
 
             base.setMinimumSize(new Dimension(1000, 600));
