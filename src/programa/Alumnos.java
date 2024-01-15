@@ -225,10 +225,7 @@ public class Alumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImprimirActionPerformed
-        String Cedula = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 1);
-        String Nombre = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 2);
-        String Apellido = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 3);
-        String Facultad = (String) jTable1.getValueAt(jTable1.getSelectedColumn(), 4);
+
         jas ventana = new jas();
         ventana.setVisible(true);
 

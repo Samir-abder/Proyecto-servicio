@@ -28,9 +28,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="80" splitType="Stretch">
+		<band height="89" splitType="Stretch">
 			<staticText>
-				<reportElement x="130" y="0" width="370" height="60" uuid="3c1c8400-2c2d-4f04-a086-9ad4d9077172"/>
+				<reportElement x="129" y="0" width="291" height="60" uuid="3c1c8400-2c2d-4f04-a086-9ad4d9077172"/>
 				<textElement textAlignment="Left">
 					<font size="14"/>
 				</textElement>
@@ -39,32 +39,36 @@ UNIVERSIDAD JOSÉ ANTONIO PÁEZ
 FACULTAD DE INGENIERIA
 ]]></text>
 			</staticText>
+			<image isUsingCache="false">
+				<reportElement x="17" y="0" width="60" height="60" uuid="7d2cd694-cea7-42b2-ad04-98b8a860d90e"/>
+				<imageExpression><![CDATA["logo_g.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="90" splitType="Stretch">
 			<textField>
-				<reportElement x="50" y="0" width="121" height="21" uuid="2c9889f0-f161-44c9-b9b0-dbc655b7daef"/>
+				<reportElement x="17" y="0" width="121" height="21" uuid="2c9889f0-f161-44c9-b9b0-dbc655b7daef"/>
 				<textFieldExpression><![CDATA[$P{Codigo}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="50" y="19" width="100" height="30" uuid="d6d4351d-6e6b-48a6-b87e-b04c9d24aa45"/>
+				<reportElement x="17" y="21" width="100" height="19" uuid="d6d4351d-6e6b-48a6-b87e-b04c9d24aa45"/>
 				<text><![CDATA[Ciudadano]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="50" y="30" width="221" height="21" uuid="ea0c538a-c92a-4594-92b7-78f61dcb8838"/>
+				<reportElement x="17" y="30" width="221" height="21" uuid="ea0c538a-c92a-4594-92b7-78f61dcb8838"/>
 				<textFieldExpression><![CDATA[$P{Nombre}+" "+$P{Apellido}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="50" y="40" width="100" height="20" uuid="a5196916-8ed8-431e-93f4-d24f4a889e92"/>
+				<reportElement x="17" y="40" width="100" height="19" uuid="a5196916-8ed8-431e-93f4-d24f4a889e92"/>
 				<textFieldExpression><![CDATA[$P{Cedula}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="50" y="70" width="100" height="20" uuid="e12595c2-96a7-4bf5-bef6-526a11a9db09"/>
+				<reportElement x="20" y="59" width="100" height="20" uuid="e12595c2-96a7-4bf5-bef6-526a11a9db09"/>
 				<text><![CDATA[Presente]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="390" y="10" width="121" height="21" uuid="3711612f-2b52-428f-9c33-8876e58c5b6e"/>
+				<reportElement x="374" y="0" width="175" height="21" uuid="3711612f-2b52-428f-9c33-8876e58c5b6e"/>
 				<textFieldExpression><![CDATA["Valencia "+$P{fechalarga}]]></textFieldExpression>
 			</textField>
 		</band>

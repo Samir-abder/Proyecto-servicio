@@ -1,5 +1,6 @@
 package programa;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.sql.ResultSet;
@@ -33,21 +34,12 @@ public class jas extends JFrame {
             setSize(900, 768);
             setLocationRelativeTo(null);
             setVisible(true);
-        
-        
-        
-        
-        
-        
-       // setSize(900, 768);
-       // setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //setTitle("Carta de aprobacion de trabajo de grado");
-       // FacturaVistaPrevia(3); // Cambiar a la cantidad de páginas deseadas
+
     }
 
     public void FacturaVistaPrevia(int cantidadPaginas) {
         panel = new JPanel();
-        panel.setLayout(null);
+        panel.setLayout(new BorderLayout());
         panel.setSize(new Dimension(700,769));
         
         this.getContentPane().add(panel);
@@ -86,9 +78,9 @@ public class jas extends JFrame {
             }
 
             // Crear un JRViewer para el JasperPrint combinado
-            jrViewer = new JRViewer(jasperPrintCombined);
-            jrViewer.setBounds(20, 20, 850, 700);
-            panel.add(jrViewer);
+                jrViewer = new JRViewer(jasperPrintCombined);
+                panel.add(jrViewer, BorderLayout.CENTER);
+                
         } catch (JRException e) {
             e.printStackTrace();
         }
@@ -106,9 +98,9 @@ public class jas extends JFrame {
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
             while (resultado.next()) {
                 datosInforme.put("Nombre", resultado.getString("Nombre"));
-                datosInforme.put("Cedula", resultado.getString("Nombre"));
-                datosInforme.put("Apellido", resultado.getString("Nombre"));
-                datosInforme.put("Codigo", resultado.getString("Nombre"));
+                datosInforme.put("Cedula", resultado.getString("Cedula"));
+                datosInforme.put("Apellido", resultado.getString("Apellido"));
+                datosInforme.put("Codigo", resultado.getString("Codigo"));
                 datosInforme.put("NombreProyecto", "las nalgas de juanga");
                 datosInforme.put("fechalarga", "Viernes 11 de Marzo del 2024");
                 datosInforme.put("fechacorta", "11/03/2024");
@@ -116,9 +108,7 @@ public class jas extends JFrame {
                 datosInforme.put("Tutor", "miguel");
                 datosInforme.put("Cedulatutor", "12394");
                 //Falta poner los datos de todo lo q pida la carta igual q arriba
-                
-                
-                
+
             }
             objConexion.cerrarConexion();
         } catch (Exception e) {
