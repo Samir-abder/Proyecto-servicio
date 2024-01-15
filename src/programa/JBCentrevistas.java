@@ -27,7 +27,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class JasperByCollectionBeanData {
+public class JBCentrevistas {
     
     public static String escuela;
     public static String tipo;
@@ -40,7 +40,7 @@ public class JasperByCollectionBeanData {
         /* List to hold Items */
         List<Employee> listItems = new ArrayList<Employee>();
         conexion objConexion = new conexion();
-        String ni = "10mo";
+        String ni = "9vno";
         // Paso 1: Obtener resultados
 
 ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '" + tipo + "' AND Nivel = '" + ni + "' AND Escuela = '" + escuela + "'");
@@ -113,7 +113,7 @@ ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes 
         
 
         //read jrxml file and creating jasperdesign object
-        InputStream input = new FileInputStream(new File("agenda-presentaciones.jrxml"));
+        InputStream input = new FileInputStream(new File("agenda-entrevistas.jrxml"));
 
         JasperDesign jasperDesign = JRXmlLoader.load(input);
 

@@ -27,7 +27,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class JasperByCollectionBeanData {
+public class JBCdiseno {
     
     public static String escuela;
     public static String tipo;
@@ -106,14 +106,14 @@ ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes 
         /* Map to hold Jasper report Parameters */
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("Parameter", itemsJRBean);
-                parameters.put("Escuela", escuela);
-                parameters.put("tipo", tipo);
+//                parameters.put("Escuela", escuela);
+//                parameters.put("tipo", tipo);
                 parameters.put("periodo", peri);
 
         
 
         //read jrxml file and creating jasperdesign object
-        InputStream input = new FileInputStream(new File("agenda-presentaciones.jrxml"));
+        InputStream input = new FileInputStream(new File("agenda-disenox.jrxml"));
 
         JasperDesign jasperDesign = JRXmlLoader.load(input);
 
