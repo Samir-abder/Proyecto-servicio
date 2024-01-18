@@ -244,22 +244,23 @@ public class Alumnosside extends javax.swing.JPanel {
                 codigoAlumno(nombreEst.getText(), apellidoEst.getText(), cedulaEst.getText(), escuelaEst.getSelectedItem().toString(),
                         hoy, nivel.getSelectedItem().toString(), tipo.getSelectedItem().toString(), ComboModo.getSelectedItem().toString());
 
-                nombreEst.setEnabled(false);
-                apellidoEst.setEnabled(false);
-                cedulaEst.setEnabled(false);
-                escuelaEst.setEnabled(false);
-                nivel.setEnabled(false);
-                tipo.setEnabled(false);
-                ComboModo.setEnabled(false);
-                agregarEstudiante.setEnabled(false);
+//                nombreEst.setEnabled(false);
+//                apellidoEst.setEnabled(false);
+//                cedulaEst.setEnabled(false);
+//                escuelaEst.setEnabled(false);
+//                nivel.setEnabled(false);
+//                tipo.setEnabled(false);
+//                ComboModo.setEnabled(false);
+//                agregarEstudiante.setEnabled(false);
                 objConexion.cerrarConexion();
-if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
+                
+            if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
 
             if (ComboModo.getSelectedIndex() == 0) {//si se trabaja individual
 
                 baseSide.removeAll();
                 Tg tg = new Tg();
-                tg.setBounds(0, 0, baseSide.getWidth(), 600);
+                tg.setBounds(0, 0, baseSide.getWidth(), 400);
                 baseSide.add(tg);
                 Base bas = (Base) this.getRootPane().getParent();
                 bas.setMinimumSize(new Dimension(1000, 600));
@@ -271,7 +272,7 @@ if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
 
                 baseSide.removeAll();
                 Tg tg = new Tg();
-                tg.setBounds(0, 0, baseSide.getWidth(), 600);
+                tg.setBounds(0, 0, baseSide.getWidth(), 400);
                 baseSide.add(tg);
                 Base bas = (Base) this.getRootPane().getParent();
                 bas.setMinimumSize(new Dimension(1000, 600));
@@ -284,7 +285,7 @@ if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
             
             baseSide.removeAll();
             Pasantiab ps = new Pasantiab();
-            ps.setBounds(0, 0, baseSide.getWidth(), 600);
+            ps.setBounds(0, 0, baseSide.getWidth(), 400);
             baseSide.add(ps);
             Base bas = (Base) this.getRootPane().getParent();
             bas.setMinimumSize(new Dimension(1000, 600));
@@ -436,7 +437,8 @@ if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
             boolean existeEstudiante = estudianteExiste(cedula);
             if (existeEstudiante) {
                 JOptionPane.showMessageDialog(null, "El estudiante con la cedula " + cedula + " ya existe en la base de datos");
-            } else {
+            } 
+            else {
                 String addSql = String.format("INSERT INTO estudiantes (Nombre, Apellido, Cedula, Facultad, Escuela, fecha_registro, periodo, num_est, Nivel, Tipo, Modo) VALUES"
                         + "('" + nombre
                         + "','" + apellido + "','" + cedula + "','" + "Ingeniería"
@@ -493,10 +495,14 @@ if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
                     cod);
             objConexion.ejecutarSentenciaSQl(sql3);
             objConexion.cerrarConexion();
-        } catch (SQLException ex) {
+            
+            
+        } 
+            catch (SQLException ex) {
             System.out.println("errororor");
             Logger.getLogger(Alumnosside.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
 
     public boolean estudianteExiste(String cedula) {

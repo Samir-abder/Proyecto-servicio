@@ -45,6 +45,11 @@ public class Entrevistas extends javax.swing.JPanel {
 
         imprimir_entrevista.setText("Imprimir");
         imprimir_entrevista.setEnabled(false);
+        imprimir_entrevista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imprimir_entrevistaActionPerformed(evt);
+            }
+        });
 
         boton_edit.setText("Editar");
         boton_edit.setEnabled(false);
@@ -170,6 +175,10 @@ public class Entrevistas extends javax.swing.JPanel {
                 filaAnterior = filaSeleccionada;
                 filaActual=agendaEntrevista.getSelectedRow();
     }//GEN-LAST:event_agendaEntrevistaMouseClicked
+
+    private void imprimir_entrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimir_entrevistaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_imprimir_entrevistaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

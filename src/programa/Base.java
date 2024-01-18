@@ -261,7 +261,19 @@ public class Base extends javax.swing.JFrame {
     }//GEN-LAST:event_listaAlumnosActionPerformed
 
     private void semestreActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semestreActualActionPerformed
+<<<<<<< HEAD
 
+=======
+        try {
+            connect = DriverManager.getConnection(url);
+            if(connect!=null){
+                //JOptionPane.showMessageDialog(null, "Conectado");
+                System.out.println("Conectado");
+            }  
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error" + e);
+        }
+>>>>>>> 2c44155f5e3f701045c9025523dfec83e57ed043
         while (Alumnos.modeloa.getRowCount() > 0) {
             Alumnos.modeloa.removeRow(0);
         }
@@ -279,7 +291,7 @@ public class Base extends javax.swing.JFrame {
                     Boolean.parseBoolean(resultado.getString("Estado"))};
 
                 Alumnos.modeloa.addRow(UsuarioD);
-//                objConexion.cerrarConexion();
+//              objConexion.cerrarConexion();
             }
         } catch (SQLException e) {
             System.out.println("este es " + e);
@@ -291,10 +303,7 @@ public class Base extends javax.swing.JFrame {
         Agenda agnd = new Agenda();
         Fondo.add(agnd);
         Fondo.revalidate();
-        Fondo.repaint();
-        
-        
-        
+        Fondo.repaint();        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
@@ -426,6 +435,7 @@ public class Base extends javax.swing.JFrame {
         }
 
     }
+    
     public void cerrarVentana() {
         // Obtiene el comando de inicio del programa actual
         String javaCmd = System.getProperty("java.home") + "/bin/java";
@@ -444,6 +454,7 @@ public class Base extends javax.swing.JFrame {
         System.exit(0);
 
     }
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

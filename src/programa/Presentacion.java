@@ -46,6 +46,11 @@ public class Presentacion extends javax.swing.JPanel {
 
         ImprimirPresentacion.setText("Imprimir");
         ImprimirPresentacion.setEnabled(false);
+        ImprimirPresentacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImprimirPresentacionActionPerformed(evt);
+            }
+        });
 
         boton_edit.setText("Editar");
         boton_edit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -163,6 +168,10 @@ public class Presentacion extends javax.swing.JPanel {
                 filaAnterior = filaSeleccionada;
                 filaActual=tablaPresentacion.getSelectedRow();
     }//GEN-LAST:event_tablaPresentacionMouseClicked
+
+    private void ImprimirPresentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirPresentacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ImprimirPresentacionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

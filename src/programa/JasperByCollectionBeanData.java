@@ -27,7 +27,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class JasperByCollectionBeanData {
+public class JasperByCollectionBeanData { //Cartas de Presentaciones ~ TG y P
     
     public static String escuela;
     public static String tipo;

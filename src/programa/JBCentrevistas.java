@@ -27,7 +27,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
-public class JBCentrevistas {
+public class JBCentrevistas { //Cartas de Entrevistas ~ 
     
     public static String escuela;
     public static String tipo;
