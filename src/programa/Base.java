@@ -285,15 +285,7 @@ public class Base extends javax.swing.JFrame {
 
     private void semestreActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semestreActualActionPerformed
 
-        try {
-            connect = DriverManager.getConnection(url);
-            if(connect!=null){
-                //JOptionPane.showMessageDialog(null, "Conectado");
-                System.out.println("Conectado");
-            }  
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error" + e);
-        }
+
         while (Alumnos.modeloa.getRowCount() > 0) {
             Alumnos.modeloa.removeRow(0);
         }

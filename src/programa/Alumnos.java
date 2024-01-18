@@ -1,5 +1,6 @@
 package programa;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -11,6 +12,14 @@ import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import static programa.Alumnosside.ComboModo;
+import static programa.Alumnosside.agregarEstudiante;
+import static programa.Alumnosside.apellidoEst;
+import static programa.Alumnosside.cedulaEst;
+import static programa.Alumnosside.escuelaEst;
+import static programa.Alumnosside.nivel;
+import static programa.Alumnosside.nombreEst;
+import static programa.Alumnosside.tipo;
 
 /**
  *
@@ -201,7 +210,7 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.editB.setEnabled(false);
 
         Alumnosside.agregarEstudiante.setEnabled(true);
-        //baseAlumnos.removeAll();
+        paneltablaAlumnos.removeAll();
 
         JPanel aux = new JPanel(new GridBagLayout());
 
@@ -211,7 +220,7 @@ public class Alumnos extends javax.swing.JPanel {
         gbc1.gridy = 0;
         gbc1.weightx = 2;
         gbc1.fill = GridBagConstraints.BOTH;
-        aux.add(paneltablaAlumnos, gbc1);
+        aux.add(jScrollPane1, gbc1);
 
         gbc1.gridx = 1;
         gbc1.gridy = 0;
@@ -220,7 +229,7 @@ public class Alumnos extends javax.swing.JPanel {
 
         aux.add(alsi, gbc1);
 
-        baseAlumnos.add(aux);
+        paneltablaAlumnos.add(aux);
 
         Base base = (Base) this.getRootPane().getParent();
         base.setMinimumSize(new Dimension(1000, 600));
@@ -258,6 +267,7 @@ public class Alumnos extends javax.swing.JPanel {
         // Actualizar la fila anterior
         filaAnterior = filaSeleccionada;
         filaActual = jTable1.getSelectedRow();
+        
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
@@ -265,6 +275,7 @@ public class Alumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_jTable1KeyPressed
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
+
         // aqui se coloca el panel Alumnosside 
         botonEditar.setEnabled(false);
         botonAgregar.setEnabled(false);
@@ -313,8 +324,8 @@ public class Alumnos extends javax.swing.JPanel {
 
         } catch (Exception ex) {
             System.out.println("Error de la base de datos");
+        }finally{
             objConexion.cerrarConexion();
-
         }
         objConexion.cerrarConexion();
         if (Alumnosside.tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
@@ -324,9 +335,12 @@ public class Alumnos extends javax.swing.JPanel {
                 Tg tg = new Tg();
                 tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
                 Alumnosside.baseSide.add(tg);
-
                 base.setMinimumSize(new Dimension(1000, 600));
                 base.setLocationRelativeTo(null);
+                //se tiene que completar el nombre del trabajo de grado si lo tiene
+                
+                
+                
                 base.repaint();
                 base.revalidate();
 
@@ -335,7 +349,6 @@ public class Alumnos extends javax.swing.JPanel {
                 Tg tg = new Tg();
                 tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 600);
                 Alumnosside.baseSide.add(tg);
-
                 base.setMinimumSize(new Dimension(1000, 600));
                 base.setLocationRelativeTo(null);
                 base.repaint();
@@ -347,9 +360,22 @@ public class Alumnos extends javax.swing.JPanel {
             Pasantiab ps = new Pasantiab();
             ps.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
             Alumnosside.baseSide.add(ps);
-
             base.setMinimumSize(new Dimension(1000, 600));
             base.setLocationRelativeTo(null);
+            //se cargan los profes...
+            Alumnos.mostrarProfesSide();
+            try {
+                conexion objConex= new conexion();
+                String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                ResultSet resulta = objConex.consultaRegistros(sql);
+                Pasantiab.razontext.setText(resulta.getString("razon_social"));
+                Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+            } catch (Exception ex) {
+                System.out.println("Error de la base de datos");
+            }finally{
+                objConexion.cerrarConexion();
+            }
+            
             base.repaint();
             base.revalidate();
         } else if (Alumnosside.tipo.getSelectedIndex() == 3) {//si se selecciona diseño
@@ -358,7 +384,7 @@ public class Alumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        // TODO add your handling code here:
+        
         DefaultTableModel model;
         model = (DefaultTableModel) this.jTable1.getModel();
         jTable1.setModel(model);
@@ -419,6 +445,44 @@ public class Alumnos extends javax.swing.JPanel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+                
+        int tip = Alumnos.tipoDeProyecto.getSelectedIndex();
+        int esc = Alumnos.escf.getSelectedIndex();
+        int semes = Alumnos.semestre.getSelectedIndex();
+        int TGmod = Alumnos.semestre.getSelectedIndex();
+        
+        Alumnos.botonAgr.setEnabled(true);
+        nombreEst.setText("");
+        apellidoEst.setText("");
+        cedulaEst.setText("");
+        escuelaEst.setSelectedIndex(0);
+        nivel.setSelectedIndex(0);
+        tipo.setSelectedIndex(0);
+        ComboModo.setSelectedIndex(0);
+        agregarEstudiante.setEnabled(false);
+
+        Base base = (Base) this.getRootPane().getParent();
+        JPanel Fondo = (JPanel) base.getContentPane().getComponent(0);
+        Fondo.removeAll();
+
+        // Agregar el panel Alumnos
+        Alumnos alumnos = new Alumnos();
+        alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
+        alumnos.setLocation(0, 0);
+        Fondo.add(alumnos, BorderLayout.CENTER);
+        
+        //recargar la tabla
+            
+        Alumnos.tipoDeProyecto.setSelectedIndex(tip);
+        Alumnos.escf.setSelectedIndex(esc);
+        Alumnos.semestre.setSelectedIndex(semes);
+        Alumnos.semestre.setSelectedIndex(TGmod);
+        Alumnos.cargarFiltros();
+       
+        // Validar y repintar el panel Fondo
+        Fondo.revalidate();
+        Fondo.repaint();
+
 
 
     }//GEN-LAST:event_botonEliminarActionPerformed
@@ -705,6 +769,28 @@ public class Alumnos extends javax.swing.JPanel {
         // Ejecutar la actualización
         objConexion.ejecutarSentenciaSQl(updateSql);
     }
+public static void mostrarProfesSide(){
+        while (Pasantiab.tutores.getRowCount() > 0) {
+            Pasantiab.modtutores.removeRow(0);
+        }
+        try {
+            conexion objConex = new conexion();
+            ResultSet resultado = objConex.consultaRegistros("SELECT * FROM Docentes");
+            while (resultado.next()) {
+                String nombre= resultado.getString("Nombre")+" "+resultado.getString("Apellido");
+                Object[] oUsuarioD = { 
+                    resultado.getString("Cedula"),
+                    nombre
+                };
+
+                Pasantiab.modtutores.addRow(oUsuarioD);   
+            }
+            objConex.cerrarConexion(); 
+        } catch (SQLException e) {
+            System.out.println("este es " + e);
+        }
+
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
