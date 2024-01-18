@@ -261,9 +261,7 @@ public class Base extends javax.swing.JFrame {
     }//GEN-LAST:event_listaAlumnosActionPerformed
 
     private void semestreActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semestreActualActionPerformed
-<<<<<<< HEAD
 
-=======
         try {
             connect = DriverManager.getConnection(url);
             if(connect!=null){
@@ -273,7 +271,6 @@ public class Base extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Error" + e);
         }
->>>>>>> 2c44155f5e3f701045c9025523dfec83e57ed043
         while (Alumnos.modeloa.getRowCount() > 0) {
             Alumnos.modeloa.removeRow(0);
         }

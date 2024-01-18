@@ -51,6 +51,7 @@ public class Alumnos extends javax.swing.JPanel {
         Buscar = new javax.swing.JButton();
         TGmodo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         paneltablaAlumnos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -144,6 +145,14 @@ public class Alumnos extends javax.swing.JPanel {
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 40, -1, -1));
 
+        jButton2.setText("Imprimir Todos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
+
         baseAlumnos.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         paneltablaAlumnos.setBackground(new java.awt.Color(153, 153, 255));
@@ -225,10 +234,10 @@ public class Alumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImprimirActionPerformed
-
-        jas ventana = new jas();
-        ventana.setVisible(true);
-
+int filaSeleccionada = jTable1.getSelectedRow();
+        CartaIndividual.cedulaE = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
+CartaIndividual carta = new CartaIndividual();
+carta.setVisible(true);
     }//GEN-LAST:event_botonImprimirActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -470,6 +479,13 @@ public class Alumnos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         jas ventana = new jas();
+        ventana.setVisible(true);
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     public static void cargar() {
 
         while (modeloa.getRowCount() > 0) {
@@ -705,6 +721,7 @@ if ("Trabajo de grado".equals(tipo)) {
     private javax.swing.JButton botonImprimir;
     public static javax.swing.JComboBox<String> escf;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
