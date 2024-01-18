@@ -148,10 +148,10 @@ public class Alumnosside extends javax.swing.JPanel {
         );
         baseSideLayout.setVerticalGroup(
             baseSideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 460, Short.MAX_VALUE)
+            .addGap(0, 430, Short.MAX_VALUE)
         );
 
-        add(baseSide, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 570, 460));
+        add(baseSide, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 570, 430));
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -224,8 +224,6 @@ public class Alumnosside extends javax.swing.JPanel {
 
     private void agregarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarEstudianteActionPerformed
 
-        
-
         conexion objConexion = new conexion();
 
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -290,10 +288,13 @@ public class Alumnosside extends javax.swing.JPanel {
             Base bas = (Base) this.getRootPane().getParent();
             bas.setMinimumSize(new Dimension(1000, 600));
             bas.setLocationRelativeTo(null);
+            //se cargan los profesores
+            Alumnos.mostrarProfesSide();
+            
             bas.repaint();
             bas.revalidate(); 
             
-        } else if (tipo.getSelectedIndex() == 3) {
+        } else if (tipo.getSelectedIndex() == 3) {//si se selecciona diseño
             baseSide.removeAll();
             Diseno ps = new Diseno();
             ps.setBounds(0, 0, baseSide.getWidth(), 600);
