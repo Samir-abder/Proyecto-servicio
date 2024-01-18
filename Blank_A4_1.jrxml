@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f7d684dc-0885-4380-9549-d0ee0a52ffdf">
+	<parameter name="cedula" class="java.lang.String"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="100" y="0" width="370" height="79" uuid="ac6018ad-b5d7-45b0-8a62-af7ed9426868"/>
+				<textElement textAlignment="Justified">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
+UNIVERSIDAD JOSÉ ANTONIO PÁEZ
+FACULTAD DE INGENIERÍA
+]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="110" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="10" width="370" height="100" uuid="f2a9f8ce-0c44-4247-8208-90abbbaa86cf"/>
+				<textFieldExpression><![CDATA["el ciudadano de cedula " + $P{cedula} + "y nombre "+ $P{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
