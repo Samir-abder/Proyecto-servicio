@@ -30,7 +30,7 @@ public class jas extends JFrame {
     private JPanel panel;
 
     public jas() {
-           setDefaultCloseOperation(EXIT_ON_CLOSE);
+           setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             setTitle("Carta de aprobacion de trabajo de grado");
             FacturaVistaPrevia(3); // Cambiar a la cantidad de páginas deseadas
             pack();
