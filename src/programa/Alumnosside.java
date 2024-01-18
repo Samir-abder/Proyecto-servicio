@@ -18,6 +18,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 public class Alumnosside extends javax.swing.JPanel {
 
     public static String tipoEC;
@@ -154,9 +155,13 @@ public class Alumnosside extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-
+        
+        int tip = Alumnos.tipoDeProyecto.getSelectedIndex();
+        int esc = Alumnos.escf.getSelectedIndex();
+        int semes = Alumnos.semestre.getSelectedIndex();
+        int TGmod = Alumnos.semestre.getSelectedIndex();
+        
         Alumnos.botonAgr.setEnabled(true);
-
         nombreEst.setText("");
         apellidoEst.setText("");
         cedulaEst.setText("");
@@ -175,7 +180,15 @@ public class Alumnosside extends javax.swing.JPanel {
         alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
         alumnos.setLocation(0, 0);
         Fondo.add(alumnos, BorderLayout.CENTER);
-
+        
+        //recargar la tabla
+            
+        Alumnos.tipoDeProyecto.setSelectedIndex(tip);
+        Alumnos.escf.setSelectedIndex(esc);
+        Alumnos.semestre.setSelectedIndex(semes);
+        Alumnos.semestre.setSelectedIndex(TGmod);
+        Alumnos.cargarFiltros();
+       
         // Validar y repintar el panel Fondo
         Fondo.revalidate();
         Fondo.repaint();

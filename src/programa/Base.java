@@ -261,14 +261,7 @@ public class Base extends javax.swing.JFrame {
     }//GEN-LAST:event_listaAlumnosActionPerformed
 
     private void semestreActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semestreActualActionPerformed
-        try {
-            connect = DriverManager.getConnection(url);
-            if(connect!=null){
-                JOptionPane.showMessageDialog(null, "Conectado!!!!");
-            }  
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error" + e);
-        }
+
         while (Alumnos.modeloa.getRowCount() > 0) {
             Alumnos.modeloa.removeRow(0);
         }
@@ -276,9 +269,14 @@ public class Base extends javax.swing.JFrame {
             conexion objConexion = new conexion();
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
             while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),resultado.getString("Facultad")
-                    , resultado.getString("Escuela")};
+                Object[] UsuarioD = {
+                    resultado.getString("Cedula"),
+                    resultado.getString("Nombre"), 
+                    resultado.getString("Apellido"),
+                    resultado.getString("Nivel"),
+                    resultado.getString("Tipo"),
+                    resultado.getString("Escuela"),
+                    Boolean.parseBoolean(resultado.getString("Estado"))};
 
                 Alumnos.modeloa.addRow(UsuarioD);
 //                objConexion.cerrarConexion();

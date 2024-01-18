@@ -49,7 +49,7 @@ public class Alumnos extends javax.swing.JPanel {
         escf = new javax.swing.JComboBox<>();
         semestre = new javax.swing.JComboBox<>();
         tipoDeProyecto = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
+        Buscar = new javax.swing.JButton();
         TGmodo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         paneltablaAlumnos = new javax.swing.JPanel();
@@ -119,13 +119,13 @@ public class Alumnos extends javax.swing.JPanel {
         });
         jPanel2.add(tipoDeProyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 120, -1));
 
-        jButton3.setText("Buscar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BuscarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
+        jPanel2.add(Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, -1, -1));
 
         TGmodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Individual", "Equipo" }));
         TGmodo.setSelectedIndex(-1);
@@ -265,26 +265,29 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.editB.setEnabled(true);
         Alumnosside.agregarEstudiante.setEnabled(false);
         JPanel aux = new JPanel(new GridBagLayout());
-        baseAlumnos.removeAll();
+        paneltablaAlumnos.removeAll();
+        
 
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
         gbc1.gridy = 0;
         gbc1.weightx = 2;
         gbc1.fill = GridBagConstraints.BOTH;
-        aux.add(paneltablaAlumnos, gbc1);
+        aux.add(jScrollPane1, gbc1);
         gbc1.gridx = 1;
         gbc1.gridy = 0;
         gbc1.weightx = 0;
         gbc1.fill = GridBagConstraints.BOTH;
         aux.add(alsi, gbc1);
-        baseAlumnos.add(aux);
+        paneltablaAlumnos.add(aux);
         Base base = (Base) this.getRootPane().getParent();
         base.setMinimumSize(new Dimension(1000, 600));
         base.setLocationRelativeTo(null);
         base.repaint();
         base.revalidate();
         //En esta parte se le da la funcion de editar
+        
+
 
         int filaSeleccionada = jTable1.getSelectedRow();
         cedula = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
@@ -415,11 +418,11 @@ public class Alumnos extends javax.swing.JPanel {
 
     }//GEN-LAST:event_botonEliminarActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-//       
+    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+   
         cargarFiltros();
-    }//GEN-LAST:event_jButton3ActionPerformed
+        
+    }//GEN-LAST:event_BuscarActionPerformed
 
     private void escfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escfActionPerformed
         // TODO add your handling code here:
@@ -438,7 +441,7 @@ public class Alumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_tipoDeProyectoItemStateChanged
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         // TODO add your handling code here:
+
 // Obtener valores de la primera y última columna
         conexion objConexion = new conexion();
 
@@ -538,8 +541,9 @@ public class Alumnos extends javax.swing.JPanel {
         }
     }
 
-    public void cargarFiltros() {
+    public static void cargarFiltros() {
         conexion objConexion = new conexion();
+        
         if (TGmodo.getSelectedIndex() == 1) { //si el trabajo de grado es en equipo se ejecuta este codigo
             modeloa.setColumnIdentifiers(new Object[]{"Nombre de proyecto", "Cedula 1", "Alumno 1", "Cedula 2", "Alumno 2"});
             while (modeloa.getRowCount() > 0) {
@@ -580,7 +584,7 @@ public class Alumnos extends javax.swing.JPanel {
             }
 
         } else {//si el trabajo de grado es individual se ejecuta este codigo
-//            modeloa.setColumnIdentifiers(new Object[] {"Cedula","Nombre","Apellido","Tipo", "Escuela","estado"});
+            modeloa.setColumnIdentifiers(new Object[] {"Cedula","Nombre","Apellido","Nivel","Tipo", "Escuela","estado"});
             String sql = "SELECT * FROM estudiantes WHERE 1 = 1";
             while (modeloa.getRowCount() > 0) {
                 modeloa.removeRow(0);
@@ -693,21 +697,21 @@ if ("Trabajo de grado".equals(tipo)) {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> TGmodo;
+    private javax.swing.JButton Buscar;
+    public static javax.swing.JComboBox<String> TGmodo;
     private javax.swing.JPanel baseAlumnos;
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonEditar;
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonImprimir;
-    private javax.swing.JComboBox<String> escf;
+    public static javax.swing.JComboBox<String> escf;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     public javax.swing.JPanel paneltablaAlumnos;
-    private javax.swing.JComboBox<String> semestre;
-    private javax.swing.JComboBox<String> tipoDeProyecto;
+    public static javax.swing.JComboBox<String> semestre;
+    public static javax.swing.JComboBox<String> tipoDeProyecto;
     // End of variables declaration//GEN-END:variables
 
 }
