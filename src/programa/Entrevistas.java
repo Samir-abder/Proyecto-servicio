@@ -5,8 +5,13 @@
 package programa;
 
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
 
 
 /**
@@ -18,6 +23,7 @@ public class Entrevistas extends javax.swing.JPanel {
     public static DefaultTableModel modeloEntre;
     int filaAnterior = -1;
     int filaActual =-2;
+    public static String escuela;
     
     public Entrevistas() {
         initComponents();
@@ -39,12 +45,12 @@ public class Entrevistas extends javax.swing.JPanel {
         paneltablaEntrevista = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         agendaEntrevista = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(720, 470));
 
         imprimir_entrevista.setText("Imprimir");
-        imprimir_entrevista.setEnabled(false);
         imprimir_entrevista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 imprimir_entrevistaActionPerformed(evt);
@@ -101,6 +107,8 @@ public class Entrevistas extends javax.swing.JPanel {
 
         baseEntrevista.add(paneltablaEntrevista, java.awt.BorderLayout.CENTER);
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia","Diseño" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,6 +118,8 @@ public class Entrevistas extends javax.swing.JPanel {
                 .addComponent(boton_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(imprimir_entrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(baseEntrevista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -119,7 +129,8 @@ public class Entrevistas extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(imprimir_entrevista)
-                    .addComponent(boton_edit))
+                    .addComponent(boton_edit)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(baseEntrevista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(1, 1, 1))
@@ -178,6 +189,21 @@ public class Entrevistas extends javax.swing.JPanel {
 
     private void imprimir_entrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimir_entrevistaActionPerformed
         // TODO add your handling code here:
+        String tipo = (String) jComboBox1.getSelectedItem();
+        if(!tipo.equals("Tipo")){
+            try {
+                JBCentrevistas.tipo=tipo;
+                JBCentrevistas.escuela=escuela;
+                JBCentrevistas jbc = new JBCentrevistas();
+//                jbc.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Entrevistas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Entrevistas.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JRException ex) {
+                Logger.getLogger(Entrevistas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_imprimir_entrevistaActionPerformed
 
 
@@ -186,6 +212,7 @@ public class Entrevistas extends javax.swing.JPanel {
     private javax.swing.JPanel baseEntrevista;
     private javax.swing.JButton boton_edit;
     private javax.swing.JButton imprimir_entrevista;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel paneltablaEntrevista;
     // End of variables declaration//GEN-END:variables

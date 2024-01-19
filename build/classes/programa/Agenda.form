@@ -63,13 +63,14 @@
             <StringItem index="1" value="Arquitectura"/>
             <StringItem index="2" value="Civil"/>
             <StringItem index="3" value="Computaci&#xf3;n"/>
-            <StringItem index="4" value="Electronica"/>
+            <StringItem index="4" value="Electr&#xf3;nica"/>
             <StringItem index="5" value="Industrial"/>
             <StringItem index="6" value="Mecanica"/>
           </StringArray>
         </Property>
       </Properties>
       <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="Agenda_comboEscuela"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>

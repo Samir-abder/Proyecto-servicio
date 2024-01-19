@@ -41,7 +41,7 @@ public class Agenda extends javax.swing.JPanel {
 
         baseAgenda.setLayout(new java.awt.BorderLayout());
 
-        comboEscuela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una escuela", "Arquitectura", "Civil", "Computación", "Electronica", "Industrial", "Mecanica" }));
+        comboEscuela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una escuela", "Arquitectura", "Civil", "Computación", "Electrónica", "Industrial", "Mecanica" }));
 
         jButton1.setText("Entrevistas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,11 +100,12 @@ public class Agenda extends javax.swing.JPanel {
         baseAgenda.add(entr);
         baseAgenda.revalidate();
         baseAgenda.repaint();
-        
         while (Entrevistas.modeloEntre.getRowCount() > 0) {
             Entrevistas.modeloEntre.removeRow(0);
         }
         String escuela=comboEscuela.getSelectedItem().toString();
+                Entrevistas.escuela= escuela;
+
         try {
             conexion objConexion = new conexion();
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela='"+escuela+"'");
@@ -138,10 +139,11 @@ public class Agenda extends javax.swing.JPanel {
         baseAgenda.repaint();
         
         
-        while (Entrevistas.modeloEntre.getRowCount() > 0) {
-            Entrevistas.modeloEntre.removeRow(0);
+        while (Presentacion.modelopres.getRowCount() > 0) {
+            Presentacion.modelopres.removeRow(0);
         }
         String escuela=comboEscuela.getSelectedItem().toString();
+                Presentacion.escuela= escuela;
         try {
             conexion objConexion = new conexion();
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela='"+escuela+"'");
