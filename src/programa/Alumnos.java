@@ -243,10 +243,10 @@ public class Alumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImprimirActionPerformed
-int filaSeleccionada = jTable1.getSelectedRow();
+        int filaSeleccionada = jTable1.getSelectedRow();
         CartaIndividual.cedulaE = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
-CartaIndividual carta = new CartaIndividual();
-carta.setVisible(true);
+        CartaIndividual carta = new CartaIndividual();
+        carta.setVisible(true);
     }//GEN-LAST:event_botonImprimirActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -285,7 +285,6 @@ carta.setVisible(true);
         Alumnosside.agregarEstudiante.setEnabled(false);
         JPanel aux = new JPanel(new GridBagLayout());
         paneltablaAlumnos.removeAll();
-        
 
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
@@ -305,8 +304,6 @@ carta.setVisible(true);
         base.repaint();
         base.revalidate();
         //En esta parte se le da la funcion de editar
-        
-
 
         int filaSeleccionada = jTable1.getSelectedRow();
         cedula = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
@@ -317,8 +314,8 @@ carta.setVisible(true);
         Alumnosside.escuelaEst.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 5));
         Alumnosside.tipo.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 4));
 
-        Alumnosside.escuelaEC= (String)jTable1.getValueAt(filaSeleccionada, 5);
-        Alumnosside.tipoEC= (String)jTable1.getValueAt(filaSeleccionada, 4);
+        Alumnosside.escuelaEC = (String) jTable1.getValueAt(filaSeleccionada, 5);
+        Alumnosside.tipoEC = (String) jTable1.getValueAt(filaSeleccionada, 4);
         conexion objConexion = new conexion();
         try {
             String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
@@ -449,8 +446,8 @@ carta.setVisible(true);
                 objConexion.ejecutarSentenciaSQl(deleteSql);
                 String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s'", cedula);
                 objConexion.ejecutarSentenciaSQl(deleteSql1);
-                  String deleteSql2 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
-                 objConexion.ejecutarSentenciaSQl(deleteSql2);
+                String deleteSql2 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
+                objConexion.ejecutarSentenciaSQl(deleteSql2);
                 cargar();
                 objConexion.cerrarConexion();
             } catch (Exception ex) {
@@ -467,7 +464,7 @@ carta.setVisible(true);
 
             // Paso 2 y 3: Iterar sobre los resultados y actualizar numest
             int nuevoNumEst = 1;
-             String peri = "2023-2CR";
+            String peri = "2023-2CR";
             ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
             if (rst.next()) {
                 int rowCount = rst.getInt("count");
@@ -535,9 +532,9 @@ carta.setVisible(true);
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
-   
+
         cargarFiltros();
-        
+
     }//GEN-LAST:event_BuscarActionPerformed
 
     private void escfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escfActionPerformed
@@ -589,7 +586,7 @@ carta.setVisible(true);
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         jas ventana = new jas();
+        jas ventana = new jas();
         ventana.setVisible(true);
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -666,7 +663,7 @@ carta.setVisible(true);
 
     public static void cargarFiltros() {
         conexion objConexion = new conexion();
-        
+
         if (TGmodo.getSelectedIndex() == 1) { //si el trabajo de grado es en equipo se ejecuta este codigo
             modeloa.setColumnIdentifiers(new Object[]{"Nombre de proyecto", "Cedula 1", "Alumno 1", "Cedula 2", "Alumno 2"});
             while (modeloa.getRowCount() > 0) {
@@ -707,7 +704,7 @@ carta.setVisible(true);
             }
 
         } else {//si el trabajo de grado es individual se ejecuta este codigo
-            modeloa.setColumnIdentifiers(new Object[] {"Cedula","Nombre","Apellido","Nivel","Tipo", "Escuela","estado"});
+            modeloa.setColumnIdentifiers(new Object[]{"Cedula", "Nombre", "Apellido", "Nivel", "Tipo", "Escuela", "estado"});
             String sql = "SELECT * FROM estudiantes WHERE 1 = 1";
             while (modeloa.getRowCount() > 0) {
                 modeloa.removeRow(0);
@@ -771,7 +768,7 @@ carta.setVisible(true);
         // Formatear el nuevo número como cadena de tres dígitos
         String formatoNumEst = "%03d";
         String nuevoNumEstFormateado = String.format(formatoNumEst, nuevoNumEst);
-String escuelaW= escuela;
+        String escuelaW = escuela;
         switch (escuela) {
             case "Computación":
 
@@ -799,17 +796,16 @@ String escuelaW= escuela;
             // código que se ejecuta si no se cumple ninguna de las opciones anteriores
         }
         System.out.println("tipo " + tipo);
-String cod = "FI-" + escuela + "-" + nuevoNumEstFormateado + "-" + peri + "-";
-if ("Trabajo de grado".equals(tipo)) {
-    cod += "TG";
-} else if ("Pasantia".equals(tipo)) {
-    cod += "PS";
-} else if ("Diseño".equals(tipo) && "9vno".equals(nivel)) {
-    cod += "DIX";
-} else if ("Diseño".equals(tipo) && "10mo".equals(nivel)) {
-    cod += "DX";
-}
-
+        String cod = "FI-" + escuela + "-" + nuevoNumEstFormateado + "-" + peri + "-";
+        if ("Trabajo de grado".equals(tipo)) {
+            cod += "TG";
+        } else if ("Pasantia".equals(tipo)) {
+            cod += "PS";
+        } else if ("Diseño".equals(tipo) && "9vno".equals(nivel)) {
+            cod += "DIX";
+        } else if ("Diseño".equals(tipo) && "10mo".equals(nivel)) {
+            cod += "DX";
+        }
 
         // Sentencia SQL para actualizar num_est y codigo
         String updateSql = String.format("UPDATE estudiantes SET num_est = '%s', codigo = '%s' WHERE Tipo = '%s' AND Escuela = '%s' AND Cedula = '%s'", nuevoNumEstFormateado, cod, tipo, escuelaW, cedulac);

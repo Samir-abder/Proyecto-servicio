@@ -7,9 +7,15 @@ package programa;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import static programa.Entrevistas.escuela;
 
 /**
  *
@@ -20,6 +26,8 @@ public class Presentacion extends javax.swing.JPanel {
     public static DefaultTableModel modelopres;
     int filaAnterior = -1;
     int filaActual =-2;
+        public static String escuela;
+
     
     public Presentacion() {
         initComponents();
@@ -41,11 +49,11 @@ public class Presentacion extends javax.swing.JPanel {
         paneltablapresentacion = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPresentacion = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(720, 470));
 
         ImprimirPresentacion.setText("Imprimir");
-        ImprimirPresentacion.setEnabled(false);
         ImprimirPresentacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ImprimirPresentacionActionPerformed(evt);
@@ -87,10 +95,12 @@ public class Presentacion extends javax.swing.JPanel {
         );
         paneltablapresentacionLayout.setVerticalGroup(
             paneltablapresentacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
         );
 
         basePresentacion.add(paneltablapresentacion, java.awt.BorderLayout.CENTER);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia","Diseño" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -101,6 +111,8 @@ public class Presentacion extends javax.swing.JPanel {
                 .addComponent(boton_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ImprimirPresentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(basePresentacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -110,7 +122,8 @@ public class Presentacion extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ImprimirPresentacion)
-                    .addComponent(boton_edit))
+                    .addComponent(boton_edit)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(basePresentacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -171,6 +184,20 @@ public class Presentacion extends javax.swing.JPanel {
 
     private void ImprimirPresentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirPresentacionActionPerformed
         // TODO add your handling code here:
+         String tipo = (String) jComboBox1.getSelectedItem();
+        if(!tipo.equals("Tipo")){
+            try {
+                JasperByCollectionBeanData.tipo=tipo;
+                JasperByCollectionBeanData.escuela=escuela;
+                JasperByCollectionBeanData jbc = new JasperByCollectionBeanData();
+            } catch (SQLException ex) {
+                Logger.getLogger(Presentacion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Presentacion.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JRException ex) {
+                Logger.getLogger(Presentacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_ImprimirPresentacionActionPerformed
 
 
@@ -178,6 +205,7 @@ public class Presentacion extends javax.swing.JPanel {
     private javax.swing.JButton ImprimirPresentacion;
     private javax.swing.JPanel basePresentacion;
     private javax.swing.JButton boton_edit;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel paneltablapresentacion;
     public static javax.swing.JTable tablaPresentacion;

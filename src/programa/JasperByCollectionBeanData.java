@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -26,13 +27,15 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+import static programa.JBCentrevistas.tipo;
 
-public class JasperByCollectionBeanData { //Cartas de Presentaciones ~ TG y P
-    
+public class JasperByCollectionBeanData extends JFrame { //Cartas de Presentaciones ~ TG y P
+
     public static String escuela;
     public static String tipo;
 
-    public static void main(String[] args) throws JRException, FileNotFoundException, SQLException {
+    public JasperByCollectionBeanData() throws JRException, FileNotFoundException, SQLException {
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         /* Output file location to create report in pdf form */
         String outputFile = "JasperReportExample.pdf";
@@ -42,9 +45,8 @@ public class JasperByCollectionBeanData { //Cartas de Presentaciones ~ TG y P
         conexion objConexion = new conexion();
         String ni = "10mo";
         // Paso 1: Obtener resultados
-
-ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '" + tipo + "' AND Nivel = '" + ni + "' AND Escuela = '" + escuela + "'");
-
+        System.out.println("SELECT * FROM estudiantes WHERE Tipo = '" + tipo + "' AND Nivel = '" + ni + "' AND Escuela = '" + escuela + "'");
+        ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '" + tipo + "' AND Nivel = '" + ni + "' AND Escuela = '" + escuela + "'");
 
         int i = 0;
         try {
@@ -56,7 +58,7 @@ ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes 
                 String nombret = "";
                 String cedulat = "";
                 String titulo = "";
-                if(tipo.equals("Pasantia")){
+                if (tipo.equals("Pasantia")) {
                     String sql = "SELECT * FROM Pasantia WHERE id_pasantia = '" + resultados.getString("id_pasantia") + "'";
 
                     try (ResultSet resulta = objConexion.consultaRegistros(sql)) {
@@ -66,8 +68,8 @@ ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes 
                     } catch (SQLException ex) {
                         Logger.getLogger(JasperByCollectionBeanData.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                
-                }else if(tipo.equals("Trabajo de grado")){
+
+                } else if (tipo.equals("Trabajo de grado")) {
                     String sql = "SELECT * FROM trabajo_grado WHERE id_trabajo = '" + resultados.getString("id_trabajo") + "'";
 
                     try (ResultSet resulta = objConexion.consultaRegistros(sql)) {
@@ -77,7 +79,18 @@ ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes 
                     } catch (SQLException ex) {
                         Logger.getLogger(JasperByCollectionBeanData.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                
+
+                } else if (tipo.equals("Diseño")) {
+                    String sql = "SELECT * FROM Diseno WHERE id_diseno = '" + resultados.getString("id_diseno") + "'";
+
+                    try (ResultSet resulta = objConexion.consultaRegistros(sql)) {
+                        nombret = resulta.getString("tutor_academico");
+//          cedulat = resulta.getString("cedula_tutor");
+                        titulo = resulta.getString("razon_social");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(JasperByCollectionBeanData.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
                 }
                 p1.setId(i);
                 p1.setNombreE(nombree);
@@ -95,22 +108,20 @@ ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes 
 
         /* Convert List to JRBeanCollectionDataSource */
         JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(listItems);
-            String peri = "2023-2CR";
-            ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
-            if (rst.next()) {
-                int rowCount = rst.getInt("count");
-                if (rowCount != 0) {
-                    peri = rst.getString("periodo");
-                }
+        String peri = "2023-2CR";
+        ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+        if (rst.next()) {
+            int rowCount = rst.getInt("count");
+            if (rowCount != 0) {
+                peri = rst.getString("periodo");
             }
+        }
         /* Map to hold Jasper report Parameters */
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("Parameter", itemsJRBean);
-                parameters.put("Escuela", escuela);
-                parameters.put("tipo", tipo);
-                parameters.put("periodo", peri);
-
-        
+        parameters.put("Escuela", escuela);
+        parameters.put("tipo", tipo);
+        parameters.put("periodo", peri);
 
         //read jrxml file and creating jasperdesign object
         InputStream input = new FileInputStream(new File("agenda-presentaciones.jrxml"));
@@ -124,7 +135,11 @@ ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 
         /*call jasper engine to display report in jasperviewer window*/
-        JasperViewer.viewReport(jasperPrint);
+        JasperViewer jasperViewer = new JasperViewer(jasperPrint, false); // El segundo parámetro indica si debe cerrar la aplicación al cerrar la ventana
+    jasperViewer.setDefaultCloseOperation(JasperViewer.DISPOSE_ON_CLOSE); // Configura el comportamiento al cerrar la ventana
+
+    jasperViewer.setVisible(true);
+
 
         /* outputStream to create PDF */
         //OutputStream outputStream = new FileOutputStream(new File(outputFile));

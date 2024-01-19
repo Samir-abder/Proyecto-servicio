@@ -30,7 +30,6 @@ public class Profesores extends javax.swing.JPanel {
     public Profesores() {
         
         
-        
         initComponents();
         modelP = (DefaultTableModel) jTable1.getModel();
         botonagr = (ButtonModel) botonAgProf.getModel();
@@ -39,6 +38,8 @@ public class Profesores extends javax.swing.JPanel {
         profbo.setEnabled(false);
         ListSelectionModel modeloSeleccion = jTable1.getSelectionModel();
         modeloSeleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                profed.setVisible(false);
+
     }
 
     @SuppressWarnings("unchecked")

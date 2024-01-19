@@ -21,7 +21,7 @@ public class profesoresside extends javax.swing.JPanel {
         initComponents();
         cedulaP.setEnabled(true);
         
-        
+        beditar.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
