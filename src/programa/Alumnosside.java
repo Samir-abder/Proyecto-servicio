@@ -263,6 +263,7 @@ public class Alumnosside extends javax.swing.JPanel {
                 Base bas = (Base) this.getRootPane().getParent();
                 bas.setMinimumSize(new Dimension(1000, 600));
                 bas.setLocationRelativeTo(null);
+                Alumnos.mostrarProfesTg();
                 bas.repaint();
                 bas.revalidate();
 
@@ -275,6 +276,7 @@ public class Alumnosside extends javax.swing.JPanel {
                 Base bas = (Base) this.getRootPane().getParent();
                 bas.setMinimumSize(new Dimension(1000, 600));
                 bas.setLocationRelativeTo(null);
+                Alumnos.mostrarProfesTg();
                 bas.repaint();
                 bas.revalidate();
 
@@ -289,7 +291,7 @@ public class Alumnosside extends javax.swing.JPanel {
             bas.setMinimumSize(new Dimension(1000, 600));
             bas.setLocationRelativeTo(null);
             //se cargan los profesores
-            Alumnos.mostrarProfesSide();
+            Alumnos.mostrarProfesPasantia();
             
             bas.repaint();
             bas.revalidate(); 

@@ -10,8 +10,8 @@ import javax.swing.table.DefaultTableModel;
 public class Pasantiab extends javax.swing.JPanel {
 
      public static DefaultTableModel modtutores;
-         int filaAnterior = -1;
-    int filaActual = -2;
+        int filaAnterior = -1;
+        int filaActual = -2;
     
     public Pasantiab() {
         initComponents();
@@ -37,6 +37,8 @@ public class Pasantiab extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         razontext = new javax.swing.JTextArea();
         botonAgregar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cedulatuto = new javax.swing.JTextField();
 
         jLabel24.setText("Titulo del proyecto");
 
@@ -107,6 +109,8 @@ public class Pasantiab extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setText("Cedula");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,7 +125,11 @@ public class Pasantiab extends javax.swing.JPanel {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel26)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tutorAcad))
+                                    .addComponent(tutorAcad, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cedulatuto))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -157,9 +165,11 @@ public class Pasantiab extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(tutorAcad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tutorAcad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(cedulatuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(anteEdit1)
                     .addComponent(anteSave1))
                 .addGap(55, 55, 55))
@@ -364,7 +374,7 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
                     Nombre
                 };
             modtutores.addRow(search);
-            };
+            }
             
           } catch (SQLException e) {
             // Manejar excepciones de SQL
@@ -400,8 +410,10 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
 
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         int filaSeleccionada = tutores.getSelectedRow();
-        String cedula = String.valueOf(tutores.getValueAt(filaSeleccionada, 1));
-        tutorAcad.setText(cedula);
+        String cedula = String.valueOf(tutores.getValueAt(filaSeleccionada, 0));
+        String nombre = String.valueOf(tutores.getValueAt(filaSeleccionada, 1));
+        cedulatuto.setText(cedula);
+        tutorAcad.setText(nombre);
     }//GEN-LAST:event_botonAgregarActionPerformed
 
 
@@ -410,8 +422,10 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
     private javax.swing.JButton anteSave1;
     private javax.swing.JButton botonAgregar;
     private javax.swing.JTextField cedulaTutor;
+    private javax.swing.JTextField cedulatuto;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JScrollPane jScrollPane1;

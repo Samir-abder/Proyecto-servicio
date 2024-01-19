@@ -336,12 +336,23 @@ carta.setVisible(true);
             if (Alumnosside.ComboModo.getSelectedIndex() == 0) {//si se trabaja individual
 
                 Tg tg = new Tg();
-                tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
+                tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 475);
                 Alumnosside.baseSide.add(tg);
                 base.setMinimumSize(new Dimension(1000, 600));
                 base.setLocationRelativeTo(null);
                 //se tiene que completar el nombre del trabajo de grado si lo tiene
-                
+                Alumnos.mostrarProfesTg();
+                try {
+                conexion objConex= new conexion();
+                String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                ResultSet resulta = objConex.consultaRegistros(sql);
+                //Pasantiab.razontext.setText(resulta.getString("razon_social"));
+                //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+            } catch (Exception ex) {
+                System.out.println("Error de la base de datos");
+            }finally{
+                objConexion.cerrarConexion();
+            }
                 
                 
                 base.repaint();
@@ -354,6 +365,18 @@ carta.setVisible(true);
                 Alumnosside.baseSide.add(tg);
                 base.setMinimumSize(new Dimension(1000, 600));
                 base.setLocationRelativeTo(null);
+                Alumnos.mostrarProfesTg();
+                try {
+                conexion objConex= new conexion();
+                String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                ResultSet resulta = objConex.consultaRegistros(sql);
+                //Pasantiab.razontext.setText(resulta.getString("razon_social"));
+                //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+            } catch (Exception ex) {
+                System.out.println("Error de la base de datos");
+            }finally{
+                objConexion.cerrarConexion();
+            }
                 base.repaint();
                 base.revalidate();
 
@@ -366,7 +389,7 @@ carta.setVisible(true);
             base.setMinimumSize(new Dimension(1000, 600));
             base.setLocationRelativeTo(null);
             //se cargan los profes...
-            Alumnos.mostrarProfesSide();
+            Alumnos.mostrarProfesPasantia();
             try {
                 conexion objConex= new conexion();
                 String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
@@ -382,6 +405,27 @@ carta.setVisible(true);
             base.repaint();
             base.revalidate();
         } else if (Alumnosside.tipo.getSelectedIndex() == 3) {//si se selecciona diseño
+            Diseno ds = new Diseno();
+            ds.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
+            Alumnosside.baseSide.add(ds);
+            base.setMinimumSize(new Dimension(1000, 600));
+            base.setLocationRelativeTo(null);
+            //se cargan los profes...
+            Alumnos.mostrarProfesDiseno();
+            try {
+                conexion objConex= new conexion();
+                String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                ResultSet resulta = objConex.consultaRegistros(sql);
+                //Pasantiab.razontext.setText(resulta.getString("razon_social"));
+                //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+            } catch (Exception ex) {
+                System.out.println("Error de la base de datos");
+            }finally{
+                objConexion.cerrarConexion();
+            }
+            
+            base.repaint();
+            base.revalidate();
 
         }
     }//GEN-LAST:event_botonEditarActionPerformed
@@ -773,7 +817,7 @@ if ("Trabajo de grado".equals(tipo)) {
         // Ejecutar la actualización
         objConexion.ejecutarSentenciaSQl(updateSql);
     }
-public static void mostrarProfesSide(){
+public static void mostrarProfesPasantia(){
         while (Pasantiab.tutores.getRowCount() > 0) {
             Pasantiab.modtutores.removeRow(0);
         }
@@ -788,6 +832,50 @@ public static void mostrarProfesSide(){
                 };
 
                 Pasantiab.modtutores.addRow(oUsuarioD);   
+            }
+            objConex.cerrarConexion(); 
+        } catch (SQLException e) {
+            System.out.println("este es " + e);
+        }
+
+}
+public static void mostrarProfesTg(){
+        while (Tg.modprof.getRowCount() > 0) {
+            Tg.modprof.removeRow(0);
+        }
+        try {
+            conexion objConex = new conexion();
+            ResultSet resultado = objConex.consultaRegistros("SELECT * FROM Docentes");
+            while (resultado.next()) {
+                String nombre= resultado.getString("Nombre")+" "+resultado.getString("Apellido");
+                Object[] oUsuarioD = { 
+                    resultado.getString("Cedula"),
+                    nombre
+                };
+
+                Tg.modprof.addRow(oUsuarioD);   
+            }
+            objConex.cerrarConexion(); 
+        } catch (SQLException e) {
+            System.out.println("este es " + e);
+        }
+
+}
+public static void mostrarProfesDiseno(){
+        while (Diseno.modprofes.getRowCount() > 0) {
+            Diseno.modprofes.removeRow(0);
+        }
+        try {
+            conexion objConex = new conexion();
+            ResultSet resultado = objConex.consultaRegistros("SELECT * FROM Docentes");
+            while (resultado.next()) {
+                String nombre= resultado.getString("Nombre")+" "+resultado.getString("Apellido");
+                Object[] oUsuarioD = { 
+                    resultado.getString("Cedula"),
+                    nombre
+                };
+
+                Diseno.modprofes.addRow(oUsuarioD);   
             }
             objConex.cerrarConexion(); 
         } catch (SQLException e) {

@@ -26,7 +26,11 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabel26" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="tutorAcad" max="32767" attributes="0"/>
+                                  <Component id="tutorAcad" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="cedulatuto" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -73,9 +77,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tutorAcad" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cedulatuto" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="anteEdit1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="anteSave1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -203,6 +209,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAgregarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cedula"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="cedulatuto">
     </Component>
   </SubComponents>
 </Form>
