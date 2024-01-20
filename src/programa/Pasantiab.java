@@ -235,9 +235,72 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
                                     JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene un trabajo de grado asignado.", "Error", JOptionPane.ERROR_MESSAGE);
                                 } else {
                                     // El estudiante no tiene una pasantía asignada
-                                    String addSql = String.format("INSERT INTO Pasantia (razon_social, tutor_academico, cedula_estudiante, periodo, cedula_tutor) VALUES"
-                                        + "('%s', '%s', '%s', '%s', '%s')",
-                                        razontext.getText(), tutorAcad.getText(), Alumnosside.cedulaEst.getText(),"Periodo", cedulatutor);
+                                    
+                                    String countSql = "SELECT COUNT(*) AS rowCount FROM Pasantia";
+                                ResultSet resultSet = habana.consultaRegistros(countSql);
+
+// Inicializar una variable para almacenar el número de filas
+                                int rowCount = 0;
+
+                                try {
+                                    // Verificar si se obtuvo un resultado
+                                    if (resultSet.next()) {
+                                        // Obtener el número de filas
+                                        rowCount = resultSet.getInt("rowCount");
+                                    }
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    // Cerrar el ResultSet
+                                    try {
+                                        resultSet.close();
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+// Formatear el número de filas como un string de 3 dígitos
+                                String formattedRowCount = String.format("%03d", rowCount + 1);
+                                String peri = "2023-2CR";
+                                ResultSet rst = habana.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+                                if (rst.next()) {
+                                    int rowCountP = rst.getInt("count");
+                                    if (rowCountP != 0) {
+                                        peri = rst.getString("periodo");
+                                    }
+                                }
+
+                                String escuela1 = (String) Alumnosside.escuelaEst.getSelectedItem();
+                                switch (escuela1) {
+                                    case "Computación":
+
+                                        escuela1 = "C";
+                                        break;
+                                    case "Industrial":
+                                        escuela1 = "I";
+                                        break;
+                                    case "Civil":
+                                        escuela1 = "L";
+                                        break;
+                                    case "Electrónica":
+                                        escuela1 = "Et";
+                                        break;
+                                    case "Telecomunicaciones":
+                                        escuela1 = "T";
+                                        break;
+                                    case "Mecánica":
+                                        escuela1 = "N";
+                                        break;
+                                    case "Arquitectura":
+                                        escuela1 = "Q";
+                                        break;
+                                    default:
+                                    // código que se ejecuta si no se cumple ninguna de las opciones anteriores
+                                }
+                                String cod = "FI-" + escuela1 + "-" + formattedRowCount + "-" + peri + "-" + "PS";
+                                    String addSql = String.format("INSERT INTO Pasantia (razon_social, tutor_academico, cedula_estudiante, periodo, cedula_tutor, codigo) VALUES"
+                                        + "('%s', '%s', '%s', '%s', '%s', '%s')",
+                                        razontext.getText(), tutorAcad.getText(), Alumnosside.cedulaEst.getText(),"Periodo", cedulatutor, cod);
 
                                     habana.ejecutarSentenciaSQl(addSql);
                                     
@@ -293,7 +356,7 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
                     // código que se ejecuta si no se cumple ninguna de las opciones anteriores
                             }
 
-                            String cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + "PS";
+                             cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + "PS";
 
                             String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Pasantia' WHERE Cedula = '%s'", cod, Alumnosside.cedulaEst.getText());
 

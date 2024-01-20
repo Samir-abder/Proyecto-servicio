@@ -333,11 +333,74 @@ public class Tg extends javax.swing.JPanel {
                                 habana.cerrarConexion();
                                 JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene un trabajo de grado asignado.", "Error", JOptionPane.ERROR_MESSAGE);
                             } else {
-                                String addSql = String.format("INSERT INTO trabajo_grado (titulo, cedula_estudiante, tutor, periodo, cedula_tutor) VALUES ('%s', '%s', '%s', '%s', '%s')",
-                                        titulo, cedula1, nombreTutor.getText(), "Periodo", cedulaTutor);
+                                String countSql = "SELECT COUNT(*) AS rowCount FROM trabajo_grado";
+                                ResultSet resultSet = habana.consultaRegistros(countSql);
+
+// Inicializar una variable para almacenar el número de filas
+                                int rowCount = 0;
+
+                                try {
+                                    // Verificar si se obtuvo un resultado
+                                    if (resultSet.next()) {
+                                        // Obtener el número de filas
+                                        rowCount = resultSet.getInt("rowCount");
+                                    }
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    // Cerrar el ResultSet
+                                    try {
+                                        resultSet.close();
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+// Formatear el número de filas como un string de 3 dígitos
+                                String formattedRowCount = String.format("%03d", rowCount + 1);
+                                String peri = "2023-2CR";
+                                ResultSet rst = habana.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+                                if (rst.next()) {
+                                    int rowCountP = rst.getInt("count");
+                                    if (rowCountP != 0) {
+                                        peri = rst.getString("periodo");
+                                    }
+                                }
+
+                                String escuela1 = (String) Alumnosside.escuelaEst.getSelectedItem();
+                                switch (escuela1) {
+                                    case "Computación":
+
+                                        escuela1 = "C";
+                                        break;
+                                    case "Industrial":
+                                        escuela1 = "I";
+                                        break;
+                                    case "Civil":
+                                        escuela1 = "L";
+                                        break;
+                                    case "Electrónica":
+                                        escuela1 = "Et";
+                                        break;
+                                    case "Telecomunicaciones":
+                                        escuela1 = "T";
+                                        break;
+                                    case "Mecánica":
+                                        escuela1 = "N";
+                                        break;
+                                    case "Arquitectura":
+                                        escuela1 = "Q";
+                                        break;
+                                    default:
+                                    // código que se ejecuta si no se cumple ninguna de las opciones anteriores
+                                }
+                                String cod = "FI-" + escuela1 + "-" + formattedRowCount + "-" + peri + "-" + "TG";
+
+                                String addSql = String.format("INSERT INTO trabajo_grado (titulo, cedula_estudiante, tutor, periodo, cedula_tutor, codigo) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+                                        titulo, cedula1, nombreTutor.getText(), "Periodo", cedulaTutor, cod);
 
                                 habana.ejecutarSentenciaSQl(addSql);
-                                System.out.println("add "+ addSql);
+                                System.out.println("add " + addSql);
                                 // Obtener el último valor autoincremental de la tabla
                                 String getLastIdSql = "SELECT last_insert_rowid()";
                                 ResultSet lastIdResultSet = habana.consultaRegistros(getLastIdSql);
@@ -371,9 +434,70 @@ public class Tg extends javax.swing.JPanel {
                         conexion objconexion = new conexion();
                         System.out.println("despues");
 
-                        try {
-                           String addSql = String.format("INSERT INTO trabajo_grado (titulo, cedula_estudiante, cedula_estudiante2, tutor, periodo, cedula_tutor) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
-                                        titulo, cedula1, cedula2, nombreTutor.getText(), "Periodo", cedulaTutor);
+                        try { String countSql = "SELECT COUNT(*) AS rowCount FROM trabajo_grado";
+                                ResultSet resultSet = objconexion.consultaRegistros(countSql);
+
+// Inicializar una variable para almacenar el número de filas
+                                int rowCount = 0;
+
+                                try {
+                                    // Verificar si se obtuvo un resultado
+                                    if (resultSet.next()) {
+                                        // Obtener el número de filas
+                                        rowCount = resultSet.getInt("rowCount");
+                                    }
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    // Cerrar el ResultSet
+                                    try {
+                                        resultSet.close();
+                                    } catch (SQLException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+// Formatear el número de filas como un string de 3 dígitos
+                                String formattedRowCount = String.format("%03d", rowCount + 1);
+                                String peri = "2023-2CR";
+                                ResultSet rst = objconexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+                                if (rst.next()) {
+                                    int rowCountP = rst.getInt("count");
+                                    if (rowCountP != 0) {
+                                        peri = rst.getString("periodo");
+                                    }
+                                }
+
+                                String escuela1 = (String) Alumnosside.escuelaEst.getSelectedItem();
+                                switch (escuela1) {
+                                    case "Computación":
+
+                                        escuela1 = "C";
+                                        break;
+                                    case "Industrial":
+                                        escuela1 = "I";
+                                        break;
+                                    case "Civil":
+                                        escuela1 = "L";
+                                        break;
+                                    case "Electrónica":
+                                        escuela1 = "Et";
+                                        break;
+                                    case "Telecomunicaciones":
+                                        escuela1 = "T";
+                                        break;
+                                    case "Mecánica":
+                                        escuela1 = "N";
+                                        break;
+                                    case "Arquitectura":
+                                        escuela1 = "Q";
+                                        break;
+                                    default:
+                                    // código que se ejecuta si no se cumple ninguna de las opciones anteriores
+                                }
+                                String cod = "FI-" + escuela1 + "-" + formattedRowCount + "-" + peri + "-" + "TG";
+                            String addSql = String.format("INSERT INTO trabajo_grado (titulo, cedula_estudiante, cedula_estudiante2, tutor, periodo, cedula_tutor, codigo) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
+                                    titulo, cedula1, cedula2, nombreTutor.getText(), "Periodo", cedulaTutor, cod);
 
                             objconexion.ejecutarSentenciaSQl(addSql);
 
@@ -431,7 +555,7 @@ public class Tg extends javax.swing.JPanel {
 
         } else {
             String updateSql = String.format("UPDATE trabajo_grado SET titulo = '%s', tutor = '%s', periodo = '%s', cedula_tutor = '%s' WHERE (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s') OR (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s')",
-                    titulo, nombreTutor.getText(),"Periodo",cedulaTutor, cedula1, cedula2, cedula2, cedula1);
+                    titulo, nombreTutor.getText(), "Periodo", cedulaTutor, cedula1, cedula2, cedula2, cedula1);
 
             try {
                 habana.ejecutarSentenciaSQl(updateSql);
