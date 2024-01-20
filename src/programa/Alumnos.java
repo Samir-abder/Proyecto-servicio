@@ -440,6 +440,7 @@ public class Alumnos extends javax.swing.JPanel {
         if (selectedRow != -1) { // Verifica si se ha seleccionado una fila
             String cedula = (String) jTable1.getValueAt(selectedRow, 0);
             try {
+                //si el alumno es de trabajo de grado y ya tiene compañero debe poder eliminar el codigo del compañero
                 String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
                 objConexion.ejecutarSentenciaSQl(sql);
                 String deleteSql = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedula);
