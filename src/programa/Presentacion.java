@@ -15,6 +15,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
+import static programa.Entrevistas.agendaEntrevista;
 import static programa.Entrevistas.escuela;
 
 /**
@@ -49,7 +50,6 @@ public class Presentacion extends javax.swing.JPanel {
         paneltablapresentacion = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaPresentacion = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(720, 470));
 
@@ -100,19 +100,15 @@ public class Presentacion extends javax.swing.JPanel {
 
         basePresentacion.add(paneltablapresentacion, java.awt.BorderLayout.CENTER);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia","Diseño" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addComponent(boton_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(ImprimirPresentacion, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(basePresentacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -122,8 +118,7 @@ public class Presentacion extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ImprimirPresentacion)
-                    .addComponent(boton_edit)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boton_edit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(basePresentacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -131,6 +126,22 @@ public class Presentacion extends javax.swing.JPanel {
 
     private void boton_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_editActionPerformed
         PresentacionEdit pred = new PresentacionEdit(); 
+        
+        
+        String tipo = Agenda.comboTipo.getSelectedItem().toString();
+        System.out.println("blah blah" + tipo);
+        
+        if (tipo.equals("Trabajo de grado")) {
+            System.out.println("ENTRETO AL IIIIIIIIIIIF");
+            pred.botonAgregar.setEnabled(true);
+            pred.botonAgregar1.setEnabled(true);
+        }
+        else {
+            System.out.println("Else" + tipo);
+            pred.botonAgregar.setEnabled(true);
+            pred.botonAgregar1.setEnabled(false);
+        }
+        
         basePresentacion.removeAll(); //se quita todo lo que esta en la base
         pred.setMinimumSize(new Dimension(200, 500));
         paneltablapresentacion.setPreferredSize(new Dimension(800, 500));
@@ -149,10 +160,10 @@ public class Presentacion extends javax.swing.JPanel {
         base.revalidate();
         
         int filaSeleccionada = tablaPresentacion.getSelectedRow();
-        PresentacionEdit.nombrejurado.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 2));
-        PresentacionEdit.cijurado.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 3));
-        PresentacionEdit.fechapresentacion.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 4));
-        PresentacionEdit.lugarpresentacion.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 5));
+//        EntrevistaEdit.nombrentrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 2));
+//        EntrevistaEdit.cientrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 3));
+        EntrevistaEdit.hora.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 4));
+        EntrevistaEdit.lugarentrevista.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 5));
         
 
         
@@ -184,7 +195,8 @@ public class Presentacion extends javax.swing.JPanel {
 
     private void ImprimirPresentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirPresentacionActionPerformed
         // TODO add your handling code here:
-         String tipo = (String) jComboBox1.getSelectedItem();
+        Agenda ag = new Agenda();
+        String tipo = ag.tipo;
         if(!tipo.equals("Tipo")){
             try {
                 JasperByCollectionBeanData.tipo=tipo;
@@ -205,7 +217,6 @@ public class Presentacion extends javax.swing.JPanel {
     private javax.swing.JButton ImprimirPresentacion;
     private javax.swing.JPanel basePresentacion;
     private javax.swing.JButton boton_edit;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel paneltablapresentacion;
     public static javax.swing.JTable tablaPresentacion;

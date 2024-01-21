@@ -45,10 +45,9 @@ public class Entrevistas extends javax.swing.JPanel {
         paneltablaEntrevista = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         agendaEntrevista = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(720, 470));
+        setPreferredSize(new java.awt.Dimension(830, 470));
 
         imprimir_entrevista.setText("Imprimir");
         imprimir_entrevista.addActionListener(new java.awt.event.ActionListener() {
@@ -107,19 +106,15 @@ public class Entrevistas extends javax.swing.JPanel {
 
         baseEntrevista.add(paneltablaEntrevista, java.awt.BorderLayout.CENTER);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia","Diseño" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(28, 28, 28)
                 .addComponent(boton_edit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
                 .addComponent(imprimir_entrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(baseEntrevista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -129,16 +124,34 @@ public class Entrevistas extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(imprimir_entrevista)
-                    .addComponent(boton_edit)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(boton_edit))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(baseEntrevista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(baseEntrevista, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
                 .addGap(1, 1, 1))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void boton_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_editActionPerformed
+        
+        
         EntrevistaEdit pred = new EntrevistaEdit(); 
+        
+        
+        
+        String tipo = Agenda.comboTipo.getSelectedItem().toString();
+        System.out.println("blah blah" + tipo);
+        
+        if (tipo.equals("Trabajo de grado")) {
+            System.out.println("ENTRETO AL IIIIIIIIIIIF");
+            pred.botonAgregar.setEnabled(true);
+            pred.botonAgregar1.setEnabled(true);
+        }
+        else {
+            System.out.println("Else" + tipo);
+            pred.botonAgregar.setEnabled(true);
+            pred.botonAgregar1.setEnabled(false);
+        }
+        
         baseEntrevista.removeAll(); //se quita todo lo que esta en la base
         pred.setMinimumSize(new Dimension(200, 500));
         paneltablaEntrevista.setPreferredSize(new Dimension(800, 500));
@@ -157,9 +170,9 @@ public class Entrevistas extends javax.swing.JPanel {
         base.revalidate();
         
         int filaSeleccionada = agendaEntrevista.getSelectedRow();
-        EntrevistaEdit.nombrentrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 2));
-        EntrevistaEdit.cientrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 3));
-        EntrevistaEdit.fechaentrevista.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 4));
+//        EntrevistaEdit.nombrentrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 2));
+//        EntrevistaEdit.cientrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 3));
+        EntrevistaEdit.hora.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 4));
         EntrevistaEdit.lugarentrevista.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 5));
         
         
@@ -189,8 +202,12 @@ public class Entrevistas extends javax.swing.JPanel {
 
     private void imprimir_entrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imprimir_entrevistaActionPerformed
         // TODO add your handling code here:
-        String tipo = (String) jComboBox1.getSelectedItem();
+//        Agenda ag = new Agenda();
+        EntrevistaEdit r = new EntrevistaEdit();
+        String tipo = (String) Agenda.comboTipo.getSelectedItem();
         if(!tipo.equals("Tipo")){
+                
+        
             try {
                 JBCentrevistas.tipo=tipo;
                 JBCentrevistas.escuela=escuela;
@@ -212,7 +229,6 @@ public class Entrevistas extends javax.swing.JPanel {
     private javax.swing.JPanel baseEntrevista;
     private javax.swing.JButton boton_edit;
     private javax.swing.JButton imprimir_entrevista;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel paneltablaEntrevista;
     // End of variables declaration//GEN-END:variables

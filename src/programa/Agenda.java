@@ -7,6 +7,7 @@ package programa;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -21,10 +22,12 @@ public class Agenda extends javax.swing.JPanel {
     public Agenda() {
         initComponents();
     }
-
+    //EntrevistaEdit botE = new EntrevistaEdit();
+    //PresentacionEdit botP = new PresentacionEdit();
     
     String url="jdbc:sqlite:database.s3db";
     Connection connect;
+    public String tipo = "";
     
     
     @SuppressWarnings("unchecked")
@@ -33,90 +36,89 @@ public class Agenda extends javax.swing.JPanel {
 
         baseAgenda = new javax.swing.JPanel();
         comboEscuela = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        botonEntrevistas = new javax.swing.JButton();
+        botonPresentaciones = new javax.swing.JButton();
+        comboTipo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         baseAgenda.setLayout(new java.awt.BorderLayout());
+        add(baseAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 38, 720, 480));
 
-        comboEscuela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una escuela", "Arquitectura", "Civil", "Computación", "Electrónica", "Industrial", "Mecanica" }));
+        comboEscuela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una escuela", "Arquitectura", "Civil", "Computación", "Electrónica", "Industrial", "Mecanica", "Telecomunicaciones" }));
+        add(comboEscuela, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 160, -1));
 
-        jButton1.setText("Entrevistas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonEntrevistas.setText("Entrevistas");
+        botonEntrevistas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonEntrevistasActionPerformed(evt);
             }
         });
+        add(botonEntrevistas, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 120, -1));
 
-        jButton2.setText("Presentaciones");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonPresentaciones.setText("Presentaciones");
+        botonPresentaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonPresentacionesActionPerformed(evt);
             }
         });
+        add(botonPresentaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 120, -1));
 
-        jButton3.setText("imprimir");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia","Diseño" }));
+        comboTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                comboTipoActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(comboEscuela, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(baseAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboEscuela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(5, 5, 5)
-                .addComponent(baseAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE))
-        );
+        add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonEntrevistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEntrevistasActionPerformed
+        
         
         Entrevistas entr = new Entrevistas();
-        baseAgenda.removeAll();
-        baseAgenda.add(entr);
-        baseAgenda.revalidate();
-        baseAgenda.repaint();
-        while (Entrevistas.modeloEntre.getRowCount() > 0) {
+        baseAgenda.removeAll();baseAgenda.add(entr);baseAgenda.revalidate();baseAgenda.repaint();
+        
+        while (Entrevistas.modeloEntre.getRowCount() > 0) { //tabla de entrevistas
             Entrevistas.modeloEntre.removeRow(0);
         }
+        
+        
         String escuela=comboEscuela.getSelectedItem().toString();
-                Entrevistas.escuela= escuela;
-
-        try {
-            conexion objConexion = new conexion();
-            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela='"+escuela+"'");
+        Entrevistas.escuela= escuela;
+        
+        String tipo = comboTipo.getSelectedItem().toString();
+        
+        if(escuela != "Seleccione una escuela" && tipo != "Tipo"){
+//            EntrevistaEdit a = new EntrevistaEdit();
+//            if(tipo == "Pasantia") {
+//                
+//                
+//                a.botonAgregar.setEnabled(true);
+//                a.botonAgregar1.setEnabled(false);
+//            }
+//            else{
+//                a.botonAgregar.setEnabled(true);
+//                a.botonAgregar1.setEnabled(true);
+//            }
             
+            
+            
+            try {
+            conexion objConexion = new conexion();
+            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela = '"+escuela+"' AND Tipo = '"+tipo+"' AND Nivel = '9vno'");
+            
+                System.out.println("SELECT * FROM estudiantes WHERE Escuela = '"+escuela+"' AND Tipo = '"+tipo+"' AND Nivel = '9vno'");
             
             while (resultado.next()) {
                 String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
                 Object[] UsuarioD = {resultado.getString("Cedula"),
                     nombreCompleto,
-                    resultado.getString("entrevistador"),
-                    resultado.getString("ci_entrevistador"),
+                    resultado.getString("nombrejurado1"),
+                    resultado.getString("ci_jurado1"),
+                    resultado.getString("nombrejurado2"),
+                    resultado.getString("ci_jurado2"),
                     resultado.getString("fecha_hora_entrevista"),
                     resultado.getString("lugar_entrevista")};
 
@@ -127,11 +129,17 @@ public class Agenda extends javax.swing.JPanel {
         } catch (SQLException e) {
             System.out.println("este es " + e);
         }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Asegurese de seleccionar Escuela y tipo");
+        }
         
+               
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonEntrevistasActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonPresentacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonPresentacionesActionPerformed
+        
         Presentacion present = new Presentacion();
         baseAgenda.removeAll();
         baseAgenda.add(present);
@@ -144,17 +152,24 @@ public class Agenda extends javax.swing.JPanel {
         }
         String escuela=comboEscuela.getSelectedItem().toString();
                 Presentacion.escuela= escuela;
+        String tipo = comboTipo.getSelectedItem().toString();  
+        
+        
+        if(escuela != "Seleccione una escuela" && tipo != "Tipo") {
+                
         try {
             conexion objConexion = new conexion();
-            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela='"+escuela+"'");
+            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela = '"+escuela+"' AND Tipo = '"+tipo+"' AND Nivel = '10mo'");
             
             
             while (resultado.next()) {
-                String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
+                String nombreCompleto = resultado.getString("Nombre") + " "+ resultado.getString("Apellido");
                 Object[] UsuarioD = {resultado.getString("Cedula"),
                     nombreCompleto,
-                    resultado.getString("jurado"),
-                    resultado.getString("ci_jurado"),
+                    resultado.getString("nombrejurado1"),
+                    resultado.getString("ci_jurado1"),
+                    resultado.getString("nombrejurado2"),
+                    resultado.getString("ci_jurado2"),
                     resultado.getString("fecha_hora_presentacion"),
                     resultado.getString("lugar_presentacion")};
 
@@ -164,25 +179,20 @@ public class Agenda extends javax.swing.JPanel {
         } catch (SQLException e) {
             System.out.println("este es " + e);
         }
+        } 
         
-        
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonPresentacionesActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void comboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTipoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_comboTipoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel baseAgenda;
+    private javax.swing.JButton botonEntrevistas;
+    private javax.swing.JButton botonPresentaciones;
     private javax.swing.JComboBox<String> comboEscuela;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    public static javax.swing.JComboBox<String> comboTipo;
     // End of variables declaration//GEN-END:variables
 }

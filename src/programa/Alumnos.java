@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
 import static programa.Alumnosside.ComboModo;
 import static programa.Alumnosside.agregarEstudiante;
 import static programa.Alumnosside.apellidoEst;
@@ -34,6 +35,8 @@ public class Alumnos extends javax.swing.JPanel {
     int filaAnterior = -1;
     int filaActual = -2;
     public static String cedula;
+            public static CartaIndividual carta;
+
 
     public Alumnos() {
         initComponents();
@@ -247,8 +250,14 @@ public class Alumnos extends javax.swing.JPanel {
     private void botonImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonImprimirActionPerformed
         int filaSeleccionada = jTable1.getSelectedRow();
         CartaIndividual.cedulaE = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
-        CartaIndividual carta = new CartaIndividual();
-        carta.setVisible(true);
+        CartaIndividual.tipoE = String.valueOf(jTable1.getValueAt(filaSeleccionada, 4));
+        try {
+            carta = new CartaIndividual();
+                    carta.setVisible(true);
+
+        } catch (Exception ex) {
+            Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonImprimirActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked

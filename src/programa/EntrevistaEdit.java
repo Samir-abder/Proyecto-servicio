@@ -6,6 +6,10 @@ package programa;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -17,9 +21,21 @@ public class EntrevistaEdit extends javax.swing.JPanel {
     /**
      * Creates new form EntrevistaEdit
      */
+    public static DefaultTableModel jurados;
+    int filaAnterior = -1;
+    int filaActual = -2;
+    //bot.botonAgregar.setEnabled(true);
+     //   bot.botonAgregar1.setEnabled(true);
+    
     public EntrevistaEdit() {
         initComponents();
+        jurados = (DefaultTableModel) this.tutores.getModel();
+        ListSelectionModel modeloSeleccion = tutores.getSelectionModel();
+        modeloSeleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,47 +47,46 @@ public class EntrevistaEdit extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        nombrentrevistador = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         lugarentrevista = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        cientrevistador = new javax.swing.JTextField();
+        guardarEntre = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        fechaentrevista = new javax.swing.JTextField();
+        hora = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        botonAgregar = new javax.swing.JButton();
+        jurado1 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tutores = new javax.swing.JTable();
+        date = new com.toedter.calendar.JDateChooser();
+        jurado2 = new javax.swing.JTextField();
+        cedulaTutor2 = new javax.swing.JTextField();
+        botonAgregar1 = new javax.swing.JButton();
 
-        jLabel5.setText("Lugar de la entrevista:");
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nombrentrevistador.setToolTipText("Pedro Perez, Jose Gomez");
-        nombrentrevistador.addActionListener(new java.awt.event.ActionListener() {
+        jLabel5.setText("Aula/Lugar:");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 60, -1));
+
+        lugarentrevista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombrentrevistadorActionPerformed(evt);
+                lugarentrevistaActionPerformed(evt);
             }
         });
-
-        jLabel1.setText("Nombre del entrevistador: ");
-
-        jLabel2.setText("C.I. del entrevistador: ");
+        add(lugarentrevista, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 77, -1));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Fecha y hora de la entrevista:");
+        jLabel3.setText("Fecha y hora:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        guardarEntre.setText("Guardar");
+        guardarEntre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                guardarEntreActionPerformed(evt);
             }
         });
-
-        cientrevistador.setToolTipText("12345678, 98765432");
-        cientrevistador.setName(""); // NOI18N
-        cientrevistador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cientrevistadorActionPerformed(evt);
-            }
-        });
+        add(guardarEntre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, -1, -1));
 
         jButton3.setText(" Cancelar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -79,112 +94,117 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
+        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, -1));
 
-        fechaentrevista.addActionListener(new java.awt.event.ActionListener() {
+        hora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechaentrevistaActionPerformed(evt);
+                horaActionPerformed(evt);
             }
         });
+        add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 86, -1));
 
-        jLabel7.setText("(dd/mm/aaaa), (00:00 AM/PM)");
+        jLabel7.setText("(00:00 AM/PM)");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 80, 20));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGap(29, 29, 29))
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton3)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lugarentrevista)
-                            .addComponent(cientrevistador, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(nombrentrevistador, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fechaentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jButton1)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(53, 53, 53))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cientrevistador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombrentrevistador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fechaentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lugarentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
-                .addContainerGap(92, Short.MAX_VALUE))
-        );
+        botonAgregar.setText("agregar");
+        botonAgregar.setEnabled(false);
+        botonAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregarActionPerformed(evt);
+            }
+        });
+        add(botonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 80, -1));
+
+        jurado1.setEditable(false);
+        jurado1.setEnabled(false);
+        add(jurado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 180, -1));
+
+        jLabel1.setText("Entrevistadores");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+
+        jButton2.setText("buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
+
+        tutores.setAutoCreateRowSorter(true);
+        tutores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Cedula", "Nombre"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tutores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tutoresMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tutores);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 370, 100));
+        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
+        add(jurado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 180, -1));
+        add(cedulaTutor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 203, -1));
+
+        botonAgregar1.setText("agregar");
+        botonAgregar1.setEnabled(false);
+        botonAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgregar1ActionPerformed(evt);
+            }
+        });
+        add(botonAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 80, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nombrentrevistadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombrentrevistadorActionPerformed
+    private void horaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombrentrevistadorActionPerformed
+    }//GEN-LAST:event_horaActionPerformed
 
-    private void cientrevistadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cientrevistadorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cientrevistadorActionPerformed
-
-    private void fechaentrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaentrevistaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fechaentrevistaActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void guardarEntreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEntreActionPerformed
         conexion objConexion = new conexion();
         
         
          int filaSeleccionada = Entrevistas.agendaEntrevista.getSelectedRow();
         
+         Date selectedDate = date.getDate();
 
-        String sql = String.format("UPDATE Estudiantes SET ci_entrevistador = '%s', entrevistador = '%s',"
+    //fecha como una cadena antes de guardarla en la base de datos
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");      
+        String datestg = sdf.format(selectedDate);
+        //System.out.println("Fecha formateada: " + datestg);
+         
+
+         if(Agenda.comboTipo.getSelectedItem().toString().equals("Pasantia")){
+             
+             Object[] Vector = jurado1.getText().split(",");
+             
+        String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s',"
                 + " fecha_hora_entrevista = '%s', lugar_entrevista = '%s' "
                 + "WHERE Cedula = '" +  Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0) + "'",
-                cientrevistador.getText(),
-                nombrentrevistador.getText(),
-                fechaentrevista.getText(),
+                    Vector[1], 
+                    Vector[0],
+                datestg + " / "+ hora.getText(),
                 lugarentrevista.getText());
+        
         objConexion.ejecutarSentenciaSQl(sql);
-        cientrevistador.setText("");
-        nombrentrevistador.setText("");
-        fechaentrevista.setText("");
+        //cientrevistador.setText("");
+        //nombrentrevistador.setText("");
+        hora.setText("");
         lugarentrevista.setText("");
-            
+        
         try {
             while (Entrevistas.modeloEntre.getRowCount() > 0) {
                Entrevistas.modeloEntre.removeRow(0);
@@ -194,8 +214,8 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                  String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
                 Object[] UsuarioD = {resultado.getString("Cedula"),
                     nombreCompleto,
-                    resultado.getString("entrevistador"),
-                    resultado.getString("ci_entrevistador"),
+                    resultado.getString("nombrejurado1"),
+                    resultado.getString("ci_jurado1"),
                     resultado.getString("fecha_hora_entrevista"),
                     resultado.getString("lugar_entrevista")
                 };
@@ -205,25 +225,175 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                 System.out.println("este es " + e);
             }
          
-         objConexion.cerrarConexion();    
-    }//GEN-LAST:event_jButton1ActionPerformed
+         objConexion.cerrarConexion();
+        }  
+         else{
+             //conexion objConexion = new conexion();
+        
+         //if(Agenda.comboTipo.getSelectedItem().toString().equals("Pasantia")){
+             
+             Object[] Vector = jurado1.getText().split(",");
+             Object[] Vector1 = jurado2.getText().split(",");
+             
+        String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s', ci_jurado2 = '%s', nombrejurado2 = '%s' "
+                + " fecha_hora_entrevista = '%s', lugar_entrevista = '%s' "
+                + "WHERE Cedula = '" +  Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0) + "'",
+                    Vector[1], 
+                    Vector[0],
+                    Vector1[1],
+                    Vector[0],
+                datestg + " / "+ hora.getText(),
+                lugarentrevista.getText());
+        
+        objConexion.ejecutarSentenciaSQl(sql);
+        //cientrevistador.setText("");
+        //nombrentrevistador.setText("");
+        hora.setText("");
+        lugarentrevista.setText("");
+        
+        try {
+            while (Entrevistas.modeloEntre.getRowCount() > 0) {
+               Entrevistas.modeloEntre.removeRow(0);
+            }                     
+            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM Estudiantes");
+            while (resultado.next()) {
+                 String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
+                Object[] UsuarioD = {resultado.getString("Cedula"),
+                    nombreCompleto,
+                    resultado.getString("nombrejurado1"),
+                    resultado.getString("ci_jurado1"),
+                    resultado.getString("nombrejurado2"),
+                    resultado.getString("ci_jurado2"),
+                    resultado.getString("fecha_hora_entrevista"),
+                    resultado.getString("lugar_entrevista")
+                };
+            Entrevistas.modeloEntre.addRow(UsuarioD);
+            }
+            }catch (SQLException e) {
+                System.out.println("este es " + e);
+            }
+         
+         objConexion.cerrarConexion();
+        }
+         
+         
+         
+//        try {
+//            while (Entrevistas.modeloEntre.getRowCount() > 0) {
+//               Entrevistas.modeloEntre.removeRow(0);
+//            }                     
+//            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM Estudiantes");
+//            while (resultado.next()) {
+//                 String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
+//                Object[] UsuarioD = {resultado.getString("Cedula"),
+//                    nombreCompleto,
+//                    resultado.getString("nombrejurado1"),
+//                    resultado.getString("ci_jurado1"),
+//                    resultado.getString("fecha_hora_entrevista"),
+//                    resultado.getString("lugar_entrevista")
+//                };
+//            Entrevistas.modeloEntre.addRow(UsuarioD);
+//            }
+//            }catch (SQLException e) {
+//                System.out.println("este es " + e);
+//            }
+//         
+//         objConexion.cerrarConexion();    
+    }//GEN-LAST:event_guardarEntreActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
+        int filaSeleccionada = tutores.getSelectedRow();
+        String cedula = String.valueOf(tutores.getValueAt(filaSeleccionada, 0));
+        String nombre = String.valueOf(tutores.getValueAt(filaSeleccionada, 1));
+        //cedulatuto.setText(cedula);
+        jurado1.setText(nombre +", "+ cedula);
+    }//GEN-LAST:event_botonAgregarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        conexion busquedaProf = new conexion();
+        String busqueda = cedulaTutor2.getText();
+        String SQL = "SELECT * FROM Docentes WHERE Nombre LIKE '%"+ busqueda +"%' OR Apellido LIKE '%"+ busqueda +"%' OR Cedula LIKE '%"+ busqueda +"%'";
+        while (jurados.getRowCount() > 0) {
+            jurados.removeRow(0);
+        }
+
+        try {
+            ResultSet AgregarProf = busquedaProf.consultaRegistros(SQL);
+            while(AgregarProf.next()){
+                String Nombre = AgregarProf.getString("Nombre") + " " + AgregarProf.getString("Apellido");
+                Object[] search = {
+                    AgregarProf.getString("Cedula"),
+                    Nombre
+                };
+                jurados.addRow(search);
+            }
+
+        } catch (SQLException e) {
+            // Manejar excepciones de SQL
+            e.printStackTrace();
+        }finally{
+            busquedaProf.cerrarConexion();
+        }
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tutoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tutoresMouseClicked
+
+       
+
+        int filaSeleccionada = tutores.getSelectedRow();
+
+        // Si la fila seleccionada es la misma que la fila anterior, deseleccionarla
+        
+        
+        if (filaAnterior == filaActual) {
+            if (filaSeleccionada == filaAnterior) {
+                tutores.clearSelection();
+//                botonAgregar.setEnabled(true);
+//       botonAgregar1.setEnabled(true);
+            }
+        }
+        // Actualizar la fila anterior
+        filaAnterior = filaSeleccionada;
+        filaActual = tutores.getSelectedRow();
+
+    }//GEN-LAST:event_tutoresMouseClicked
+
+    private void lugarentrevistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lugarentrevistaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lugarentrevistaActionPerformed
+
+    private void botonAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregar1ActionPerformed
+        // TODO add your handling code here:
+        int filaSeleccionada = tutores.getSelectedRow();
+        String cedula = String.valueOf(tutores.getValueAt(filaSeleccionada, 0));
+        String nombre = String.valueOf(tutores.getValueAt(filaSeleccionada, 1));
+        //cedulatuto.setText(cedula);
+        jurado2.setText(nombre +", "+ cedula);
+    }//GEN-LAST:event_botonAgregar1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JTextField cientrevistador;
-    public static javax.swing.JTextField fechaentrevista;
-    private javax.swing.JButton jButton1;
+    public javax.swing.JButton botonAgregar;
+    public javax.swing.JButton botonAgregar1;
+    private javax.swing.JTextField cedulaTutor2;
+    private com.toedter.calendar.JDateChooser date;
+    private javax.swing.JButton guardarEntre;
+    public static javax.swing.JTextField hora;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jurado1;
+    private javax.swing.JTextField jurado2;
     public static javax.swing.JTextField lugarentrevista;
-    public static javax.swing.JTextField nombrentrevistador;
+    public static javax.swing.JTable tutores;
     // End of variables declaration//GEN-END:variables
 }
