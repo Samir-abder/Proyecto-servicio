@@ -40,6 +40,7 @@ public class Decanat extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -111,6 +112,10 @@ public class Decanat extends javax.swing.JPanel {
         // TODO add your handling code here:
         conexion basedatos = new conexion();
 
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas cambiar el nombre del Decano(a)?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+               
+             
+            if (confirmacion == JOptionPane.YES_OPTION){ 
         try {
             name.setEditable(false); name.setEnabled(false);
             editar.setEnabled(true); guardar.setEnabled(false);
@@ -130,13 +135,20 @@ public class Decanat extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al procedar los datos");
         }
 
-        basedatos.cerrarConexion();
+        basedatos.cerrarConexion();}
+            else{
+                name.setText(nombre);
+                name.setEditable(false); name.setEnabled(false);
+                editar.setEnabled(true); guardar.setEnabled(false);
+                System.out.println("No se ha hecho cambio en el Decanato");
+            }
     }//GEN-LAST:event_guardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton editar;
     private javax.swing.JButton guardar;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

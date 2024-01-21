@@ -12,6 +12,9 @@ public class Employee
     private String cedulaE;
     private String nombreT;
     private String cedulaT;
+    private String nombreJ;
+    private String fecha;
+    private String aula;
 
     //contador de la tabla
     public int getId() {
@@ -65,4 +68,26 @@ public void setCedulaT(String cedula) {
     this.cedulaT = cedula;
 }
 
+public String getNombreJ() {
+    return nombreJ;
+}
+
+public void setNombreJ(String nombre) {
+    this.nombreJ = (!nombre.equals("null\nnull")) ? nombre : "Sin asignar";
+}
+
+public String getFecha() {
+    return fecha;
+}
+
+public void setFecha(String fec) {
+    this.fecha = (fec != null) ? fec : "Sin asignar";
+}
+public String getAula() {
+    return aula;
+}
+
+public void setAula(String aul) {
+    this.aula = (aul != null) ? aul : "Sin asignar";
+}
 }

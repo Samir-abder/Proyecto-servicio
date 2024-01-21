@@ -139,7 +139,7 @@ public class profesoresside extends javax.swing.JPanel {
                 try {
                     //Se Verifica si alguno de los campos esta vacio
                     if (!nombreP.getText().isEmpty() && !apellidoP.getText().isEmpty()
-                            && cedulaP.getText().matches("\\d{8}") && !profesion.getText().isEmpty()) {
+                            && cedulaP.getText().matches("\\d{7,8}") && !profesion.getText().isEmpty()) {
                         //Si no estan vacios se procede a tomar los valores de los campos e incertarlos en la base de datos
                         String addSql = String.format("INSERT INTO Docentes (Nombre, Apellido, Cedula,Profesion) VALUES"
                                 + "('" + nombreP.getText()

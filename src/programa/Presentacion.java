@@ -195,8 +195,8 @@ public class Presentacion extends javax.swing.JPanel {
 
     private void ImprimirPresentacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImprimirPresentacionActionPerformed
         // TODO add your handling code here:
-        Agenda ag = new Agenda();
-        String tipo = ag.tipo;
+        
+        String tipo = (String) Agenda.comboTipo.getSelectedItem();
         if(!tipo.equals("Tipo")){
             try {
                 JasperByCollectionBeanData.tipo=tipo;

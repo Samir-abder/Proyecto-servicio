@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.ButtonModel;
+import javax.swing.JOptionPane;
 //import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
@@ -261,6 +262,10 @@ public class Profesores extends javax.swing.JPanel {
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) { // Verifica si se ha seleccionado una fila
             String cedula = (String) jTable1.getValueAt(selectedRow, 2);
+             int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este registro?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+               
+             
+        if (confirmacion == JOptionPane.YES_OPTION){ 
             try {
                 String sql = "DELETE FROM Docentes WHERE Cedula = '" + cedula +"'";
                 objConexion.ejecutarSentenciaSQl(sql);
@@ -275,6 +280,7 @@ public class Profesores extends javax.swing.JPanel {
         
         Base.cargarProfesores();
         System.out.println("Holiwissss");
+        }
     }//GEN-LAST:event_profboActionPerformed
 
 

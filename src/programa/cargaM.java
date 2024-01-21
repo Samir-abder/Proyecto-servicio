@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import static org.apache.poi.ss.usermodel.CellType.BLANK;
@@ -44,85 +45,49 @@ public class cargaM extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel33 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        arch = new javax.swing.JButton();
         comboEscuela = new javax.swing.JComboBox<>();
         rutaLabel = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
 
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel33.setText("Carga Masiva");
+        add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 69, 132, -1));
 
-        jButton4.setText("Escoger archivo");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        arch.setText("Escoger archivo");
+        arch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                archActionPerformed(evt);
             }
         });
+        add(arch, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 135, -1, -1));
 
         comboEscuela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escuela", "Computación", "Arquitectura", "Mecanica", "Civil","Electronica","Telecomunicaciones","Industrial" }));
+        add(comboEscuela, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 113, -1));
 
         rutaLabel.setText("Ruta");
+        add(rutaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(187, 138, 268, -1));
 
-        jButton5.setText("Efectuar Carga Masiva");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnCargar.setText("Efectuar Carga Masiva");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnCargarActionPerformed(evt);
             }
         });
+        add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semestre","9vno", "10mo"}));
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia", "Diseño", "Sin asignar" }));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addComponent(jButton5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rutaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(175, 175, 175)
-                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(comboEscuela, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(156, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(rutaLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboEscuela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addGap(41, 41, 41))
-        );
+        add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void archActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archActionPerformed
         // TODO add your handling code here:
 
         JFileChooser fileChooser = new JFileChooser();
@@ -136,23 +101,45 @@ public class cargaM extends javax.swing.JPanel {
             // Puedes reemplazar esto con tu lógica de análisis de Excel
             rutaLabel.setText(rutaArchivo);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_archActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
         String valorSeleccionado = (String) comboEscuela.getSelectedItem();
         String semestre = (String) jComboBox1.getSelectedItem();
         String tipo = (String) jComboBox2.getSelectedItem();
+        
         if (valorSeleccionado == "Escuela" || rutaLabel.getText() == "Ruta" || semestre == "Semestre" || tipo == "Tipo") {
             JOptionPane.showMessageDialog(null, "Por favor llene los campos");
-        } else {
+        } 
+        
+        else {
+            
+            // Mostrar mensaje de carga
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Cargando, por favor espere...",
+                    "Carga en progreso",
+                    JOptionPane.INFORMATION_MESSAGE); // Reemplaza con la ruta de tu imagen de carga
             try {
                 analizarArchivoExcel(rutaLabel.getText(), valorSeleccionado, semestre, tipo);
             } catch (SQLException ex) {
                 Logger.getLogger(cargaM.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("mensaje carga");
             }
+            // Ocultar el mensaje de carga al finalizar la operación (puedes añadir un retraso para simular mejor)
+            JOptionPane.getRootFrame().dispose();
+            
+            
+            
+//            try {
+//                analizarArchivoExcel(rutaLabel.getText(), valorSeleccionado, semestre, tipo);
+//            } 
+//            catch (SQLException ex) {
+//                Logger.getLogger(cargaM.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnCargarActionPerformed
 private void analizarArchivoExcel(String rutaArchivo, String Escuela, String Semestre, String Tipo) throws SQLException {
     Alumnosside nose = new Alumnosside();
         try {
@@ -254,9 +241,9 @@ private void analizarArchivoExcel(String rutaArchivo, String Escuela, String Sem
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton arch;
+    private javax.swing.JButton btnCargar;
     private javax.swing.JComboBox<String> comboEscuela;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel33;

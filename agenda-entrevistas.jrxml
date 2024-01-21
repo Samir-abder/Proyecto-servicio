@@ -57,6 +57,9 @@
 		<field name="cedulaE" class="java.lang.String"/>
 		<field name="nombreT" class="java.lang.String"/>
 		<field name="cedulaT" class="java.lang.String"/>
+		<field name="nombreJ" class="java.lang.String"/>
+		<field name="fecha" class="java.lang.String"/>
+		<field name="aula" class="java.lang.String"/>
 	</subDataset>
 	<parameter name="Escuela" class="java.lang.String"/>
 	<parameter name="Tipo" class="java.lang.String"/>
@@ -177,6 +180,7 @@
 						<jr:detailCell style="Table_TD" height="30">
 							<textField>
 								<reportElement x="0" y="0" width="30" height="30" uuid="7fcc366b-a956-443f-a7d7-35e37ffc4727"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
@@ -275,7 +279,13 @@
 								<text><![CDATA[Nombre y Apellido]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="30" uuid="6437f812-44e8-4387-a932-68de3f394b73"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{nombreJ}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 					<jr:column width="71" uuid="78082aa8-74c0-4f50-a44c-0faa06fa19c2">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
@@ -287,7 +297,13 @@
 Hora]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="71" height="30" uuid="d16949da-9c75-4249-a844-0ed4e85efce1"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 					<jr:column width="58" uuid="f584ebc5-01ee-4c2a-9c55-8b2c9e2f36d6">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
@@ -298,7 +314,13 @@ Hora]]></text>
 								<text><![CDATA[Aula]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="Table_TD" height="30"/>
+						<jr:detailCell style="Table_TD" height="30">
+							<textField>
+								<reportElement x="0" y="0" width="58" height="30" uuid="fb22b16d-b525-4a90-866f-71c7062a9018"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{aula}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 				</jr:table>
 			</componentElement>

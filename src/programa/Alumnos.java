@@ -449,6 +449,12 @@ public class Alumnos extends javax.swing.JPanel {
         if (selectedRow != -1) { // Verifica si se ha seleccionado una fila
             String cedula = (String) jTable1.getValueAt(selectedRow, 0);
 
+               
+            
+             int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este registro?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+               
+             
+            if (confirmacion == JOptionPane.YES_OPTION){ 
             if (TIPO.equals("Trabajo de grado")) {
                 try {
                     ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
@@ -582,7 +588,9 @@ public class Alumnos extends javax.swing.JPanel {
                 }
             }
         }
-
+        }else{
+                System.out.println("La Eliminación del registro ha sido cancelado por el Usuario");
+            }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
