@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static programa.Alumnosside.ComboModo;
 import static programa.Alumnosside.agregarEstudiante;
 import static programa.Alumnosside.apellidoEst;
@@ -267,7 +269,7 @@ public class Alumnos extends javax.swing.JPanel {
         // Actualizar la fila anterior
         filaAnterior = filaSeleccionada;
         filaActual = jTable1.getSelectedRow();
-        
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
@@ -324,7 +326,7 @@ public class Alumnos extends javax.swing.JPanel {
 
         } catch (Exception ex) {
             System.out.println("Error de la base de datos");
-        }finally{
+        } finally {
             objConexion.cerrarConexion();
         }
         objConexion.cerrarConexion();
@@ -340,18 +342,17 @@ public class Alumnos extends javax.swing.JPanel {
                 //se tiene que completar el nombre del trabajo de grado si lo tiene
                 Alumnos.mostrarProfesTg();
                 try {
-                conexion objConex= new conexion();
-                String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
-                ResultSet resulta = objConex.consultaRegistros(sql);
-                //Pasantiab.razontext.setText(resulta.getString("razon_social"));
-                //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
-            } catch (Exception ex) {
-                System.out.println("Error de la base de datos");
-            }finally{
-                objConexion.cerrarConexion();
-            }
-                
-                
+                    conexion objConex = new conexion();
+                    String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                    ResultSet resulta = objConex.consultaRegistros(sql);
+                    //Pasantiab.razontext.setText(resulta.getString("razon_social"));
+                    //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+                } catch (Exception ex) {
+                    System.out.println("Error de la base de datos");
+                } finally {
+                    objConexion.cerrarConexion();
+                }
+
                 base.repaint();
                 base.revalidate();
 
@@ -364,16 +365,16 @@ public class Alumnos extends javax.swing.JPanel {
                 base.setLocationRelativeTo(null);
                 Alumnos.mostrarProfesTg();
                 try {
-                conexion objConex= new conexion();
-                String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
-                ResultSet resulta = objConex.consultaRegistros(sql);
-                //Pasantiab.razontext.setText(resulta.getString("razon_social"));
-                //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
-            } catch (Exception ex) {
-                System.out.println("Error de la base de datos");
-            }finally{
-                objConexion.cerrarConexion();
-            }
+                    conexion objConex = new conexion();
+                    String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                    ResultSet resulta = objConex.consultaRegistros(sql);
+                    //Pasantiab.razontext.setText(resulta.getString("razon_social"));
+                    //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+                } catch (Exception ex) {
+                    System.out.println("Error de la base de datos");
+                } finally {
+                    objConexion.cerrarConexion();
+                }
                 base.repaint();
                 base.revalidate();
 
@@ -388,17 +389,17 @@ public class Alumnos extends javax.swing.JPanel {
             //se cargan los profes...
             Alumnos.mostrarProfesPasantia();
             try {
-                conexion objConex= new conexion();
+                conexion objConex = new conexion();
                 String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
                 ResultSet resulta = objConex.consultaRegistros(sql);
                 Pasantiab.razontext.setText(resulta.getString("razon_social"));
                 Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
             } catch (Exception ex) {
                 System.out.println("Error de la base de datos");
-            }finally{
+            } finally {
                 objConexion.cerrarConexion();
             }
-            
+
             base.repaint();
             base.revalidate();
         } else if (Alumnosside.tipo.getSelectedIndex() == 3) {//si se selecciona diseño
@@ -410,17 +411,17 @@ public class Alumnos extends javax.swing.JPanel {
             //se cargan los profes...
             Alumnos.mostrarProfesDiseno();
             try {
-                conexion objConex= new conexion();
+                conexion objConex = new conexion();
                 String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
                 ResultSet resulta = objConex.consultaRegistros(sql);
                 //Pasantiab.razontext.setText(resulta.getString("razon_social"));
                 //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
             } catch (Exception ex) {
                 System.out.println("Error de la base de datos");
-            }finally{
+            } finally {
                 objConexion.cerrarConexion();
             }
-            
+
             base.repaint();
             base.revalidate();
 
@@ -428,7 +429,7 @@ public class Alumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_botonEditarActionPerformed
 
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
-        
+
         DefaultTableModel model;
         model = (DefaultTableModel) this.jTable1.getModel();
         jTable1.setModel(model);
@@ -436,97 +437,228 @@ public class Alumnos extends javax.swing.JPanel {
         int selectedRow = jTable1.getSelectedRow();
         String TIPO = (String) jTable1.getValueAt(selectedRow, 4);
         String ESCUELA = (String) jTable1.getValueAt(selectedRow, 5);
-
         if (selectedRow != -1) { // Verifica si se ha seleccionado una fila
             String cedula = (String) jTable1.getValueAt(selectedRow, 0);
-            try {
-                String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
-                objConexion.ejecutarSentenciaSQl(sql);
-                String deleteSql = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedula);
-                objConexion.ejecutarSentenciaSQl(deleteSql);
-                String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s'", cedula);
-                objConexion.ejecutarSentenciaSQl(deleteSql1);
-                String deleteSql2 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
-                objConexion.ejecutarSentenciaSQl(deleteSql2);
-                cargar();
-                objConexion.cerrarConexion();
-            } catch (Exception ex) {
-                System.out.println("Error al eliminar los datos de la base de datos");
-            }
-        } else {
-            jTable1.setValueAt(false, selectedRow, 0);
-        }
-        try {
-            objConexion = new conexion();
+            if (TIPO.equals("Trabajo de grado")) {
+                try {
+                    ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
+                    if (resultados.next()) {
+                        String idtr = resultados.getString("id_trabajo");
+                        // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
+                        String updateSql = "UPDATE estudiantes SET id_trabajo = '' WHERE id_trabajo = '" + idtr + "'";
+                        objConexion.ejecutarSentenciaSQl(updateSql);
+                        String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s' OR cedula_estudiante2 = '%s'", cedula, cedula);
+                        objConexion.ejecutarSentenciaSQl(deleteSql1);
+                        String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
+                        objConexion.ejecutarSentenciaSQl(sql);
+                        try {
+                            int num = 0;
+                            ResultSet rst = objConexion.consultaRegistros("SELECT * FROM trabajo_grado");
+                            while (rst.next()) {
+                                String idTrabajo = rst.getString("id_trabajo");
+                                String codigoActual = rst.getString("codigo");
+                                // Extraer el número después del segundo guion "-"
+                                String[] partesCodigo = codigoActual.split("-");
+                                if (partesCodigo.length >= 3) {
+                                    String numeroActual = num + "";
+                                    num = +1;
+                                    // Incrementar el número y formar el nuevo código
+                                    int nuevoNumero = Integer.parseInt(numeroActual) + 1;
+                                    String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
+                                            + partesCodigo[3] + "-" + partesCodigo[4]+ "-" + partesCodigo[5];
 
-            // Paso 1: Obtener resultados
-            ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '" + TIPO + "' AND Escuela = '" + ESCUELA + "'");
+                                    // Actualizar el campo "codigo" en la base de datos
+                                    updateSql = "UPDATE trabajo_grado SET codigo = '" + nuevoCodigo + "' WHERE id_trabajo = '" + idTrabajo + "'";
+                                    objConexion.ejecutarSentenciaSQl(updateSql);
+                                }
+                            }
+                           objConexion.cerrarConexion();
 
-            // Paso 2 y 3: Iterar sobre los resultados y actualizar numest
-            int nuevoNumEst = 1;
-            String peri = "2023-2CR";
-            ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
-            if (rst.next()) {
-                int rowCount = rst.getInt("count");
-                if (rowCount != 0) {
-                    peri = rst.getString("periodo");
+                        } catch (SQLException e) {
+                            // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+                            e.printStackTrace();
+                        }
+                    }
+//
+                } catch (SQLException ex) {
+                    Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else if (TIPO.equals("Pasantia")) {
+                try {
+                    ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
+                    if (resultados.next()) {
+                        String idtr = resultados.getString("id_pasantia");
+                        // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
+                        String updateSql = "UPDATE estudiantes SET id_pasantia = '' WHERE id_pasantia = '" + idtr + "'";
+                        objConexion.ejecutarSentenciaSQl(updateSql);
+                        String deleteSql1 = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedula);
+                        objConexion.ejecutarSentenciaSQl(deleteSql1);
+                        String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
+                        objConexion.ejecutarSentenciaSQl(sql);
+                        try {
+                            int num = 0;
+                            ResultSet rst = objConexion.consultaRegistros("SELECT * FROM Pasantia");
+                            while (rst.next()) {
+                                String idTrabajo = rst.getString("id_pasantia");
+                                String codigoActual = rst.getString("codigo");
+                                // Extraer el número después del segundo guion "-"
+                                String[] partesCodigo = codigoActual.split("-");
+                                if (partesCodigo.length >= 3) {
+                                    String numeroActual = num + "";
+                                    num = +1;
+                                    // Incrementar el número y formar el nuevo código
+                                    int nuevoNumero = Integer.parseInt(numeroActual) + 1;
+                                    String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
+                                            + partesCodigo[3] + "-" + partesCodigo[4]+ "-" + partesCodigo[5];
+
+                                    // Actualizar el campo "codigo" en la base de datos
+                                    updateSql = "UPDATE Pasantia SET codigo = '" + nuevoCodigo + "' WHERE id_pasantia = '" + idTrabajo + "'";
+                                    objConexion.ejecutarSentenciaSQl(updateSql);
+                                }
+                            }
+                           objConexion.cerrarConexion();
+
+                        } catch (SQLException e) {
+                            // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+                            e.printStackTrace();
+                        }
+                    }
+//
+                } catch (SQLException ex) {
+                    Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else if (TIPO.equals("Diseño")) {
+                try {
+                    ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
+                    if (resultados.next()) {
+                        String idtr = resultados.getString("id_diseno");
+                        // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
+                        String updateSql = "UPDATE estudiantes SET id_diseno = '' WHERE id_diseno = '" + idtr + "'";
+                        objConexion.ejecutarSentenciaSQl(updateSql);
+                        String deleteSql1 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
+                        objConexion.ejecutarSentenciaSQl(deleteSql1);
+                        String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
+                        objConexion.ejecutarSentenciaSQl(sql);
+                        try {
+                            int num = 0;
+                            ResultSet rst = objConexion.consultaRegistros("SELECT * FROM Diseno");
+                            while (rst.next()) {
+                                String idTrabajo = rst.getString("id_diseno");
+                                String codigoActual = rst.getString("codigo");
+                                // Extraer el número después del segundo guion "-"
+                                String[] partesCodigo = codigoActual.split("-");
+                                if (partesCodigo.length >= 3) {
+                                    String numeroActual = num + "";
+                                    num = +1;
+                                    // Incrementar el número y formar el nuevo código
+                                    int nuevoNumero = Integer.parseInt(numeroActual) + 1;
+                                    String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
+                                            + partesCodigo[3] + "-" + partesCodigo[4]+ "-" + partesCodigo[5];
+                                    // Actualizar el campo "codigo" en la base de datos
+                                    updateSql = "UPDATE Diseno SET codigo = '" + nuevoCodigo + "' WHERE id_diseno = '" + idTrabajo + "'";
+                                    objConexion.ejecutarSentenciaSQl(updateSql);
+                                }
+                            }
+                           objConexion.cerrarConexion();
+                        } catch (SQLException e) {
+                            // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+                            e.printStackTrace();
+                        }
+                    }
+//
+                } catch (SQLException ex) {
+                    Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            while (resultados.next()) {
-                String tipo = resultados.getString("Tipo");
-                String cedul = resultados.getString("Cedula");
-                String escuela = resultados.getString("Escuela");
-                String nivel = resultados.getString("Nivel");
-                System.out.println("numero" + nuevoNumEst);
-
-                // Actualizar numest para todas las filas que coinciden con tipo y escuela
-                actualizarNumEstYCodigo(objConexion, tipo, escuela, nuevoNumEst, cedul, peri, nivel);
-                nuevoNumEst = nuevoNumEst + 1;
-            }
-
-            // Cerrar la conexión
-            objConexion.cerrarConexion();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-                
-        int tip = Alumnos.tipoDeProyecto.getSelectedIndex();
-        int esc = Alumnos.escf.getSelectedIndex();
-        int semes = Alumnos.semestre.getSelectedIndex();
-        int TGmod = Alumnos.semestre.getSelectedIndex();
-        
-        Alumnos.botonAgr.setEnabled(true);
-        nombreEst.setText("");
-        apellidoEst.setText("");
-        cedulaEst.setText("");
-        escuelaEst.setSelectedIndex(0);
-        nivel.setSelectedIndex(0);
-        tipo.setSelectedIndex(0);
-        ComboModo.setSelectedIndex(0);
-        agregarEstudiante.setEnabled(false);
-
-        Base base = (Base) this.getRootPane().getParent();
-        JPanel Fondo = (JPanel) base.getContentPane().getComponent(0);
-        Fondo.removeAll();
-
-        // Agregar el panel Alumnos
-        Alumnos alumnos = new Alumnos();
-        alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
-        alumnos.setLocation(0, 0);
-        Fondo.add(alumnos, BorderLayout.CENTER);
-        
-        //recargar la tabla
-            
-        Alumnos.tipoDeProyecto.setSelectedIndex(tip);
-        Alumnos.escf.setSelectedIndex(esc);
-        Alumnos.semestre.setSelectedIndex(semes);
-        Alumnos.semestre.setSelectedIndex(TGmod);
-        Alumnos.cargarFiltros();
-       
-        // Validar y repintar el panel Fondo
-        Fondo.revalidate();
-        Fondo.repaint();
-
+//        if (selectedRow != -1) { // Verifica si se ha seleccionado una fila
+//            String cedula = (String) jTable1.getValueAt(selectedRow, 0);
+//            try {
+//                String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
+//                objConexion.ejecutarSentenciaSQl(sql);
+//                String deleteSql = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedula);
+//                objConexion.ejecutarSentenciaSQl(deleteSql);
+//                String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s'", cedula);
+//                objConexion.ejecutarSentenciaSQl(deleteSql1);
+//                String deleteSql2 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
+//                objConexion.ejecutarSentenciaSQl(deleteSql2);
+//                cargar();
+//                objConexion.cerrarConexion();
+//            } catch (Exception ex) {
+//                System.out.println("Error al eliminar los datos de la base de datos");
+//            }
+//        } else {
+//            jTable1.setValueAt(false, selectedRow, 0);
+//        }
+//        try {
+//            objConexion = new conexion();
+//
+//            // Paso 1: Obtener resultados
+//            ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Tipo = '" + TIPO + "' AND Escuela = '" + ESCUELA + "'");
+//
+//            // Paso 2 y 3: Iterar sobre los resultados y actualizar numest
+//            int nuevoNumEst = 1;
+//            String peri = "2023-2CR";
+//            ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+//            if (rst.next()) {
+//                int rowCount = rst.getInt("count");
+//                if (rowCount != 0) {
+//                    peri = rst.getString("periodo");
+//                }
+//            }
+//            while (resultados.next()) {
+//                String tipo = resultados.getString("Tipo");
+//                String cedul = resultados.getString("Cedula");
+//                String escuela = resultados.getString("Escuela");
+//                String nivel = resultados.getString("Nivel");
+//                System.out.println("numero" + nuevoNumEst);
+//
+//                // Actualizar numest para todas las filas que coinciden con tipo y escuela
+//                actualizarNumEstYCodigo(objConexion, tipo, escuela, nuevoNumEst, cedul, peri, nivel);
+//                nuevoNumEst = nuevoNumEst + 1;
+//            }
+//
+//            // Cerrar la conexión
+//            objConexion.cerrarConexion();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//                
+//        int tip = Alumnos.tipoDeProyecto.getSelectedIndex();
+//        int esc = Alumnos.escf.getSelectedIndex();
+//        int semes = Alumnos.semestre.getSelectedIndex();
+//        int TGmod = Alumnos.semestre.getSelectedIndex();
+//
+//        Alumnos.botonAgr.setEnabled(true);
+//        nombreEst.setText("");
+//        apellidoEst.setText("");
+//        cedulaEst.setText("");
+//        escuelaEst.setSelectedIndex(0);
+//        nivel.setSelectedIndex(0);
+//        tipo.setSelectedIndex(0);
+//        ComboModo.setSelectedIndex(0);
+//        agregarEstudiante.setEnabled(false);
+//
+//        Base base = (Base) this.getRootPane().getParent();
+//        JPanel Fondo = (JPanel) base.getContentPane().getComponent(0);
+//        Fondo.removeAll();
+//
+//        // Agregar el panel Alumnos
+//        Alumnos alumnos = new Alumnos();
+//        alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
+//        alumnos.setLocation(0, 0);
+//        Fondo.add(alumnos, BorderLayout.CENTER);
+//
+//        //recargar la tabla
+//        Alumnos.tipoDeProyecto.setSelectedIndex(tip);
+//        Alumnos.escf.setSelectedIndex(esc);
+//        Alumnos.semestre.setSelectedIndex(semes);
+//        Alumnos.semestre.setSelectedIndex(TGmod);
+//        Alumnos.cargarFiltros();
+//
+//        // Validar y repintar el panel Fondo
+//        Fondo.revalidate();
+//        Fondo.repaint();
 
 
     }//GEN-LAST:event_botonEliminarActionPerformed
@@ -813,7 +945,8 @@ public class Alumnos extends javax.swing.JPanel {
         // Ejecutar la actualización
         objConexion.ejecutarSentenciaSQl(updateSql);
     }
-public static void mostrarProfesPasantia(){
+
+    public static void mostrarProfesPasantia() {
         while (Pasantiab.tutores.getRowCount() > 0) {
             Pasantiab.modtutores.removeRow(0);
         }
@@ -821,21 +954,22 @@ public static void mostrarProfesPasantia(){
             conexion objConex = new conexion();
             ResultSet resultado = objConex.consultaRegistros("SELECT * FROM Docentes");
             while (resultado.next()) {
-                String nombre= resultado.getString("Nombre")+" "+resultado.getString("Apellido");
-                Object[] oUsuarioD = { 
+                String nombre = resultado.getString("Nombre") + " " + resultado.getString("Apellido");
+                Object[] oUsuarioD = {
                     resultado.getString("Cedula"),
                     nombre
                 };
 
-                Pasantiab.modtutores.addRow(oUsuarioD);   
+                Pasantiab.modtutores.addRow(oUsuarioD);
             }
-            objConex.cerrarConexion(); 
+            objConex.cerrarConexion();
         } catch (SQLException e) {
             System.out.println("este es " + e);
         }
 
-}
-public static void mostrarProfesTg(){
+    }
+
+    public static void mostrarProfesTg() {
         while (Tg.modprof.getRowCount() > 0) {
             Tg.modprof.removeRow(0);
         }
@@ -843,21 +977,22 @@ public static void mostrarProfesTg(){
             conexion objConex = new conexion();
             ResultSet resultado = objConex.consultaRegistros("SELECT * FROM Docentes");
             while (resultado.next()) {
-                String nombre= resultado.getString("Nombre")+" "+resultado.getString("Apellido");
-                Object[] oUsuarioD = { 
+                String nombre = resultado.getString("Nombre") + " " + resultado.getString("Apellido");
+                Object[] oUsuarioD = {
                     resultado.getString("Cedula"),
                     nombre
                 };
 
-                Tg.modprof.addRow(oUsuarioD);   
+                Tg.modprof.addRow(oUsuarioD);
             }
-            objConex.cerrarConexion(); 
+            objConex.cerrarConexion();
         } catch (SQLException e) {
             System.out.println("este es " + e);
         }
 
-}
-public static void mostrarProfesDiseno(){
+    }
+
+    public static void mostrarProfesDiseno() {
         while (Diseno.modprofes.getRowCount() > 0) {
             Diseno.modprofes.removeRow(0);
         }
@@ -865,20 +1000,20 @@ public static void mostrarProfesDiseno(){
             conexion objConex = new conexion();
             ResultSet resultado = objConex.consultaRegistros("SELECT * FROM Docentes");
             while (resultado.next()) {
-                String nombre= resultado.getString("Nombre")+" "+resultado.getString("Apellido");
-                Object[] oUsuarioD = { 
+                String nombre = resultado.getString("Nombre") + " " + resultado.getString("Apellido");
+                Object[] oUsuarioD = {
                     resultado.getString("Cedula"),
                     nombre
                 };
 
-                Diseno.modprofes.addRow(oUsuarioD);   
+                Diseno.modprofes.addRow(oUsuarioD);
             }
-            objConex.cerrarConexion(); 
+            objConex.cerrarConexion();
         } catch (SQLException e) {
             System.out.println("este es " + e);
         }
 
-}
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

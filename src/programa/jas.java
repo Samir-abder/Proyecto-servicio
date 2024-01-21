@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -29,6 +31,9 @@ public class jas extends JFrame {
 
     private JRViewer jrViewer;
     private JPanel panel;
+    private String decano;
+                    conexion objConexion = new conexion();
+
 
     public jas() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -38,7 +43,7 @@ public class jas extends JFrame {
         setSize(900, 768);
         setLocationRelativeTo(null);
         setVisible(true);
-
+            
     }
 
     public void FacturaVistaPrevia(int cantidadPaginas) {
@@ -57,10 +62,19 @@ public class jas extends JFrame {
 
         // Cargar el informe compilado
         JasperReport jasperReport = cargarInformeJasper();
-
+try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, nombre FROM configuracion")) {
+                if (rst.next()) {
+                    int rowCount = rst.getInt("count");
+                    if (rowCount != 0) {
+                        decano = rst.getString("nombre");
+                        rst.close();
+                    }
+                }
+            } catch (SQLException ex) {
+            Logger.getLogger(jas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try {
             try {
-                conexion objConexion = new conexion();
                 ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM Trabajo_grado");
                 while (resultado.next()) {
 
@@ -78,7 +92,8 @@ public class jas extends JFrame {
                     }
 //                
                 }
-                 resultado = objConexion.consultaRegistros("SELECT * FROM Pasantia");
+                
+                resultado = objConexion.consultaRegistros("SELECT * FROM Pasantia");
                 while (resultado.next()) {
 
 // Simulamos cargar datos para el informe
@@ -135,16 +150,29 @@ public class jas extends JFrame {
         Map<String, Object> datosInforme = new HashMap<>();
 
         try {
-            conexion objConexion = new conexion();
+            String numR = "";
+
+            // Consultar el valor actual en la tabla Reunion
+            try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, valor FROM Reunion")) {
+                if (rst.next()) {
+                    int rowCount = rst.getInt("count");
+                    if (rowCount != 0) {
+                        numR = rst.getString("valor");
+                        rst.close();
+                    }
+                }
+            }
+            
+
             ResultSet resultado = null;
             if (tipo.equals("Trabajo de grado")) {
                 resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE id_trabajo = '" + id + "'");
-
             } else if (tipo.equals("Pasantia")) {
                 resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE id_pasantia = '" + id + "'");
             } else if (tipo.equals("Diseño")) {
                 resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE id_diseno = '" + id + "'");
             }
+
             ArrayList<String> datos = new ArrayList();
             String escuela = "";
             while (resultado.next()) {
@@ -152,40 +180,8 @@ public class jas extends JFrame {
                 datos.add(resultado.getString("Apellido"));
                 datos.add(resultado.getString("Cedula"));
                 escuela = resultado.getString("Escuela");
-
-////                String nombret = "";
-////                String cedulat = "";
-////                String titulo = "";
-////                String codigoTrabajo = "";
-////                String tipo = resultado.getString("Tipo");
-//
-//                if (tipo.equals("Pasantia")) {
-//                    String sql = "SELECT * FROM Pasantia WHERE id_pasantia = '" + resultado.getString("id_pasantia") + "'";
-//
-//                    try (ResultSet resulta = objConexion.consultaRegistros(sql)) {
-//                        nombret = resulta.getString("tutor_academico");
-//                        cedulat = resulta.getString("cedula_tutor");
-//                        titulo = resulta.getString("razon_social");
-//                        codigoTrabajo = resulta.getString("codigo");
-//                    } catch (SQLException ex) {
-//                        //Logger.getLogger(JasperByCollectionBeanData.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//
-//                } else if (tipo.equals("Trabajo de grado")) {
-//                    String sql = "SELECT * FROM trabajo_grado WHERE id_trabajo = '" + resultado.getString("id_trabajo") + "'";
-//
-//                    try (ResultSet resulta = objConexion.consultaRegistros(sql)) {
-//                        nombret = resulta.getString("tutor");
-//                        cedulat = resulta.getString("cedula_tutor");
-//                        titulo = resulta.getString("titulo");
-//                        codigoTrabajo = resulta.getString("codigo");
-//                    } catch (SQLException ex) {
-//                        //Logger.getLogger(JasperByCollectionBeanData.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//
-//                }
-                //Falta poner los datos de todo lo q pida la carta igual q arriba
             }
+            resultado.close();
             Date fechaActual = new Date();
             Locale localeEspanol = new Locale("es", "ES");
 
@@ -193,6 +189,10 @@ public class jas extends JFrame {
             SimpleDateFormat formatoCorto = new SimpleDateFormat("dd/MM/yyyy");
             String fechaCorta = formatoCorto.format(fechaActual);
             System.out.println("Fecha Corta: " + fechaCorta);
+
+            SimpleDateFormat formatoAno = new SimpleDateFormat("yyyy");
+            String fechaAno = formatoAno.format(fechaActual);
+//            System.out.println("Fecha Corta: " + fechaAno);
 
             // Fecha larga
             Date fechaActual2 = new Date();
@@ -219,8 +219,17 @@ public class jas extends JFrame {
             datosInforme.put("Ingeniero", escuela);
             datosInforme.put("Tutor", nombret);
             datosInforme.put("Cedulatutor", cedulat);
+            datosInforme.put("decano", decano);
+            datosInforme.put("Reunion", numR + "-" + fechaAno);
+            int currentCount = Integer.parseInt(numR) + 1;
+        String newCount = currentCount+"";
 
-            objConexion.cerrarConexion();
+        // Actualizar la tabla Reunion con el nuevo valor
+        String updateSql = String.format("UPDATE Reunion SET valor = '%s'", newCount);
+        System.out.println("sql " + updateSql);
+        objConexion.ejecutarSentenciaSQl(updateSql);
+
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error" + e);
         }

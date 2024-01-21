@@ -412,7 +412,7 @@ public class Tg extends javax.swing.JPanel {
                                     habana.ejecutarSentenciaSQl(updateEstudiantesSql);
                                     habana.cerrarConexion();
                                 }
-                                codigo(cedulacompi.getText());
+//                                codigo(cedulacompi.getText());
                             }
                         }
 

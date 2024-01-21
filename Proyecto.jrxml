@@ -19,6 +19,7 @@
 	<parameter name="Nombre2" class="java.lang.String"/>
 	<parameter name="Apellido2" class="java.lang.String"/>
 	<parameter name="Cedula2" class="java.lang.String"/>
+	<parameter name="decano" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -87,9 +88,9 @@ FACULTAD DE INGENIERIA
 	</pageHeader>
 	<detail>
 		<band height="191" splitType="Stretch">
-			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<textField>
-				<reportElement x="20" y="6" width="530" height="44" uuid="b253f14f-d194-4c45-9411-37ed8f47f66d"/>
+				<reportElement x="20" y="6" width="490" height="44" uuid="b253f14f-d194-4c45-9411-37ed8f47f66d"/>
 				<textElement textAlignment="Justified"/>
 				<textFieldExpression><![CDATA["Cumplo con informarle que la comision de Trabajo de Grado y Pasantia de la Facultad de Ingenieria en su reunion: "+$P{Reunion}+" de fecha "+$P{fechacorta}+" aprobó el proyecto titulado: "]]></textFieldExpression>
 			</textField>
@@ -110,18 +111,23 @@ FACULTAD DE INGENIERIA
 				<textFieldExpression><![CDATA["Se ratifica la designación del Tutor Académico que lo asesorará en el desarrollo de este proyecto a "+$P{Tutor}+" titular de la cedula de identidad V- "+$P{Cedulatutor}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="108">
+		<band height="110">
 			<staticText>
 				<reportElement x="210" y="10" width="160" height="20" uuid="7d0f4d8a-863d-4b3a-bef1-fcdfe9ed484c"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Atentamente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="210" y="78" width="166" height="30" uuid="e7412334-d393-4312-82cb-d13188a674d3"/>
+				<reportElement x="200" y="78" width="180" height="30" uuid="e7412334-d393-4312-82cb-d13188a674d3"/>
 				<textElement textAlignment="Center"/>
-				<text><![CDATA[Dr Laura Aurora Saenz Palencia
-Decana de la Facultad de Ingenieria]]></text>
+				<text><![CDATA[
+Decano(a) de la Facultad de Ingenieria]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="241" y="70" width="100" height="20" uuid="4aad7386-f8b1-4b7c-82de-64b9ee196a39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{decano}]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="50">
 			<staticText>
