@@ -100,6 +100,7 @@ public class Base extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         semestreActual = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -139,6 +140,14 @@ public class Base extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem2);
+
+        jMenuItem7.setText("Estadisticas del semestre");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
 
         jMenuItem4.setText("Culminar semestre");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
@@ -427,6 +436,15 @@ public class Base extends javax.swing.JFrame {
       
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+           Estadisticas stats = new Estadisticas();
+           
+           Fondo.removeAll();
+           Fondo.add(stats);
+           Fondo.revalidate();
+           Fondo.repaint();
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
     public static void cargar() {
        
         while (Alumnos.modeloa.getRowCount() > 0) {
@@ -540,6 +558,7 @@ public class Base extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem listaAlumnos;

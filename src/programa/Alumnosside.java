@@ -204,7 +204,6 @@ public class Alumnosside extends javax.swing.JPanel {
                 "Sin asignar"}));
         } else {
             tipo.setModel(new DefaultComboBoxModel<>(new String[]{"Tipo",
-                "Trabajo de grado",
                 "Pasantia",
                 "Diseño",
                 "Sin asignar"}));
@@ -212,7 +211,7 @@ public class Alumnosside extends javax.swing.JPanel {
         }
         if (escuelaEst.getSelectedIndex() == 1) {
             tipo.setSelectedIndex(3);
-            tipo.setEnabled(false);
+            tipo.setEnabled(true);
             ComboModo.setEnabled(false);
         } else {
             tipo.setSelectedIndex(0);
@@ -401,16 +400,16 @@ public class Alumnosside extends javax.swing.JPanel {
     }//GEN-LAST:event_editBActionPerformed
 
     private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
-        if (tipo.getSelectedIndex() == 1) {
-            // Si es el ítem 1, activa el botón
-            ComboModo.setEnabled(true);
-        } else {
-            // Si no es el ítem 1, desactiva el botón
-            ComboModo.setSelectedIndex(0);
-            ComboModo.setEnabled(false);
-
+        if(escuelaEst.getSelectedIndex()!=1){
+            if (tipo.getSelectedIndex() == 1) {
+                // Si es el ítem 1, activa el botón
+                ComboModo.setEnabled(true);
+            } else {
+                // Si no es el ítem 1, desactiva el botón
+                ComboModo.setSelectedIndex(0);
+                ComboModo.setEnabled(false);
+            }
         }
-
     }//GEN-LAST:event_tipoActionPerformed
 
     public void codigoAlumno(String nombre, String apellido, String cedula, String escuela, String fecha, String nivel, String tipo, String modo) {

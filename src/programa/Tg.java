@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package programa;
+
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import static programa.Pasantiab.modtutores;
 import static programa.Pasantiab.tutores;
+
 /**
  *
  * @author USUARIO
@@ -21,10 +23,9 @@ public class Tg extends javax.swing.JPanel {
 
     public static DefaultTableModel modcompa;
     public static DefaultTableModel modprof;
-        int filaAnterior = -1;
-        int filaActual = -2;
-    
-    
+    int filaAnterior = -1;
+    int filaActual = -2;
+
     public Tg() {
         initComponents();
         //tabla de alumnos
@@ -36,7 +37,6 @@ public class Tg extends javax.swing.JPanel {
         ListSelectionModel modeloSeleccionp = profes.getSelectionModel();
         modeloSeleccionp.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -301,8 +301,11 @@ public class Tg extends javax.swing.JPanel {
     private void aSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aSaveActionPerformed
         // TODO add your handling code here:
         String cedula1 = Alumnosside.cedulaEst.getText();
-        String cedula2 = cedulacompi.getText();
-        conexion habana=new conexion();
+        String cedula2 = CiCompa.getText();
+        String cedulaTutor = citutor.getText();
+        String titulo = est2.getText();
+
+        conexion habana = new conexion();
         if (cedula2.isEmpty()) {
             String find = String.format("SELECT COUNT(*) FROM estudiantes Where Cedula = '" + cedula1 + "'");
             ResultSet rs = habana.consultaRegistros(find);
@@ -319,6 +322,7 @@ public class Tg extends javax.swing.JPanel {
                         if (idPasantia != 0) {
 
                             // Aquí tienes el valor de id_pasantia para el estudiante con la cédula especificada
+                            habana.cerrarConexion();
                             JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene una pasantia asignada.", "Error", JOptionPane.ERROR_MESSAGE);
                         } else {
                             String consultatrabajo = "SELECT id_trabajo FROM estudiantes WHERE Cedula = '" + cedula1 + "'";
@@ -326,14 +330,14 @@ public class Tg extends javax.swing.JPanel {
                             int idtrabajo = rstrabajo.getInt("id_trabajo");
 
                             if (idtrabajo != 0) {
-
+                                habana.cerrarConexion();
                                 JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene un trabajo de grado asignado.", "Error", JOptionPane.ERROR_MESSAGE);
                             } else {
-                                String addSql = String.format("INSERT INTO trabajo_grado (titulo, cedula_estudiante, tutor, periodo) VALUES ('%s', '%s', '%s', '%s')",
-                                    nombreTutor.getText(), cedula1, ""/*Tutorcombo.getSelectedItem()*/, "Periodo");
+                                String addSql = String.format("INSERT INTO trabajo_grado (titulo, cedula_estudiante, tutor, periodo, cedula_tutor) VALUES ('%s', '%s', '%s', '%s', '%s')",
+                                        titulo, cedula1, nombreTutor.getText(), "Periodo", cedulaTutor);
 
                                 habana.ejecutarSentenciaSQl(addSql);
-
+                                System.out.println("add "+ addSql);
                                 // Obtener el último valor autoincremental de la tabla
                                 String getLastIdSql = "SELECT last_insert_rowid()";
                                 ResultSet lastIdResultSet = habana.consultaRegistros(getLastIdSql);
@@ -364,12 +368,12 @@ public class Tg extends javax.swing.JPanel {
                         // Ambos estudiantes existen, ninguno tiene trabajos de grado asignados y ninguno tiene pasantías asignadas
                         // Puedes continuar con la inserción del trabajo de grado.
                         System.out.println("antes");
-                        conexion objconexion=new conexion();
+                        conexion objconexion = new conexion();
                         System.out.println("despues");
 
                         try {
-                            String addSql = String.format("INSERT INTO trabajo_grado (titulo, cedula_estudiante, cedula_estudiante2, tutor, periodo) VALUES ('%s', '%s', '%s','%s','%s')",
-                                nombreTutor.getText(), cedula1, cedula2, ""/*Tutorcombo.getSelectedItem()*/, "Periodo");
+                           String addSql = String.format("INSERT INTO trabajo_grado (titulo, cedula_estudiante, cedula_estudiante2, tutor, periodo, cedula_tutor) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
+                                        titulo, cedula1, cedula2, nombreTutor.getText(), "Periodo", cedulaTutor);
 
                             objconexion.ejecutarSentenciaSQl(addSql);
 
@@ -389,7 +393,7 @@ public class Tg extends javax.swing.JPanel {
                             codigo(cedulacompi.getText());
                             codigo(est2.getText());
                         } catch (SQLException ex) {
-                            
+
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Uno de los estudiantes ya tiene una pasantía asignada.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -408,33 +412,34 @@ public class Tg extends javax.swing.JPanel {
 
     private void aEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aEditActionPerformed
         // TODO add your handling code here:
-          String cedula1 = cedulacompi.getText();
-        String cedula2 = est2.getText();
-        conexion habana=new conexion();
+        String cedula1 = Alumnosside.cedulaEst.getText();
+        String cedula2 = CiCompa.getText();
+        String cedulaTutor = citutor.getText();
+        String titulo = est2.getText();
+        conexion habana = new conexion();
         if (cedula2.isEmpty()) {
-            String updateSql = String.format("UPDATE trabajo_grado SET titulo = '%s', cedula_estudiante = '%s', cedula_estudiante2 = '%s', tutor = '%s', periodo = '%s' WHERE cedula_estudiante = '%s'",
-    nombreTutor.getText(), cedula1, cedula2, ""/*Tutorcombo.getSelectedItem()*/, "Periodo", cedula1);
+            String updateSql = String.format("UPDATE trabajo_grado SET titulo = '%s', cedula_estudiante = '%s', cedula_estudiante2 = '%s', tutor = '%s', periodo = '%s', cedula_tutor = '%s' WHERE (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s') OR (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s')",
+                    titulo, cedula1, cedula2, nombreTutor.getText(), "Periodo", cedulaTutor, cedula1, cedula2, cedula2, cedula1);
 
-try {
-    habana.ejecutarSentenciaSQl(updateSql);
-    JOptionPane.showMessageDialog(null, "Registro de trabajo de grado actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    habana.cerrarConexion();
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Error al actualizar el registro de trabajo de grado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}
+            try {
+                habana.ejecutarSentenciaSQl(updateSql);
+//                JOptionPane.showMessageDialog(null, "Registro de trabajo de grado actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                habana.cerrarConexion();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar el registro de trabajo de grado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
 
         } else {
-         String updateSql = String.format("UPDATE trabajo_grado SET titulo = '%s', tutor = '%s', periodo = '%s' WHERE (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s') OR (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s')",
-    nombreTutor.getText(),""/* Tutorcombo.getSelectedItem()*/, "Periodo", cedula1, cedula2, cedula2, cedula1);
+            String updateSql = String.format("UPDATE trabajo_grado SET titulo = '%s', tutor = '%s', periodo = '%s', cedula_tutor = '%s' WHERE (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s') OR (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s')",
+                    titulo, nombreTutor.getText(),"Periodo",cedulaTutor, cedula1, cedula2, cedula2, cedula1);
 
-try {
-    habana.ejecutarSentenciaSQl(updateSql);
-    JOptionPane.showMessageDialog(null, "Registro de trabajo de grado actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    habana.cerrarConexion();
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Error al actualizar el registro de trabajo de grado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}
-
+            try {
+                habana.ejecutarSentenciaSQl(updateSql);
+//                JOptionPane.showMessageDialog(null, "Registro de trabajo de grado actualizado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                habana.cerrarConexion();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al actualizar el registro de trabajo de grado: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
 
         }
         habana.cerrarConexion();
@@ -444,49 +449,49 @@ try {
         // TODO add your handling code here:
         String cedula1 = cedulacompi.getText();
         String cedula2 = est2.getText();
-        conexion habana=new conexion();
+        conexion habana = new conexion();
         if (cedula2.isEmpty()) {
             String deleteSql = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s'", cedula1);
 
-try {
-    habana.ejecutarSentenciaSQl(deleteSql);
-    JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                habana.ejecutarSentenciaSQl(deleteSql);
+                JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-    // Luego de la eliminación exitosa, actualiza la tabla Estudiantes para vaciar la columna id_pasantia
-    String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_trabajo = NULL WHERE Cedula = '%s'", cedula1);
-    
-    habana.ejecutarSentenciaSQl(updateEstudiantesSql);
-    
-    JOptionPane.showMessageDialog(null, "La columna id_trabajo en la tabla Estudiantes ha sido vaciada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            habana.cerrarConexion();
+                // Luego de la eliminación exitosa, actualiza la tabla Estudiantes para vaciar la columna id_pasantia
+                String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_trabajo = NULL WHERE Cedula = '%s'", cedula1);
 
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            habana.cerrarConexion();
+                habana.ejecutarSentenciaSQl(updateEstudiantesSql);
 
-}
-        }else{
+                JOptionPane.showMessageDialog(null, "La columna id_trabajo en la tabla Estudiantes ha sido vaciada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                habana.cerrarConexion();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                habana.cerrarConexion();
+
+            }
+        } else {
             String deleteSql = String.format("DELETE FROM trabajo_grado WHERE (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s') OR (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s')",
-    cedula1, cedula2, cedula2, cedula1);
+                    cedula1, cedula2, cedula2, cedula1);
 
-try {
-    habana.ejecutarSentenciaSQl(deleteSql);
-    JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            try {
+                habana.ejecutarSentenciaSQl(deleteSql);
+                JOptionPane.showMessageDialog(null, "Registro eliminado exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-    // Luego de la eliminación exitosa, actualiza la tabla Estudiantes para vaciar la columna id_trabajo
-    String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_trabajo = NULL WHERE (Cedula = '%s' OR Cedula = '%s')", cedula1, cedula2);
+                // Luego de la eliminación exitosa, actualiza la tabla Estudiantes para vaciar la columna id_trabajo
+                String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_trabajo = NULL WHERE (Cedula = '%s' OR Cedula = '%s')", cedula1, cedula2);
 
-    habana.ejecutarSentenciaSQl(updateEstudiantesSql);
+                habana.ejecutarSentenciaSQl(updateEstudiantesSql);
 
-    JOptionPane.showMessageDialog(null, "La columna id_trabajo en la tabla Estudiantes ha sido vaciada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    
-    habana.cerrarConexion();
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    
-    habana.cerrarConexion();
-}
-habana.cerrarConexion();
+                JOptionPane.showMessageDialog(null, "La columna id_trabajo en la tabla Estudiantes ha sido vaciada.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                habana.cerrarConexion();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+                habana.cerrarConexion();
+            }
+            habana.cerrarConexion();
         }
     }//GEN-LAST:event_aDeleteActionPerformed
 
@@ -521,14 +526,14 @@ habana.cerrarConexion();
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         conexion busquedaProf = new conexion();
         String busqueda = cedulaTutor.getText();
-        String SQL = "SELECT * FROM Docentes WHERE Nombre LIKE '%"+ busqueda +"%' OR Apellido LIKE '%"+ busqueda +"%' OR Cedula LIKE '%"+ busqueda +"%'";
+        String SQL = "SELECT * FROM Docentes WHERE Nombre LIKE '%" + busqueda + "%' OR Apellido LIKE '%" + busqueda + "%' OR Cedula LIKE '%" + busqueda + "%'";
         while (Pasantiab.modtutores.getRowCount() > 0) {
             Pasantiab.modtutores.removeRow(0);
         }
 
         try {
             ResultSet AgregarProf = busquedaProf.consultaRegistros(SQL);
-            while(AgregarProf.next()){
+            while (AgregarProf.next()) {
                 String Nombre = AgregarProf.getString("Nombre") + " " + AgregarProf.getString("Apellido");
                 Object[] search = {
                     AgregarProf.getString("Cedula"),
@@ -540,51 +545,44 @@ habana.cerrarConexion();
         } catch (SQLException e) {
             // Manejar excepciones de SQL
             e.printStackTrace();
-        }finally{
+        } finally {
             busquedaProf.cerrarConexion();
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         conexion busquedaProf = new conexion();
         String busqueda = cedulacompi.getText();
-        String SQL = "SELECT * FROM estudiantes WHERE Nombre LIKE '%"+ busqueda +"%' OR Apellido LIKE '%"+ busqueda +"%' OR Cedula LIKE '%"+ busqueda +"%'";
+        String SQL = "SELECT * FROM estudiantes WHERE Nombre LIKE '%" + busqueda + "%' OR Apellido LIKE '%" + busqueda + "%' OR Cedula LIKE '%" + busqueda + "%'";
         while (Tg.modcompa.getRowCount() > 0) {
             Tg.modcompa.removeRow(0);
         }
-        
+
         try {
             ResultSet AgregarProf = busquedaProf.consultaRegistros(SQL);
-            while(AgregarProf.next()){
+            while (AgregarProf.next()) {
                 String Nombre = AgregarProf.getString("Nombre") + " " + AgregarProf.getString("Apellido");
                 Object[] search = {
                     AgregarProf.getString("Cedula"),
                     Nombre
                 };
-            modcompa.addRow(search);
+                modcompa.addRow(search);
             }
-          } catch (SQLException e) {
+        } catch (SQLException e) {
             // Manejar excepciones de SQL
             e.printStackTrace();
-        }finally{
-          busquedaProf.cerrarConexion();
-         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        } finally {
+            busquedaProf.cerrarConexion();
+        }
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void companerosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_companerosMouseClicked
         botonAgregar1.setEnabled(true);
-        
+
         int filaSeleccionada = companeros.getSelectedRow();
 
         // Si la fila seleccionada es la misma que la fila anterior, deseleccionarla
@@ -597,8 +595,8 @@ habana.cerrarConexion();
         // Actualizar la fila anterior
         filaAnterior = filaSeleccionada;
         filaActual = companeros.getSelectedRow();
-        
-        
+
+
     }//GEN-LAST:event_companerosMouseClicked
 
     private void botonAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregar1ActionPerformed
@@ -616,8 +614,8 @@ habana.cerrarConexion();
     private void CiCompaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CiCompaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CiCompaActionPerformed
-  private boolean ambosEstudiantesExisten(String cedula1, String cedula2) {
-        conexion habana=new conexion();
+    private boolean ambosEstudiantesExisten(String cedula1, String cedula2) {
+        conexion habana = new conexion();
         String consultaEstudiante1 = String.format("SELECT COUNT(*) FROM estudiantes WHERE Cedula = '%s'", cedula1);
         String consultaEstudiante2 = String.format("SELECT COUNT(*) FROM estudiantes WHERE Cedula = '%s'", cedula2);
 
@@ -628,19 +626,19 @@ habana.cerrarConexion();
             if (rs1.next() && rs2.next()) {
                 int cantidadEstudiante1 = rs1.getInt(1);
                 int cantidadEstudiante2 = rs2.getInt(1);
-habana.cerrarConexion();
+                habana.cerrarConexion();
                 return cantidadEstudiante1 > 0 && cantidadEstudiante2 > 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-habana.cerrarConexion();
+        habana.cerrarConexion();
         return false; // Si hay un error, considera que no existen ambos estudiantes
     }
 
     private boolean ningunEstudianteTieneTrabajoDeGrado(String cedula1, String cedula2) {
-        conexion habana=new conexion();
+        conexion habana = new conexion();
         String consultaTrabajo1 = String.format("SELECT id_trabajo FROM estudiantes WHERE Cedula = '%s'", cedula1);
         String consultaTrabajo2 = String.format("SELECT id_trabajo FROM estudiantes WHERE Cedula = '%s'", cedula2);
 
@@ -651,18 +649,18 @@ habana.cerrarConexion();
             if (rs1.next() && rs2.next()) {
                 int idTrabajo1 = rs1.getInt("id_trabajo");
                 int idTrabajo2 = rs2.getInt("id_trabajo");
-habana.cerrarConexion();
+                habana.cerrarConexion();
                 return idTrabajo1 == 0 && idTrabajo2 == 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-habana.cerrarConexion();
+        habana.cerrarConexion();
         return false; // Si hay un error, considera que ambos estudiantes tienen trabajos de grado asignados
     }
 
     private boolean ningunEstudianteTienePasantia(String cedula1, String cedula2) {
-        conexion habana=new conexion();
+        conexion habana = new conexion();
         String consultaPasantia1 = String.format("SELECT id_pasantia FROM estudiantes WHERE Cedula = '%s'", cedula1);
         String consultaPasantia2 = String.format("SELECT id_pasantia FROM estudiantes WHERE Cedula = '%s'", cedula2);
 
@@ -673,61 +671,62 @@ habana.cerrarConexion();
             if (rs1.next() && rs2.next()) {
                 int idPasantia1 = rs1.getInt("id_pasantia");
                 int idPasantia2 = rs2.getInt("id_pasantia");
-habana.cerrarConexion();
+                habana.cerrarConexion();
                 return idPasantia1 == 0 && idPasantia2 == 0;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-habana.cerrarConexion();
+        habana.cerrarConexion();
         return false; // Si hay un error, considera que ambos estudiantes tienen pasantías asignadas
     }
-private void codigo(String tf) throws SQLException{
-    conexion habana=new conexion();
-    System.out.println("tf"+tf);
-    String sql2 = "SELECT num_est, periodo, Escuela FROM estudiantes WHERE Cedula = '" + tf + "'";
-                
-                                    ResultSet rsC = habana.consultaRegistros(sql2);
 
-                // Obtener los valores de las columnas y guardarlos en variables
-                String num_est = rsC.getString("num_est");
-                String periodoC = rsC.getString("periodo");
-                String escuela = rsC.getString("Escuela");
+    private void codigo(String tf) throws SQLException {
+        conexion habana = new conexion();
+        System.out.println("tf" + tf);
+        String sql2 = "SELECT num_est, periodo, Escuela FROM estudiantes WHERE Cedula = '" + tf + "'";
 
-                switch (escuela) {
-                    case "Computación":
+        ResultSet rsC = habana.consultaRegistros(sql2);
 
-                        escuela = "C";
-                        break;
-                    case "Industrial":
-                        escuela = "I";
-                        break;
-                    case "Civil":
-                        escuela = "L";
-                        break;
-                    case "Electrónica":
-                        escuela = "Et";
-                        break;
-                    case "Telecomunicaciones":
-                        escuela = "T";
-                        break;
-                    case "Mecánica":
-                        escuela = "N";
-                        break;
-                    case "Arquitectura":
-                        escuela = "Q";
-                        break;
-                    default:
-                    // código que se ejecuta si no se cumple ninguna de las opciones anteriores
-                }
+        // Obtener los valores de las columnas y guardarlos en variables
+        String num_est = rsC.getString("num_est");
+        String periodoC = rsC.getString("periodo");
+        String escuela = rsC.getString("Escuela");
 
-                String cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + "TG";
+        switch (escuela) {
+            case "Computación":
 
-                String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Trabajo de grado' WHERE Cedula = '%s'", cod, tf);
+                escuela = "C";
+                break;
+            case "Industrial":
+                escuela = "I";
+                break;
+            case "Civil":
+                escuela = "L";
+                break;
+            case "Electrónica":
+                escuela = "Et";
+                break;
+            case "Telecomunicaciones":
+                escuela = "T";
+                break;
+            case "Mecánica":
+                escuela = "N";
+                break;
+            case "Arquitectura":
+                escuela = "Q";
+                break;
+            default:
+            // código que se ejecuta si no se cumple ninguna de las opciones anteriores
+        }
 
-                habana.ejecutarSentenciaSQl(sql3);
-                habana.cerrarConexion();
-}
+        String cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + "TG";
+
+        String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Trabajo de grado' WHERE Cedula = '%s'", cod, tf);
+
+        habana.ejecutarSentenciaSQl(sql3);
+        habana.cerrarConexion();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CiCompa;
     private javax.swing.JTextField NomCompa;

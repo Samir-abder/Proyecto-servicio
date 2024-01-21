@@ -3,26 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package programa;
+
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author mahmu
  */
 public class Diseno extends javax.swing.JPanel {
+
     public static DefaultTableModel modprofes;
     int filaAnterior = -1;
     int filaActual = -2;
+
     public Diseno() {
         initComponents();
         modprofes = (DefaultTableModel) this.profes.getModel();
         ListSelectionModel modeloSelecciond = profes.getSelectionModel();
         modeloSelecciond.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -180,14 +183,14 @@ public class Diseno extends javax.swing.JPanel {
         conexion habana = new conexion();
         String razonSocial = razontext.getText();
         String tutorAcademico = tutorA.getText();
-        String tutorci = cedulaT.getText();
+        String tutorci = cedulatuto.getText();
         String cedulaEstudiante = Alumnosside.cedulaEst.getText();
         String periodo = "Periodo"; // No está claro de dónde obtienes este valor
 
         // Verifica que los campos no estén vacíos
         if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isEmpty()) {
-            String updateSql = String.format("UPDATE Pasantia SET razon_social = '%s', tutor_academico = '%s', periodo = '%s', cedula_tutor = '%s' WHERE cedula_estudiante = '%s'",
-                razonSocial, tutorAcademico, periodo, cedulaEstudiante,tutorci);
+            String updateSql = String.format("UPDATE Diseno SET razon_social = '%s', tutor_academico = '%s', periodo = '%s', cedula_tutor = '%s' WHERE cedula_estudiante = '%s'",
+                    razonSocial, tutorAcademico, periodo, tutorci, cedulaEstudiante);
 
             try {
                 habana.ejecutarSentenciaSQl(updateSql);
@@ -208,14 +211,14 @@ public class Diseno extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         conexion busquedaProf = new conexion();
         String busqueda = cedulaT.getText();
-        String SQL = "SELECT * FROM Docentes WHERE Nombre LIKE '%"+ busqueda +"%' OR Apellido LIKE '%"+ busqueda +"%' OR Cedula LIKE '%"+ busqueda +"%'";
+        String SQL = "SELECT * FROM Docentes WHERE Nombre LIKE '%" + busqueda + "%' OR Apellido LIKE '%" + busqueda + "%' OR Cedula LIKE '%" + busqueda + "%'";
         while (Diseno.modprofes.getRowCount() > 0) {
             Diseno.modprofes.removeRow(0);
         }
 
         try {
             ResultSet AgregarProf = busquedaProf.consultaRegistros(SQL);
-            while(AgregarProf.next()){
+            while (AgregarProf.next()) {
                 String Nombre = AgregarProf.getString("Nombre") + " " + AgregarProf.getString("Apellido");
                 Object[] search = {
                     AgregarProf.getString("Cedula"),
@@ -227,7 +230,7 @@ public class Diseno extends javax.swing.JPanel {
         } catch (SQLException e) {
             // Manejar excepciones de SQL
             e.printStackTrace();
-        }finally{
+        } finally {
             busquedaProf.cerrarConexion();
         }
 
@@ -261,21 +264,12 @@ public class Diseno extends javax.swing.JPanel {
 
         String cedulaEstudiante = Alumnosside.cedulaEst.getText();//cedula del alumno otra vez?
 
-        String cedulatutor = cedulaT.getText();//cedula del tutor
+        String cedulatutor = cedulatuto.getText();//cedula del tutor
 
         String periodo = "Periodo"; // No está claro de dónde obtienes este valor
 
         // Verifica que los campos no estén vacíos
         if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isEmpty()) {
-            String updateSql = String.format("UPDATE Pasantia SET"
-                + " razon_social = '%s',"
-                + " tutor_academico = '%s',"
-                + " periodo = '%s'"
-                + " WHERE cedula_estudiante = '%s'",
-                razonSocial,
-                tutorAcademico,
-                periodo,
-                cedulaEstudiante);
 
             conexion habana = new conexion();
 
@@ -301,19 +295,19 @@ public class Diseno extends javax.swing.JPanel {
                                 JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene una pasantia asignada.", "Error", JOptionPane.ERROR_MESSAGE);
                             } else {
                                 //si no se tiene una pasantia asignada se le asigna una
-                                String consultatrabajo = "SELECT id_trabajo FROM estudiantes WHERE Cedula = '" + cedula1 + "'";
+                                String consultatrabajo = "SELECT id_diseno FROM estudiantes WHERE Cedula = '" + cedula1 + "'";
                                 ResultSet rstrabajo = habana.consultaRegistros(consultatrabajo);
-                                int idtrabajo = rstrabajo.getInt("id_trabajo");
+                                int iddiseno = rstrabajo.getInt("id_diseno");
 
                                 try {
-                                    if (idtrabajo != 0) {//(se verifica que no tenga trabajo de grado)
+                                    if (iddiseno != 0) {//(se verifica que no tenga trabajo de grado)
 
-                                        JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene un trabajo de grado asignado.", "Error", JOptionPane.ERROR_MESSAGE);
+                                        JOptionPane.showMessageDialog(null, "El estudiante " + cedula1 + " ya tiene un diseño asignado.", "Error", JOptionPane.ERROR_MESSAGE);
                                     } else {
                                         // El estudiante no tiene una pasantía asignada
-                                        String addSql = String.format("INSERT INTO Pasantia (razon_social, tutor_academico, cedula_estudiante, periodo, cedula_tutor) VALUES"
-                                            + "('%s', '%s', '%s', '%s', '%s')",
-                                            razontext.getText(), tutorA.getText(), Alumnosside.cedulaEst.getText(),cedulatutor, "Periodo");
+                                        String addSql = String.format("INSERT INTO Diseno (razon_social, tutor_academico, cedula_estudiante, periodo, cedula_tutor) VALUES"
+                                                + "('%s', '%s', '%s', '%s', '%s')",
+                                                razontext.getText(), tutorA.getText(), Alumnosside.cedulaEst.getText(), "Periodo", cedulatutor);
 
                                         habana.ejecutarSentenciaSQl(addSql);
 
@@ -324,7 +318,7 @@ public class Diseno extends javax.swing.JPanel {
                                         if (lastIdResultSet.next()) {
                                             int idGenerado = lastIdResultSet.getInt(1);
                                             // Actualizar la tabla estudiantes con el ID generado
-                                            String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_pasantia = %d WHERE Cedula = '%s'", idGenerado, cedula1);
+                                            String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_diseno = %d WHERE Cedula = '%s'", idGenerado, cedula1);
                                             habana.ejecutarSentenciaSQl(updateEstudiantesSql);
 
                                         }
@@ -337,37 +331,43 @@ public class Diseno extends javax.swing.JPanel {
                                         String num_est = rsC.getString("num_est");
                                         String periodoC = rsC.getString("periodo");
                                         String escuela = rsC.getString("Escuela");
-
+                                        String nivel = rsC.getString("Nivel");
+                                        String dedo = "";//para codigo de diseno
+                                        if (nivel.equals("9vno")) {
+                                            dedo = "DIX";
+                                        } else {
+                                            dedo = "DX";
+                                        }
                                         switch (escuela) {
                                             case "Computación":
 
-                                            escuela = "C";
-                                            break;
+                                                escuela = "C";
+                                                break;
                                             case "Industrial":
-                                            escuela = "I";
-                                            break;
+                                                escuela = "I";
+                                                break;
                                             case "Civil":
-                                            escuela = "L";
-                                            break;
+                                                escuela = "L";
+                                                break;
                                             case "Electrónica":
-                                            escuela = "Et";
-                                            break;
+                                                escuela = "Et";
+                                                break;
                                             case "Telecomunicaciones":
-                                            escuela = "T";
-                                            break;
+                                                escuela = "T";
+                                                break;
                                             case "Mecánica":
-                                            escuela = "N";
-                                            break;
+                                                escuela = "N";
+                                                break;
                                             case "Arquitectura":
-                                            escuela = "Q";
-                                            break;
+                                                escuela = "Q";
+                                                break;
                                             default:
                                             // código que se ejecuta si no se cumple ninguna de las opciones anteriores
                                         }
 
-                                        String cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + "PS";
+                                        String cod = "FI-" + escuela + "-" + num_est + "-" + periodoC + "-" + dedo;
 
-                                        String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Pasantia' WHERE Cedula = '%s'", cod, Alumnosside.cedulaEst.getText());
+                                        String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Diseño' WHERE Cedula = '%s'", cod, Alumnosside.cedulaEst.getText());
 
                                         habana.ejecutarSentenciaSQl(sql3);
                                     }
@@ -392,7 +392,7 @@ public class Diseno extends javax.swing.JPanel {
                 e.printStackTrace();
             }
             habana.cerrarConexion();
-        }else {
+        } else {
             JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos antes de actualizar.", "Campos Vacíos", JOptionPane.WARNING_MESSAGE);
 
         }

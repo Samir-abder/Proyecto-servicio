@@ -185,21 +185,21 @@ String tutorAcademico = tutorAcad.getText();//nombre del tutor
 
 String cedulaEstudiante = Alumnosside.cedulaEst.getText();//cedula del alumno otra vez?
 
-String cedulatutor = cedulaTutor.getText();//cedula del tutor
+String cedulatutor = cedulatuto.getText();//cedula del tutor
 
 String periodo = "Periodo"; // No está claro de dónde obtienes este valor
 
 // Verifica que los campos no estén vacíos
 if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isEmpty()) {
-    String updateSql = String.format("UPDATE Pasantia SET"
-            + " razon_social = '%s',"
-            + " tutor_academico = '%s',"
-            + " periodo = '%s'"
-            + " WHERE cedula_estudiante = '%s'",
-            razonSocial,
-            tutorAcademico,
-            periodo,
-            cedulaEstudiante);
+//    String updateSql = String.format("UPDATE Pasantia SET"
+//            + " razon_social = '%s',"
+//            + " tutor_academico = '%s',"
+//            + " periodo = '%s'"
+//            + " WHERE cedula_estudiante = '%s'",
+//            razonSocial,
+//            tutorAcademico,
+//            periodo,
+//            cedulaEstudiante);
 
         conexion habana = new conexion();
 
@@ -237,7 +237,7 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
                                     // El estudiante no tiene una pasantía asignada
                                     String addSql = String.format("INSERT INTO Pasantia (razon_social, tutor_academico, cedula_estudiante, periodo, cedula_tutor) VALUES"
                                         + "('%s', '%s', '%s', '%s', '%s')",
-                                        razontext.getText(), tutorAcad.getText(), Alumnosside.cedulaEst.getText(),cedulatutor, "Periodo");
+                                        razontext.getText(), tutorAcad.getText(), Alumnosside.cedulaEst.getText(),"Periodo", cedulatutor);
 
                                     habana.ejecutarSentenciaSQl(addSql);
                                     
@@ -331,16 +331,17 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
        conexion habana = new conexion();
 String razonSocial = razontext.getText();
 String tutorAcademico = tutorAcad.getText();
-String tutorci = cedulaTutor.getText();
+String tutorci = cedulatuto.getText();
 String cedulaEstudiante = Alumnosside.cedulaEst.getText();
 String periodo = "Periodo"; // No está claro de dónde obtienes este valor
 
 // Verifica que los campos no estén vacíos
 if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isEmpty()) {
+try {
     String updateSql = String.format("UPDATE Pasantia SET razon_social = '%s', tutor_academico = '%s', periodo = '%s', cedula_tutor = '%s' WHERE cedula_estudiante = '%s'",
-            razonSocial, tutorAcademico, periodo, cedulaEstudiante,tutorci);
+            razonSocial, tutorAcademico, periodo,tutorci, cedulaEstudiante);
 
-    try {
+    System.out.println("u "+ updateSql);
         habana.ejecutarSentenciaSQl(updateSql);
         JOptionPane.showMessageDialog(null, "La pasantía del estudiante con cédula " + cedulaEstudiante + " ha sido editada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         habana.cerrarConexion();
