@@ -40,6 +40,13 @@ public class Profesores extends javax.swing.JPanel {
         ListSelectionModel modeloSeleccion = jTable1.getSelectionModel();
         modeloSeleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 profed.setVisible(false);
+                if (!conexion.strconexionDB.equals("database.s3db")) {
+            botonAgProf.setVisible(false);
+            profbo.setVisible(false);
+        } else {
+            botonAgProf.setVisible(true);
+            profbo.setVisible(true);
+        }
 
     }
 

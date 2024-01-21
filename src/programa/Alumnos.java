@@ -35,8 +35,7 @@ public class Alumnos extends javax.swing.JPanel {
     int filaAnterior = -1;
     int filaActual = -2;
     public static String cedula;
-            public static CartaIndividual carta;
-
+    public static CartaIndividual carta;
 
     public Alumnos() {
         initComponents();
@@ -47,6 +46,15 @@ public class Alumnos extends javax.swing.JPanel {
         botonEditar.setEnabled(false);
         ListSelectionModel modeloSeleccion = jTable1.getSelectionModel();
         modeloSeleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        if (!conexion.strconexionDB.equals("database.s3db")) {
+            botonAgregar.setVisible(false);
+            botonEditar.setVisible(false);
+            botonEliminar.setVisible(false);
+        } else {
+            botonAgregar.setVisible(true);
+            botonEditar.setVisible(true);
+            botonEliminar.setVisible(true);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -253,7 +261,7 @@ public class Alumnos extends javax.swing.JPanel {
         CartaIndividual.tipoE = String.valueOf(jTable1.getValueAt(filaSeleccionada, 4));
         try {
             carta = new CartaIndividual();
-                    carta.setVisible(true);
+            carta.setVisible(true);
 
         } catch (Exception ex) {
             Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
@@ -449,148 +457,144 @@ public class Alumnos extends javax.swing.JPanel {
         if (selectedRow != -1) { // Verifica si se ha seleccionado una fila
             String cedula = (String) jTable1.getValueAt(selectedRow, 0);
 
-               
-            
-             int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este registro?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-               
-             
-            if (confirmacion == JOptionPane.YES_OPTION){ 
-            if (TIPO.equals("Trabajo de grado")) {
-                try {
-                    ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
-                    if (resultados.next()) {
-                        String idtr = resultados.getString("id_trabajo");
-                        // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
-                        String updateSql = "UPDATE estudiantes SET id_trabajo = '' WHERE id_trabajo = '" + idtr + "'";
-                        objConexion.ejecutarSentenciaSQl(updateSql);
-                        String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s' OR cedula_estudiante2 = '%s'", cedula, cedula);
-                        objConexion.ejecutarSentenciaSQl(deleteSql1);
-                        String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
-                        objConexion.ejecutarSentenciaSQl(sql);
-                        try {
-                            int num = 0;
-                            ResultSet rst = objConexion.consultaRegistros("SELECT * FROM trabajo_grado");
-                            while (rst.next()) {
-                                String idTrabajo = rst.getString("id_trabajo");
-                                String codigoActual = rst.getString("codigo");
-                                // Extraer el número después del segundo guion "-"
-                                String[] partesCodigo = codigoActual.split("-");
-                                if (partesCodigo.length >= 3) {
-                                    String numeroActual = num + "";
-                                    num = +1;
-                                    // Incrementar el número y formar el nuevo código
-                                    int nuevoNumero = Integer.parseInt(numeroActual) + 1;
-                                    String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
-                                            + partesCodigo[3] + "-" + partesCodigo[4]+ "-" + partesCodigo[5];
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este registro?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
 
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                if (TIPO.equals("Trabajo de grado")) {
+                    try {
+                        ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
+                        if (resultados.next()) {
+                            String idtr = resultados.getString("id_trabajo");
+                            // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
+                            String updateSql = "UPDATE estudiantes SET id_trabajo = '' WHERE id_trabajo = '" + idtr + "'";
+                            objConexion.ejecutarSentenciaSQl(updateSql);
+                            String deleteSql1 = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s' OR cedula_estudiante2 = '%s'", cedula, cedula);
+                            objConexion.ejecutarSentenciaSQl(deleteSql1);
+                            String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
+                            objConexion.ejecutarSentenciaSQl(sql);
+                            try {
+                                int num = 0;
+                                ResultSet rst = objConexion.consultaRegistros("SELECT * FROM trabajo_grado");
+                                while (rst.next()) {
+                                    String idTrabajo = rst.getString("id_trabajo");
+                                    String codigoActual = rst.getString("codigo");
+                                    // Extraer el número después del segundo guion "-"
+                                    String[] partesCodigo = codigoActual.split("-");
+                                    if (partesCodigo.length >= 3) {
+                                        String numeroActual = num + "";
+                                        num = +1;
+                                        // Incrementar el número y formar el nuevo código
+                                        int nuevoNumero = Integer.parseInt(numeroActual) + 1;
+                                        String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
+                                                + partesCodigo[3] + "-" + partesCodigo[4] + "-" + partesCodigo[5];
 
-                                    // Actualizar el campo "codigo" en la base de datos
-                                    updateSql = "UPDATE trabajo_grado SET codigo = '" + nuevoCodigo + "' WHERE id_trabajo = '" + idTrabajo + "'";
-                                    objConexion.ejecutarSentenciaSQl(updateSql);
+                                        // Actualizar el campo "codigo" en la base de datos
+                                        updateSql = "UPDATE trabajo_grado SET codigo = '" + nuevoCodigo + "' WHERE id_trabajo = '" + idTrabajo + "'";
+                                        objConexion.ejecutarSentenciaSQl(updateSql);
+                                    }
                                 }
-                            }
-                           objConexion.cerrarConexion();
+                                objConexion.cerrarConexion();
 
-                        } catch (SQLException e) {
-                            // Manejar la excepción, por ejemplo, mostrar un mensaje de error
-                            e.printStackTrace();
+                            } catch (SQLException e) {
+                                // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+                                e.printStackTrace();
+                            }
                         }
-                    }
 //
-                } catch (SQLException ex) {
-                    Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }else if (TIPO.equals("Pasantia")) {
-                try {
-                    ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
-                    if (resultados.next()) {
-                        String idtr = resultados.getString("id_pasantia");
-                        // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
-                        String updateSql = "UPDATE estudiantes SET id_pasantia = '' WHERE id_pasantia = '" + idtr + "'";
-                        objConexion.ejecutarSentenciaSQl(updateSql);
-                        String deleteSql1 = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedula);
-                        objConexion.ejecutarSentenciaSQl(deleteSql1);
-                        String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
-                        objConexion.ejecutarSentenciaSQl(sql);
-                        try {
-                            int num = 0;
-                            ResultSet rst = objConexion.consultaRegistros("SELECT * FROM Pasantia");
-                            while (rst.next()) {
-                                String idTrabajo = rst.getString("id_pasantia");
-                                String codigoActual = rst.getString("codigo");
-                                // Extraer el número después del segundo guion "-"
-                                String[] partesCodigo = codigoActual.split("-");
-                                if (partesCodigo.length >= 3) {
-                                    String numeroActual = num + "";
-                                    num = +1;
-                                    // Incrementar el número y formar el nuevo código
-                                    int nuevoNumero = Integer.parseInt(numeroActual) + 1;
-                                    String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
-                                            + partesCodigo[3] + "-" + partesCodigo[4]+ "-" + partesCodigo[5];
-
-                                    // Actualizar el campo "codigo" en la base de datos
-                                    updateSql = "UPDATE Pasantia SET codigo = '" + nuevoCodigo + "' WHERE id_pasantia = '" + idTrabajo + "'";
-                                    objConexion.ejecutarSentenciaSQl(updateSql);
-                                }
-                            }
-                           objConexion.cerrarConexion();
-
-                        } catch (SQLException e) {
-                            // Manejar la excepción, por ejemplo, mostrar un mensaje de error
-                            e.printStackTrace();
-                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } else if (TIPO.equals("Pasantia")) {
+                    try {
+                        ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
+                        if (resultados.next()) {
+                            String idtr = resultados.getString("id_pasantia");
+                            // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
+                            String updateSql = "UPDATE estudiantes SET id_pasantia = '' WHERE id_pasantia = '" + idtr + "'";
+                            objConexion.ejecutarSentenciaSQl(updateSql);
+                            String deleteSql1 = String.format("DELETE FROM Pasantia WHERE cedula_estudiante = '%s'", cedula);
+                            objConexion.ejecutarSentenciaSQl(deleteSql1);
+                            String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
+                            objConexion.ejecutarSentenciaSQl(sql);
+                            try {
+                                int num = 0;
+                                ResultSet rst = objConexion.consultaRegistros("SELECT * FROM Pasantia");
+                                while (rst.next()) {
+                                    String idTrabajo = rst.getString("id_pasantia");
+                                    String codigoActual = rst.getString("codigo");
+                                    // Extraer el número después del segundo guion "-"
+                                    String[] partesCodigo = codigoActual.split("-");
+                                    if (partesCodigo.length >= 3) {
+                                        String numeroActual = num + "";
+                                        num = +1;
+                                        // Incrementar el número y formar el nuevo código
+                                        int nuevoNumero = Integer.parseInt(numeroActual) + 1;
+                                        String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
+                                                + partesCodigo[3] + "-" + partesCodigo[4] + "-" + partesCodigo[5];
+
+                                        // Actualizar el campo "codigo" en la base de datos
+                                        updateSql = "UPDATE Pasantia SET codigo = '" + nuevoCodigo + "' WHERE id_pasantia = '" + idTrabajo + "'";
+                                        objConexion.ejecutarSentenciaSQl(updateSql);
+                                    }
+                                }
+                                objConexion.cerrarConexion();
+
+                            } catch (SQLException e) {
+                                // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+                                e.printStackTrace();
+                            }
+                        }
 //
-                } catch (SQLException ex) {
-                    Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }else if (TIPO.equals("Diseño")) {
-                try {
-                    ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
-                    if (resultados.next()) {
-                        String idtr = resultados.getString("id_diseno");
-                        // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
-                        String updateSql = "UPDATE estudiantes SET id_diseno = '' WHERE id_diseno = '" + idtr + "'";
-                        objConexion.ejecutarSentenciaSQl(updateSql);
-                        String deleteSql1 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
-                        objConexion.ejecutarSentenciaSQl(deleteSql1);
-                        String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
-                        objConexion.ejecutarSentenciaSQl(sql);
-                        try {
-                            int num = 0;
-                            ResultSet rst = objConexion.consultaRegistros("SELECT * FROM Diseno");
-                            while (rst.next()) {
-                                String idTrabajo = rst.getString("id_diseno");
-                                String codigoActual = rst.getString("codigo");
-                                // Extraer el número después del segundo guion "-"
-                                String[] partesCodigo = codigoActual.split("-");
-                                if (partesCodigo.length >= 3) {
-                                    String numeroActual = num + "";
-                                    num = +1;
-                                    // Incrementar el número y formar el nuevo código
-                                    int nuevoNumero = Integer.parseInt(numeroActual) + 1;
-                                    String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
-                                            + partesCodigo[3] + "-" + partesCodigo[4]+ "-" + partesCodigo[5];
-                                    // Actualizar el campo "codigo" en la base de datos
-                                    updateSql = "UPDATE Diseno SET codigo = '" + nuevoCodigo + "' WHERE id_diseno = '" + idTrabajo + "'";
-                                    objConexion.ejecutarSentenciaSQl(updateSql);
-                                }
-                            }
-                           objConexion.cerrarConexion();
-                        } catch (SQLException e) {
-                            // Manejar la excepción, por ejemplo, mostrar un mensaje de error
-                            e.printStackTrace();
-                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                } else if (TIPO.equals("Diseño")) {
+                    try {
+                        ResultSet resultados = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'");
+                        if (resultados.next()) {
+                            String idtr = resultados.getString("id_diseno");
+                            // Actualizar el campo id_trabajo a blanco (o null, dependiendo de la definición de la columna)
+                            String updateSql = "UPDATE estudiantes SET id_diseno = '' WHERE id_diseno = '" + idtr + "'";
+                            objConexion.ejecutarSentenciaSQl(updateSql);
+                            String deleteSql1 = String.format("DELETE FROM Diseno WHERE cedula_estudiante = '%s'", cedula);
+                            objConexion.ejecutarSentenciaSQl(deleteSql1);
+                            String sql = "DELETE FROM estudiantes WHERE Cedula = '" + cedula + "'";
+                            objConexion.ejecutarSentenciaSQl(sql);
+                            try {
+                                int num = 0;
+                                ResultSet rst = objConexion.consultaRegistros("SELECT * FROM Diseno");
+                                while (rst.next()) {
+                                    String idTrabajo = rst.getString("id_diseno");
+                                    String codigoActual = rst.getString("codigo");
+                                    // Extraer el número después del segundo guion "-"
+                                    String[] partesCodigo = codigoActual.split("-");
+                                    if (partesCodigo.length >= 3) {
+                                        String numeroActual = num + "";
+                                        num = +1;
+                                        // Incrementar el número y formar el nuevo código
+                                        int nuevoNumero = Integer.parseInt(numeroActual) + 1;
+                                        String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
+                                                + partesCodigo[3] + "-" + partesCodigo[4] + "-" + partesCodigo[5];
+                                        // Actualizar el campo "codigo" en la base de datos
+                                        updateSql = "UPDATE Diseno SET codigo = '" + nuevoCodigo + "' WHERE id_diseno = '" + idTrabajo + "'";
+                                        objConexion.ejecutarSentenciaSQl(updateSql);
+                                    }
+                                }
+                                objConexion.cerrarConexion();
+                            } catch (SQLException e) {
+                                // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+                                e.printStackTrace();
+                            }
+                        }
 
-                } catch (SQLException ex) {
-                    Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
+        } else {
+            System.out.println("La Eliminación del registro ha sido cancelado por el Usuario");
         }
-        }else{
-                System.out.println("La Eliminación del registro ha sido cancelado por el Usuario");
-            }
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
