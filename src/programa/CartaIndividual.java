@@ -70,7 +70,7 @@ public class CartaIndividual extends JFrame {
                     JOptionPane.showMessageDialog(null, "No tiene proyecto designado", "Error", JOptionPane.ERROR_MESSAGE);
                     Alumnos.carta.dispose();
                 }
-                while (resultado.next()) {
+              
 
 // Simulamos cargar datos para el informe
                     Map<String, Object> datosInforme = cargarDatosInforme(resultado.getString("id_trabajo"), "Trabajo de grado",
@@ -85,7 +85,7 @@ public class CartaIndividual extends JFrame {
                     panel.add(jrViewer);
                     panel.repaint();
                     panel.revalidate();
-                }
+                
 
                 // Llenar el informe con los datos de la factura
                 // Componente de JasperReports para visualizar el informe
@@ -108,7 +108,7 @@ public class CartaIndividual extends JFrame {
                     JOptionPane.showMessageDialog(null, "No tiene proyecto designado", "Error", JOptionPane.ERROR_MESSAGE);
                     Alumnos.carta.dispose();
                 }
-                while (resultado.next()) {
+               
 
 // Simulamos cargar datos para el informe
                     Map<String, Object> datosInforme = cargarDatosInforme(resultado.getString("id_pasantia"), "Pasantia",
@@ -123,8 +123,7 @@ public class CartaIndividual extends JFrame {
                     panel.add(jrViewer);
                     panel.repaint();
                     panel.revalidate();
-                }
-
+                
                 // Llenar el informe con los datos de la factura
                 // Componente de JasperReports para visualizar el informe
                 objConexion.cerrarConexion();
@@ -145,7 +144,7 @@ public class CartaIndividual extends JFrame {
                     JOptionPane.showMessageDialog(null, "No tiene proyecto designado", "Error", JOptionPane.ERROR_MESSAGE);
                     Alumnos.carta.dispose();
                 }
-                while (resultado.next()) {
+                
 
 // Simulamos cargar datos para el informe
                     Map<String, Object> datosInforme = cargarDatosInforme(resultado.getString("id_diseno"), "Diseño",
@@ -160,7 +159,6 @@ public class CartaIndividual extends JFrame {
                     panel.add(jrViewer);
                     panel.repaint();
                     panel.revalidate();
-                }
 
                 // Llenar el informe con los datos de la factura
                 // Componente de JasperReports para visualizar el informe

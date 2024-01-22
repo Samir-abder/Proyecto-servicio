@@ -1,140 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="61075c48-c3e1-486b-ba8c-25c5df4a0e41">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_Letter" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9a023602-abf7-41a9-ba47-4c05fbed19f7">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="Codigo" class="java.lang.String"/>
-	<parameter name="Nombre" class="java.lang.String"/>
-	<parameter name="Apellido" class="java.lang.String"/>
-	<parameter name="Cedula" class="java.lang.String"/>
-	<parameter name="fechalarga" class="java.lang.String"/>
 	<parameter name="Reunion" class="java.lang.String"/>
 	<parameter name="fechacorta" class="java.lang.String"/>
 	<parameter name="NombreProyecto" class="java.lang.String"/>
-	<parameter name="Ingeniero" class="java.lang.String"/>
 	<parameter name="Tutor" class="java.lang.String"/>
 	<parameter name="Cedulatutor" class="java.lang.String"/>
+	<parameter name="Ingeniero" class="java.lang.String"/>
+	<parameter name="Codigo" class="java.lang.String"/>
+	<parameter name="fechalarga" class="java.lang.String"/>
+	<parameter name="Nombre" class="java.lang.String"/>
+	<parameter name="Cedula" class="java.lang.String"/>
 	<parameter name="Nombre2" class="java.lang.String"/>
-	<parameter name="Apellido2" class="java.lang.String"/>
 	<parameter name="Cedula2" class="java.lang.String"/>
 	<parameter name="decano" class="java.lang.String"/>
+	<parameter name="Apellido" class="java.lang.String"/>
+	<parameter name="Apellido2" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="cedula" class="java.lang.String"/>
-	<field name="nombre" class="java.lang.String"/>
-	<field name="apellido" class="java.lang.String"/>
-	<field name="escuela" class="java.lang.String"/>
-	<field name="facultad" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="101" splitType="Stretch">
-			<staticText>
-				<reportElement x="173" y="7" width="292" height="60" uuid="3c1c8400-2c2d-4f04-a086-9ad4d9077172"/>
-				<textElement textAlignment="Left">
-					<font size="14"/>
-				</textElement>
-				<text><![CDATA[REPÚBLICA BOLIVARIANA DE VENEZUELA
-UNIVERSIDAD JOSÉ ANTONIO PÁEZ
-FACULTAD DE INGENIERIA
-]]></text>
-			</staticText>
-			<image isUsingCache="false">
-				<reportElement x="91" y="7" width="60" height="60" uuid="7d2cd694-cea7-42b2-ad04-98b8a860d90e"/>
-				<imageExpression><![CDATA["logo_g.jpg"]]></imageExpression>
+		<band height="120" splitType="Stretch">
+			<image>
+				<reportElement x="30" y="10" width="80" height="70" uuid="02e17d44-08d0-4052-aee1-55599b86b911"/>
+				<imageExpression><![CDATA["Logo-UJAP2.jpg"]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement x="20" y="69" width="121" height="21" uuid="2c9889f0-f161-44c9-b9b0-dbc655b7daef"/>
-				<textFieldExpression><![CDATA[$P{Codigo}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="380" y="80" width="175" height="21" uuid="3711612f-2b52-428f-9c33-8876e58c5b6e"/>
-				<textFieldExpression><![CDATA["Valencia "+$P{fechalarga}]]></textFieldExpression>
-			</textField>
+			<image>
+				<reportElement x="110" y="13" width="509" height="79" uuid="fecf29f4-9a7b-4f87-a529-7bf17e676dfc"/>
+				<imageExpression><![CDATA["encabezado.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="90" splitType="Stretch">
-			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
-			<staticText>
-				<reportElement x="20" y="0" width="100" height="20" uuid="d6d4351d-6e6b-48a6-b87e-b04c9d24aa45"/>
-				<text><![CDATA[Ciudadano(s)]]></text>
-			</staticText>
+		<band height="116" splitType="Stretch">
 			<textField>
-				<reportElement x="20" y="10" width="221" height="20" uuid="ea0c538a-c92a-4594-92b7-78f61dcb8838"/>
-				<textFieldExpression><![CDATA[$P{Nombre}+" "+$P{Apellido}]]></textFieldExpression>
+				<reportElement x="30" y="0" width="121" height="21" uuid="d38a2d08-6fc9-45ec-94a9-6f00ad3c212a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Codigo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="20" y="20" width="100" height="19" uuid="a5196916-8ed8-431e-93f4-d24f4a889e92"/>
+				<reportElement x="320" y="20" width="226" height="21" uuid="35ff7d68-b0d8-405d-9345-934c7065bf6d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["San Diego "+$P{fechalarga}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="41" width="100" height="22" uuid="a7ee9cae-8d85-46d0-9f75-3206f06fa6e9"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Ciudadano(s):]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="30" y="63" width="170" height="16" uuid="0ea35cbc-c730-4bbb-a5ac-9bcf76077bea"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Nombre} +" "+ $P{Apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="80" width="170" height="20" uuid="bc55ba2c-6158-47c3-8ecf-4ca781c38d53"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{Cedula}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="20" y="70" width="100" height="20" uuid="e12595c2-96a7-4bf5-bef6-526a11a9db09"/>
-				<text><![CDATA[Presente]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="20" y="50" width="100" height="19" uuid="acdd20a9-0228-4945-b351-363f28c9313e"/>
-				<textFieldExpression><![CDATA[$P{Cedula2}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="20" y="40" width="221" height="20" uuid="ac4c77f0-1a33-4dea-9d11-430e868af8f2"/>
+				<reportElement x="30" y="96" width="170" height="16" uuid="f5ce11c1-bc82-43fe-9d7d-151689533dfb"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$P{Nombre2}+" "+$P{Apellido2}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
-	<detail>
-		<band height="191" splitType="Stretch">
-			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+	<columnHeader>
+		<band height="64" splitType="Stretch">
 			<textField>
-				<reportElement x="20" y="6" width="490" height="44" uuid="b253f14f-d194-4c45-9411-37ed8f47f66d"/>
-				<textElement textAlignment="Justified"/>
-				<textFieldExpression><![CDATA["Cumplo con informarle que la comision de Trabajo de Grado y Pasantia de la Facultad de Ingenieria en su reunion: "+$P{Reunion}+" de fecha "+$P{fechacorta}+" aprobó el proyecto titulado: "]]></textFieldExpression>
+				<reportElement x="30" y="-4" width="170" height="20" uuid="3777a2ac-5e64-4a10-9a54-553ff091a057"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Cedula2}]]></textFieldExpression>
 			</textField>
-			<textField evaluationTime="Report">
-				<reportElement x="17" y="40" width="520" height="30" uuid="11537a5d-9bca-4e3f-88eb-081e6dfc9080"/>
+			<staticText>
+				<reportElement x="30" y="34" width="100" height="16" uuid="9105bef0-3bc9-47bc-afe8-23fce5f3d1ec"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Presente. -]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="150" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="20" width="400" height="60" uuid="4242502f-8686-4ffe-b63c-611d9682bc2d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{NombreProyecto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="17" y="70" width="530" height="30" uuid="18f52045-492a-4792-bf94-1500a6b994f6"/>
-				<textFieldExpression><![CDATA["Presentado por usted como requisito para optar el titulo de " + $P{Ingeniero}]]></textFieldExpression>
+				<reportElement x="26" y="102" width="520" height="30" uuid="3bd588f9-036c-4a11-bc8d-65918bafcf34"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Se ratifica la designación del Tutor Académico que lo asesorará en el desarrollo de este proyecto al Docente "+$P{Tutor}+", titular de la cédula de identidad v-"+$P{Cedulatutor}+"."]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="20" y="100" width="540" height="30" uuid="71f00320-98bb-41b0-aaa2-4c422127a37c"/>
-				<textElement textAlignment="Justified"/>
-				<textFieldExpression><![CDATA["Se ratifica la designación del Tutor Académico que lo asesorará en el desarrollo de este proyecto a "+$P{Tutor}+" titular de la cedula de identidad V- "+$P{Cedulatutor}]]></textFieldExpression>
+				<reportElement x="30" y="-10" width="520" height="30" uuid="15f834de-08dd-431d-a063-b0c6221be78f"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Cumplo con informarle que la comisión de Trabajo de Grado y Pasantía de la Facultad de Ingeniería, en su reunión № " + $P{Reunion} + " de fecha " + $P{fechacorta} + ", aprobó el proyecto titulado:"]]></textFieldExpression>
 			</textField>
-		</band>
-		<band height="110">
-			<staticText>
-				<reportElement x="210" y="10" width="160" height="20" uuid="7d0f4d8a-863d-4b3a-bef1-fcdfe9ed484c"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[Atentamente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="200" y="78" width="180" height="30" uuid="e7412334-d393-4312-82cb-d13188a674d3"/>
-				<textElement textAlignment="Center"/>
-				<text><![CDATA[
-Decano(a) de la Facultad de Ingenieria]]></text>
-			</staticText>
 			<textField>
-				<reportElement x="241" y="70" width="100" height="20" uuid="4aad7386-f8b1-4b7c-82de-64b9ee196a39"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$P{decano}]]></textFieldExpression>
+				<reportElement x="26" y="80" width="520" height="22" uuid="4e6e9125-bb29-455b-8ba7-6cd431b9ca9e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Presentado por usted(es) como requisito para optar al título de "+$P{Ingeniero}]]></textFieldExpression>
 			</textField>
-		</band>
-		<band height="50">
-			<staticText>
-				<reportElement x="55" y="20" width="470" height="30" uuid="b760b5eb-3521-4fff-8695-a9be0af144b7"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-				<text><![CDATA[c.c. Coordinación de Pasantías y Trabajo de Grado de la Facultad de Ingenieria]]></text>
-			</staticText>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="128" splitType="Stretch">
+			<staticText>
+				<reportElement x="250" y="0" width="60" height="20" uuid="a07bf2fe-987a-4d66-9d37-843d3c8bfc26"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Atentamente,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="80" width="180" height="20" uuid="3edd2f9b-3e45-462c-8773-6ed3031be754"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[Decano(a) de la Facultad de Ingeniería]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="60" width="180" height="20" uuid="71ba3328-65ac-404a-bac2-07c532b6e6f1"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{decano}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="30" y="98" width="520" height="30" uuid="72685a58-ae42-45c6-963f-91cfa60729fb"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[c.c. Coordinación de Pasantía y Trabajo de Grado de la Facultad de Ingeniería]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="106" splitType="Stretch">
+			<image>
+				<reportElement x="-1" y="15" width="560" height="76" uuid="b7511b11-dfd3-4edb-a07c-d1f42fb615c4"/>
+				<imageExpression><![CDATA["footer.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageFooter>
 </jasperReport>

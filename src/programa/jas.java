@@ -202,11 +202,11 @@ try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, no
 
             datosInforme.put("Nombre", datos.get(0));
             datosInforme.put("Apellido", datos.get(1));
-            datosInforme.put("Cedula", datos.get(2));
+            datosInforme.put("Cedula", "C.I."+datos.get(2));
             if (datos.size() == 6) {
                 datosInforme.put("Nombre2", datos.get(3));
                 datosInforme.put("Apellido2", datos.get(4));
-                datosInforme.put("Cedula2", datos.get(5));
+                datosInforme.put("Cedula2", "C.I."+datos.get(5));
             } else if (datos.size() == 3) {
                 datosInforme.put("Nombre2", "");
                 datosInforme.put("Apellido2", "");
@@ -216,7 +216,28 @@ try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, no
             datosInforme.put("NombreProyecto", titulo);
             datosInforme.put("fechalarga", fechaLarga);
             datosInforme.put("fechacorta", fechaCorta);
-            datosInforme.put("Ingeniero", escuela);
+            if(escuela.equals("Arquitectura")){
+                            datosInforme.put("Ingeniero","Arquitecto(a)");
+
+            }if(escuela.equals("Computación")){
+                            datosInforme.put("Ingeniero","Ingeniero(a) en computación");
+
+            }if(escuela.equals("Mecánica")){
+                            datosInforme.put("Ingeniero","Ingeniero(a) mecánico");
+
+            }if(escuela.equals("Telecomunicaciones")){
+                            datosInforme.put("Ingeniero","Ingeniero(a) en telecomunicaciones");
+
+            }if(escuela.equals("Civil")){
+                            datosInforme.put("Ingeniero","Ingeniero(a) civil");
+
+            }if(escuela.equals("Industrial")){
+                            datosInforme.put("Ingeniero","Ingeniero(a) industrial");
+
+            }if(escuela.equals("Electrónica")){
+                            datosInforme.put("Ingeniero","Ingeniero(a) electronico");
+
+            }
             datosInforme.put("Tutor", nombret);
             datosInforme.put("Cedulatutor", cedulat);
             datosInforme.put("decano", decano);

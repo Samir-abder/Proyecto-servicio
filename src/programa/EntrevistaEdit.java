@@ -64,21 +64,16 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         cedulaTutor2 = new javax.swing.JTextField();
         botonAgregar1 = new javax.swing.JButton();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         jLabel5.setText("Aula/Lugar:");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 60, -1));
 
         lugarentrevista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lugarentrevistaActionPerformed(evt);
             }
         });
-        add(lugarentrevista, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 310, 77, -1));
 
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Fecha y hora:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
 
         guardarEntre.setText("Guardar");
         guardarEntre.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +81,6 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                 guardarEntreActionPerformed(evt);
             }
         });
-        add(guardarEntre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, -1, -1));
 
         jButton3.setText(" Cancelar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -94,17 +88,14 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, -1, -1));
 
         hora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 horaActionPerformed(evt);
             }
         });
-        add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 86, -1));
 
         jLabel7.setText("(00:00 AM/PM)");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 80, 20));
 
         botonAgregar.setText("agregar");
         botonAgregar.setEnabled(false);
@@ -113,14 +104,11 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                 botonAgregarActionPerformed(evt);
             }
         });
-        add(botonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 80, -1));
 
         jurado1.setEditable(false);
         jurado1.setEnabled(false);
-        add(jurado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 180, -1));
 
         jLabel1.setText("Entrevistadores");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         jButton2.setText("buscar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +116,6 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
 
         tutores.setAutoCreateRowSorter(true);
         tutores.setModel(new javax.swing.table.DefaultTableModel(
@@ -154,11 +141,6 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tutores);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 370, 100));
-        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
-        add(jurado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 180, -1));
-        add(cedulaTutor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 203, -1));
-
         botonAgregar1.setText("agregar");
         botonAgregar1.setEnabled(false);
         botonAgregar1.addActionListener(new java.awt.event.ActionListener() {
@@ -166,7 +148,83 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                 botonAgregar1ActionPerformed(evt);
             }
         });
-        add(botonAgregar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 80, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(cedulaTutor2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7)
+                .addComponent(jButton2))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jurado1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jurado2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
+                .addComponent(botonAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel3)
+                .addGap(11, 11, 11)
+                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(lugarentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(guardarEntre)
+                .addGap(8, 8, 8)
+                .addComponent(jButton3))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cedulaTutor2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jurado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jurado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonAgregar)
+                    .addComponent(botonAgregar1))
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(lugarentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(guardarEntre)
+                    .addComponent(jButton3)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void horaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaActionPerformed
@@ -235,15 +293,15 @@ public class EntrevistaEdit extends javax.swing.JPanel {
              Object[] Vector = jurado1.getText().split(",");
              Object[] Vector1 = jurado2.getText().split(",");
              
-        String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s', ci_jurado2 = '%s', nombrejurado2 = '%s' "
-                + " fecha_hora_entrevista = '%s', lugar_entrevista = '%s' "
-                + "WHERE Cedula = '" +  Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0) + "'",
-                    Vector[1], 
-                    Vector[0],
-                    Vector1[1],
-                    Vector[0],
-                datestg + " / "+ hora.getText(),
-                lugarentrevista.getText());
+        String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s', ci_jurado2 = '%s', nombrejurado2 = '%s', fecha_hora_entrevista = '%s', lugar_entrevista = '%s' WHERE Cedula = '%s'",
+        Vector[1],
+        Vector[0],
+        Vector1[1],
+        Vector1[0],
+        datestg + " / " + hora.getText(),
+        lugarentrevista.getText(),
+        Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0));
+             System.out.println(sql);
         
         objConexion.ejecutarSentenciaSQl(sql);
         //cientrevistador.setText("");

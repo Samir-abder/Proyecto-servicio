@@ -1,17 +1,35 @@
 
 package programa;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Estadisticas extends javax.swing.JPanel {
     public static DefaultTableModel modelos;
+        String peri = "";
+
     public Estadisticas() {
         initComponents();
         modelos = (DefaultTableModel) estads.getModel();
         conexion objConexion = new conexion();
+        ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+        try {
+            if (rst.next()) {
+                int rowCount = rst.getInt("count");
+                if (rowCount != 0) {
+                    peri = rst.getString("periodo");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try{
             while (modelos.getRowCount() > 0) {
             modelos.removeRow(0);
@@ -110,6 +128,7 @@ public class Estadisticas extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         estads = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -151,12 +170,23 @@ public class Estadisticas extends javax.swing.JPanel {
         jLabel2.setText("                           Estudiantes                                                                                  Trabajos");
         jLabel2.setRequestFocusEnabled(false);
 
+        jButton1.setText("Culminar semestre");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(257, 257, 257)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,13 +195,96 @@ public class Estadisticas extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jButton1)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(null, "Esta opción es irreversible y procedera con la culminación del semestre.\nEsta seguro que desea continuar?", "Confirmar",
+            JOptionPane.OK_CANCEL_OPTION);
+
+        if (result == JOptionPane.OK_OPTION) {
+            String rutaCarpeta = "Historial de semestres";
+            String nombreArchivo = peri + ".s3db";
+            // Crear el archivo de destino en la carpeta "Historial semestres"
+            File archivoDestino = new File(rutaCarpeta, nombreArchivo);
+            // Guardar la base de datos en el archivo de destino
+            guardarBaseDeDatos(archivoDestino);
+            Actualizar();
+            Base base = new Base();
+            base.cerrarVentana();
+        } else if (result == JOptionPane.CANCEL_OPTION) {
+            System.out.println("Cancelar pulsado");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+  private void guardarBaseDeDatos(File archivo) {
+        // Aquí implementarás el código para guardar la base de datos en el archivo.
+        // Puedes utilizar la biblioteca de tu elección para hacer copias de seguridad de la base de datos.
+        // Por ejemplo, si estás utilizando SQLite, puedes copiar el archivo de la base de datos en el archivo seleccionado.
+        // Asegúrate de manejar las excepciones adecuadamente.
+
+        // Ejemplo para copiar la base de datos a un archivo de destino
+        File baseDeDatos = new File("database.s3db");
+        try {
+            Files.copy(baseDeDatos.toPath(), archivo.toPath());
+            JOptionPane.showMessageDialog(this, "Base de Datos guardada exitosamente en: " + archivo.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al guardar la Base de Datos");
+        }
+    }
+
+    public static void Actualizar() {
+        try {
+            System.out.println("actualizar");
+            conexion objConexion = new conexion();
+            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
+            while (resultado.next()) {
+                if ("true".equals(resultado.getString("Estado"))) {
+                    String ced = resultado.getString("cedula");
+                    if ("9vno".equals(resultado.getString("Nivel"))) {
+                        String updateSql = String.format("UPDATE estudiantes SET Nivel = '%s' , Estado = '%s' WHERE Cedula = '" + ced + "'",
+                                "10mo",
+                                false
+                        );
+
+                        objConexion.ejecutarSentenciaSQl(updateSql);
+                    } else {
+                        String tipo = resultado.getString("Tipo");
+                        if (tipo.equals("Trabajo de grado")) {
+                            String id_tg = resultado.getString("id_trabajo");
+                            String sql = "DELETE FROM trabajo_grado WHERE id_trabajo = '" + id_tg + "'";
+                            objConexion.ejecutarSentenciaSQl(sql);
+                        } else if (tipo.equals("Diseño")) {
+                            String id_d = resultado.getString("id_diseno");
+                            String sql = "DELETE FROM Diseno WHERE id_diseno = '" + id_d + "'";
+                            objConexion.ejecutarSentenciaSQl(sql);
+                        } else if (tipo.equals("Pasantia")) {
+                            String id_tg = resultado.getString("id_pasantia");
+                            String sql = "DELETE FROM Pasantia WHERE id_pasantia = '" + id_tg + "'";
+                            objConexion.ejecutarSentenciaSQl(sql);
+                        }
+
+                        String sql2 = "DELETE FROM estudiantes WHERE Cedula = '" + ced + "'";
+                        objConexion.ejecutarSentenciaSQl(sql2);
+                    }
+                }
+            }
+            String sql = "Delete FROM Periodos";
+            objConexion.ejecutarSentenciaSQl(sql);
+            objConexion.cerrarConexion();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JTable estads;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

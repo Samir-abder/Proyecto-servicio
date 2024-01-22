@@ -59,6 +59,7 @@ public class JBCentrevistas extends JFrame { //Cartas de Entrevistas ~
                     String nombrej = "";
                     String fecha = "";
                     String aula = "";
+                    String cedulaj = "";
 
                     String sqlTrabajo = "SELECT * FROM trabajo_grado WHERE id_trabajo = '" + idTrabajo + "'";
                     try (ResultSet rst = objConexion.consultaRegistros(sqlTrabajo)) {
@@ -66,13 +67,15 @@ public class JBCentrevistas extends JFrame { //Cartas de Entrevistas ~
                             ResultSet rstE1 = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE cedula = '" + rst.getString("cedula_estudiante") + "'");
                             ResultSet rstE2 = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE cedula = '" + rst.getString("cedula_estudiante2") + "'");
                             nombrej = rstE1.getString("nombrejurado1") + "\n" + rstE1.getString("nombrejurado2");
+                                                        cedulaj = rstE1.getString("ci_jurado1") + "\n" + rstE1.getString("ci_jurado2");
+
                             fecha = rstE1.getString("fecha_hora_entrevista");
                             aula = rstE1.getString("lugar_entrevista");
                             if (!rstE2.next()) {
-                                nombree = rstE1.getString("Nombre");
+                                nombree = rstE1.getString("Nombre") + " "+rstE1.getString("Apellido");
                                 cedul = rst.getString("cedula_estudiante");
                             } else {
-                                nombree = rstE1.getString("Nombre") + "\n" + rstE2.getString("Nombre");
+                                nombree = rstE1.getString("Nombre") +" "+rstE1.getString("Apellido")+ "\n" + rstE2.getString("Nombre")+" "+rstE2.getString("Apellido");
                                 cedul = rst.getString("cedula_estudiante") + "\n" + rst.getString("cedula_estudiante2");
                             }
 
@@ -84,6 +87,7 @@ public class JBCentrevistas extends JFrame { //Cartas de Entrevistas ~
                             p1.setCedulaT(rst.getString("cedula_tutor"));
                             p1.settitulo(rst.getString("titulo"));
                             p1.setNombreJ(nombrej);
+                            p1.setCedulaJ(cedulaj);
                             p1.setFecha(fecha);
                             p1.setAula(aula);
                             listItems.add(p1);
@@ -141,11 +145,12 @@ public class JBCentrevistas extends JFrame { //Cartas de Entrevistas ~
                     i = i + 1;
                     Employee p1 = new Employee();
                     String cedul = resultados.getString("Cedula");
-                    String nombree = resultados.getString("Nombre");
+                    String nombree = resultados.getString("Nombre") +" "+resultados.getString("Apellido");
                     String nombret = "";
                     String cedulat = "";
                     String titulo = "";
                     String nombrej = resultados.getString("nombrejurado1") + "\n" + resultados.getString("nombrejurado2");
+                     String cedulaj = resultados.getString("ci_jurado1") + "\n" + resultados.getString("ci_jurado2");
                     String fecha = resultados.getString("fecha_hora_entrevista");
                     String aula = resultados.getString("lugar_entrevista");
                     if (tipo.equals("Pasantia")) {
@@ -188,6 +193,7 @@ public class JBCentrevistas extends JFrame { //Cartas de Entrevistas ~
                     p1.setCedulaT(cedulat);
                     p1.settitulo(titulo);
                     p1.setNombreJ(nombrej);
+                    p1.setCedulaJ(cedulaj);
                     p1.setFecha(fecha);
                     p1.setAula(aula);
                     listItems.add(p1);

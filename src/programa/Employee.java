@@ -13,6 +13,7 @@ public class Employee
     private String nombreT;
     private String cedulaT;
     private String nombreJ;
+     private String cedulaJ;
     private String fecha;
     private String aula;
 
@@ -89,5 +90,12 @@ public String getAula() {
 
 public void setAula(String aul) {
     this.aula = (aul != null) ? aul : "Sin asignar";
+}
+public String getCedulaJ() {
+    return cedulaJ;
+}
+
+public void setCedulaJ(String cedula) {
+    this.cedulaJ = (!cedula.equals("null\nnull")) ? cedula : "Sin asignar";
 }
 }

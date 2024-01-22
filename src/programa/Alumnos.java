@@ -347,7 +347,7 @@ public class Alumnos extends javax.swing.JPanel {
             objConexion.cerrarConexion();
         }
         objConexion.cerrarConexion();
-        if (Alumnosside.tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
+        if (Alumnosside.tipo.getSelectedItem().equals("Trabajo de grado")) { //si se selecciona el trabajo de grado
 
             if (Alumnosside.ComboModo.getSelectedIndex() == 0) {//si se trabaja individual
 
@@ -396,7 +396,7 @@ public class Alumnos extends javax.swing.JPanel {
                 base.revalidate();
 
             }
-        } else if (Alumnosside.tipo.getSelectedIndex() == 2) {//si se selecciona las pasantias
+        } else if (Alumnosside.tipo.getSelectedItem().equals("Pasantia")) {//si se selecciona las pasantias
 
             Pasantiab ps = new Pasantiab();
             ps.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
@@ -419,7 +419,9 @@ public class Alumnos extends javax.swing.JPanel {
 
             base.repaint();
             base.revalidate();
-        } else if (Alumnosside.tipo.getSelectedIndex() == 3) {//si se selecciona diseño
+        } else if (Alumnosside.tipo.getSelectedItem().equals("Diseño")) {
+//si se selecciona diseño
+System.out.println("diseno");
             Diseno ds = new Diseno();
             ds.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
             Alumnosside.baseSide.add(ds);

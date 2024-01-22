@@ -41,13 +41,10 @@ public class Agenda extends javax.swing.JPanel {
         comboTipo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         baseAgenda.setLayout(new java.awt.BorderLayout());
-        add(baseAgenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 38, 720, 480));
 
         comboEscuela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una escuela", "Arquitectura", "Civil", "Computación", "Electrónica", "Industrial", "Mecanica", "Telecomunicaciones" }));
-        add(comboEscuela, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 160, -1));
 
         botonEntrevistas.setText("Entrevistas");
         botonEntrevistas.addActionListener(new java.awt.event.ActionListener() {
@@ -55,7 +52,6 @@ public class Agenda extends javax.swing.JPanel {
                 botonEntrevistasActionPerformed(evt);
             }
         });
-        add(botonEntrevistas, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 120, -1));
 
         botonPresentaciones.setText("Presentaciones");
         botonPresentaciones.addActionListener(new java.awt.event.ActionListener() {
@@ -63,7 +59,6 @@ public class Agenda extends javax.swing.JPanel {
                 botonPresentacionesActionPerformed(evt);
             }
         });
-        add(botonPresentaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 120, -1));
 
         comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia","Diseño" }));
         comboTipo.addActionListener(new java.awt.event.ActionListener() {
@@ -71,7 +66,36 @@ public class Agenda extends javax.swing.JPanel {
                 comboTipoActionPerformed(evt);
             }
         });
-        add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 120, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(comboEscuela, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(botonEntrevistas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(botonPresentaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(baseAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(17, 17, 17))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboEscuela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonEntrevistas)
+                    .addComponent(botonPresentaciones))
+                .addGap(5, 5, 5)
+                .addComponent(baseAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonEntrevistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEntrevistasActionPerformed
@@ -117,8 +141,8 @@ public class Agenda extends javax.swing.JPanel {
                     nombreCompleto,
                     resultado.getString("nombrejurado1"),
                     resultado.getString("ci_jurado1"),
-                    resultado.getString("nombrejurado2"),
-                    resultado.getString("ci_jurado2"),
+//                    resultado.getString("nombrejurado2"),
+//                    resultado.getString("ci_jurado2"),
                     resultado.getString("fecha_hora_entrevista"),
                     resultado.getString("lugar_entrevista")};
 
@@ -168,8 +192,8 @@ public class Agenda extends javax.swing.JPanel {
                     nombreCompleto,
                     resultado.getString("nombrejurado1"),
                     resultado.getString("ci_jurado1"),
-                    resultado.getString("nombrejurado2"),
-                    resultado.getString("ci_jurado2"),
+//                    resultado.getString("nombrejurado2"),
+//                    resultado.getString("ci_jurado2"),
                     resultado.getString("fecha_hora_presentacion"),
                     resultado.getString("lugar_presentacion")};
 

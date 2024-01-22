@@ -651,8 +651,8 @@ public class Tg extends javax.swing.JPanel {
         conexion busquedaProf = new conexion();
         String busqueda = cedulaTutor.getText();
         String SQL = "SELECT * FROM Docentes WHERE Nombre LIKE '%" + busqueda + "%' OR Apellido LIKE '%" + busqueda + "%' OR Cedula LIKE '%" + busqueda + "%'";
-        while (Pasantiab.modtutores.getRowCount() > 0) {
-            Pasantiab.modtutores.removeRow(0);
+        while (Tg.modprof.getRowCount() > 0) {
+            Tg.modprof.removeRow(0);
         }
 
         try {
@@ -663,7 +663,7 @@ public class Tg extends javax.swing.JPanel {
                     AgregarProf.getString("Cedula"),
                     Nombre
                 };
-                modtutores.addRow(search);
+                modprof.addRow(search);
             };
 
         } catch (SQLException e) {

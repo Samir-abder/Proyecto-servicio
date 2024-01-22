@@ -56,6 +56,7 @@ public class JasperByCollectionBeanData extends JFrame { //Cartas de Presentacio
                     String nombree = "";
                     String cedul = "";
                     String nombrej = "";
+                    String cedulaj = "";
                     String fecha = "";
                     String aula = "";
 
@@ -65,13 +66,14 @@ public class JasperByCollectionBeanData extends JFrame { //Cartas de Presentacio
                             ResultSet rstE1 = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE cedula = '" + rst.getString("cedula_estudiante") + "'");
                             ResultSet rstE2 = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE cedula = '" + rst.getString("cedula_estudiante2") + "'");
                             nombrej = rstE1.getString("nombrejurado1") + "\n" + rstE1.getString("nombrejurado2");
+                            cedulaj = rstE1.getString("ci_jurado1") + "\n" + rstE1.getString("ci_jurado2");
                             fecha = rstE1.getString("fecha_hora_entrevista");
                             aula = rstE1.getString("lugar_entrevista");
                             if (!rstE2.next()) {
-                                nombree = rstE1.getString("Nombre");
+                                nombree = rstE1.getString("Nombre")+" "+rstE1.getString("Apellido");
                                 cedul = rst.getString("cedula_estudiante");
                             } else {
-                                nombree = rstE1.getString("Nombre") + "\n" + rstE2.getString("Nombre");
+                                nombree = rstE1.getString("Nombre") +" "+rstE1.getString("Apellido") + "\n" + rstE2.getString("Nombre")+" "+rstE2.getString("Apellido");
                                 cedul = rst.getString("cedula_estudiante") + "\n" + rst.getString("cedula_estudiante2");
                             }
 
@@ -83,6 +85,7 @@ public class JasperByCollectionBeanData extends JFrame { //Cartas de Presentacio
                             p1.setCedulaT(rst.getString("cedula_tutor"));
                             p1.settitulo(rst.getString("titulo"));
                             p1.setNombreJ(nombrej);
+                            p1.setCedulaJ(cedulaj);
                             p1.setFecha(fecha);
                             p1.setAula(aula);
                             listItems.add(p1);
@@ -112,7 +115,7 @@ public class JasperByCollectionBeanData extends JFrame { //Cartas de Presentacio
             parameters.put("periodo", peri);
 
             try {
-                InputStream input = new FileInputStream(new File("agenda-entrevistas.jrxml"));
+                InputStream input = new FileInputStream(new File("agenda-presentaciones.jrxml"));
                 JasperDesign jasperDesign = JRXmlLoader.load(input);
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
@@ -147,6 +150,7 @@ public class JasperByCollectionBeanData extends JFrame { //Cartas de Presentacio
                 String cedulat = "";
                 String titulo = "";
                  String nombrej = resultados.getString("nombrejurado1") + "\n" + resultados.getString("nombrejurado2");
+                 String cedulaj = resultados.getString("ci_jurado1") + "\n" + resultados.getString("ci_jurado2");
                     String fecha = resultados.getString("fecha_hora_entrevista");
                     String aula = resultados.getString("lugar_entrevista");
                 if (tipo.equals("Pasantia")) {
@@ -190,6 +194,7 @@ public class JasperByCollectionBeanData extends JFrame { //Cartas de Presentacio
                 p1.setCedulaT(cedulat);
                 p1.settitulo(titulo);
 p1.setNombreJ(nombrej);
+p1.setCedulaJ(cedulaj);
                     p1.setFecha(fecha);
                     p1.setAula(aula);
                 listItems.add(p1);
