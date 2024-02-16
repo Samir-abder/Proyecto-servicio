@@ -296,15 +296,16 @@ public class Alumnos extends javax.swing.JPanel {
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
 
         // aqui se coloca el panel Alumnosside 
+        // se habilita lo que hay que habilitar
         botonEditar.setEnabled(false);
         botonAgregar.setEnabled(false);
-
+        //se instancia lo que hay que instanciar
         Alumnosside alsi = new Alumnosside();
         Alumnosside.editB.setEnabled(true);
         Alumnosside.agregarEstudiante.setEnabled(false);
         JPanel aux = new JPanel(new GridBagLayout());
         paneltablaAlumnos.removeAll();
-
+        //se agrega el panel
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
         gbc1.gridy = 0;
@@ -317,70 +318,79 @@ public class Alumnos extends javax.swing.JPanel {
         gbc1.fill = GridBagConstraints.BOTH;
         aux.add(alsi, gbc1);
         paneltablaAlumnos.add(aux);
+        //se reajusta el frame
+        
         Base base = (Base) this.getRootPane().getParent();
         base.setMinimumSize(new Dimension(1000, 600));
         base.setLocationRelativeTo(null);
         base.repaint();
         base.revalidate();
+        
         //En esta parte se le da la funcion de editar
-
+        //se toman algunos valores de la tabla prestados
+        
         int filaSeleccionada = jTable1.getSelectedRow();
         cedula = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
+        
+        //se agregan los valores de la tabla al panel de alumnosside
+        
         Alumnosside.cedulaEst.setText(cedula);
         Alumnosside.nombreEst.setText((String) jTable1.getValueAt(filaSeleccionada, 1));
         Alumnosside.apellidoEst.setText((String) jTable1.getValueAt(filaSeleccionada, 2));
         Alumnosside.nivel.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 3));
         Alumnosside.escuelaEst.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 5));
         Alumnosside.tipo.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 4));
-
         Alumnosside.escuelaEC = (String) jTable1.getValueAt(filaSeleccionada, 5);
         Alumnosside.tipoEC = (String) jTable1.getValueAt(filaSeleccionada, 4);
+        
+        //Se verifica que el estudiante haya echo la vaina solo
         conexion objConexion = new conexion();
-        try {
-            String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
-            ResultSet resulta = objConexion.consultaRegistros(sql);
-            Alumnosside.ComboModo.setSelectedItem(resulta.getString("Modo"));
+            try {
+                String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
+                ResultSet resulta = objConexion.consultaRegistros(sql);
+                Alumnosside.ComboModo.setSelectedItem(resulta.getString("Modo"));
 
-        } catch (Exception ex) {
-            System.out.println("Error de la base de datos");
-        } finally {
-            objConexion.cerrarConexion();
-        }
-        objConexion.cerrarConexion();
+            } catch (Exception ex) {
+                System.out.println("Error de la base de datos");
+            } finally {
+                objConexion.cerrarConexion();
+            }
+        
+        
         if (Alumnosside.tipo.getSelectedItem().equals("Trabajo de grado")) { //si se selecciona el trabajo de grado
 
-            if (Alumnosside.ComboModo.getSelectedIndex() == 0) {//si se trabaja individual
-
-                Tg tg = new Tg();
-                tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 475);
-                Alumnosside.baseSide.add(tg);
-                base.setMinimumSize(new Dimension(1000, 600));
-                base.setLocationRelativeTo(null);
+            if (Alumnosside.ComboModo.getSelectedIndex() == 0) {//trabajo de grado individual
+                
+                //se coloca el panel de tg
+                panelTg();
+                
                 //se tiene que completar el nombre del trabajo de grado si lo tiene
                 Alumnos.mostrarProfesTg();
+                conexion objConex = new conexion();
                 try {
-                    conexion objConex = new conexion();
-                    String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
-                    ResultSet resulta = objConex.consultaRegistros(sql);
-                    //Pasantiab.razontext.setText(resulta.getString("razon_social"));
-                    //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+                    
+                    String sql = "SELECT * FROM trabajo_grado WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                    ResultSet resulta2 = objConex.consultaRegistros(sql);
+                    
+                    if(!resulta2.next()) {
+                        System.out.println("Al estudiante seleccionado no se le ha agregado un trabajo de grado");
+                    }else{
+                        Tg.titulop.setText(resulta2.getString("titulo"));
+                    }
+                        
                 } catch (Exception ex) {
                     System.out.println("Error de la base de datos");
                 } finally {
-                    objConexion.cerrarConexion();
+                    objConex.cerrarConexion();
                 }
 
                 base.repaint();
                 base.revalidate();
 
-            } else if (Alumnosside.ComboModo.getSelectedIndex() == 1) {//si se trabaja en pareja
-
-                Tg tg = new Tg();
-                tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 600);
-                Alumnosside.baseSide.add(tg);
-                base.setMinimumSize(new Dimension(1000, 600));
-                base.setLocationRelativeTo(null);
-                Alumnos.mostrarProfesTg();
+            } else if (Alumnosside.ComboModo.getSelectedIndex() == 1) {//trabajo de grado en pareja
+                
+                //se coloca el panel de tg
+                panelTg();
                 try {
                     conexion objConex = new conexion();
                     String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
@@ -419,9 +429,9 @@ public class Alumnos extends javax.swing.JPanel {
 
             base.repaint();
             base.revalidate();
-        } else if (Alumnosside.tipo.getSelectedItem().equals("Diseño")) {
-//si se selecciona diseño
-System.out.println("diseno");
+        } else if (Alumnosside.tipo.getSelectedItem().equals("Diseño")) {//si se selecciona diseño
+            
+            System.out.println("diseno");
             Diseno ds = new Diseno();
             ds.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
             Alumnosside.baseSide.add(ds);
@@ -653,7 +663,7 @@ System.out.println("diseno");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
         jas ventana = new jas();
         ventana.setVisible(true);
 
@@ -949,6 +959,17 @@ System.out.println("diseno");
             System.out.println("este es " + e);
         }
 
+    }
+    public void panelTg(){
+    
+        Tg tg = new Tg();
+        tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 475);
+        Alumnosside.baseSide.add(tg);
+        Base base = (Base) this.getRootPane().getParent();
+        base.setMinimumSize(new Dimension(1000, 600));
+        base.setLocationRelativeTo(null);
+    
+    
     }
 
 

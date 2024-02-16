@@ -42,7 +42,7 @@ public class Tg extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        est2 = new javax.swing.JTextField();
+        titulop = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         nombreTutor = new javax.swing.JTextField();
         aSave = new javax.swing.JButton();
@@ -67,6 +67,12 @@ public class Tg extends javax.swing.JPanel {
         CiCompa = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         citutor = new javax.swing.JTextField();
+
+        titulop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                titulopActionPerformed(evt);
+            }
+        });
 
         jLabel15.setText("Titulo proyecto");
 
@@ -221,7 +227,7 @@ public class Tg extends javax.swing.JPanel {
                                     .addComponent(jLabel15))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(est2, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titulop, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(cedulacompi, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -259,7 +265,7 @@ public class Tg extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(est2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titulop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -303,7 +309,7 @@ public class Tg extends javax.swing.JPanel {
         String cedula1 = Alumnosside.cedulaEst.getText();
         String cedula2 = CiCompa.getText();
         String cedulaTutor = citutor.getText();
-        String titulo = est2.getText();
+        String titulo = Tg.titulop.getText();
 
         conexion habana = new conexion();
         if (cedula2.isEmpty()) {
@@ -515,7 +521,7 @@ public class Tg extends javax.swing.JPanel {
                                 objconexion.cerrarConexion();
                             }
                             codigo(cedulacompi.getText());
-                            codigo(est2.getText());
+                            codigo(Tg.titulop.getText());
                         } catch (SQLException ex) {
 
                         }
@@ -539,7 +545,7 @@ public class Tg extends javax.swing.JPanel {
         String cedula1 = Alumnosside.cedulaEst.getText();
         String cedula2 = CiCompa.getText();
         String cedulaTutor = citutor.getText();
-        String titulo = est2.getText();
+        String titulo = Tg.titulop.getText();
         conexion habana = new conexion();
         if (cedula2.isEmpty()) {
             String updateSql = String.format("UPDATE trabajo_grado SET titulo = '%s', cedula_estudiante = '%s', cedula_estudiante2 = '%s', tutor = '%s', periodo = '%s', cedula_tutor = '%s' WHERE (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s') OR (cedula_estudiante = '%s' AND cedula_estudiante2 = '%s')",
@@ -572,7 +578,7 @@ public class Tg extends javax.swing.JPanel {
     private void aDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aDeleteActionPerformed
         // TODO add your handling code here:
         String cedula1 = cedulacompi.getText();
-        String cedula2 = est2.getText();
+        String cedula2 = titulop.getText();
         conexion habana = new conexion();
         if (cedula2.isEmpty()) {
             String deleteSql = String.format("DELETE FROM trabajo_grado WHERE cedula_estudiante = '%s'", cedula1);
@@ -738,6 +744,10 @@ public class Tg extends javax.swing.JPanel {
     private void CiCompaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CiCompaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CiCompaActionPerformed
+
+    private void titulopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titulopActionPerformed
+        
+    }//GEN-LAST:event_titulopActionPerformed
     private boolean ambosEstudiantesExisten(String cedula1, String cedula2) {
         conexion habana = new conexion();
         String consultaEstudiante1 = String.format("SELECT COUNT(*) FROM estudiantes WHERE Cedula = '%s'", cedula1);
@@ -863,7 +873,6 @@ public class Tg extends javax.swing.JPanel {
     private javax.swing.JTextField cedulacompi;
     private javax.swing.JTextField citutor;
     public static javax.swing.JTable companeros;
-    private javax.swing.JTextField est2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -877,5 +886,6 @@ public class Tg extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nombreTutor;
     public static javax.swing.JTable profes;
+    public static javax.swing.JTextField titulop;
     // End of variables declaration//GEN-END:variables
 }

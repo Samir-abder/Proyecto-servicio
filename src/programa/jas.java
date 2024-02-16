@@ -62,7 +62,8 @@ public class jas extends JFrame {
 
         // Cargar el informe compilado
         JasperReport jasperReport = cargarInformeJasper();
-try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, nombre FROM configuracion")) {
+try (
+        ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, nombre FROM configuracion")) {
                 if (rst.next()) {
                     int rowCount = rst.getInt("count");
                     if (rowCount != 0) {
@@ -76,28 +77,33 @@ try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, no
         try {
             try {
                 ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM Trabajo_grado");
+                //
+                //
+                String numR;
+                numR = JOptionPane.showInputDialog(null, "Ingrese el numero de reunion:");
+                //
+                //
                 while (resultado.next()) {
 
 // Simulamos cargar datos para el informe
-                    Map<String, Object> datosInforme = cargarDatosInforme(resultado.getString("id_trabajo"), "Trabajo de grado",
+                    Map<String, Object> datosInforme = cargarDatosInforme(numR,resultado.getString("id_trabajo"), "Trabajo de grado",
                             resultado.getString("tutor"), resultado.getString("cedula_tutor"), resultado.getString("titulo"),
                             resultado.getString("codigo"));
 
                     // Llenar el informe con los datos
                     JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, datosInforme, new JREmptyDataSource());
 
-//                 Agregar cada página al JasperPrint combinado
+                    //Agregar cada página al JasperPrint combinado
                     for (int pageIndex = 0; pageIndex < jasperPrint.getPages().size(); pageIndex++) {
                         jasperPrintCombined.addPage(jasperPrint.getPages().get(pageIndex));
-                    }
-//                
+                    }  
                 }
                 
                 resultado = objConexion.consultaRegistros("SELECT * FROM Pasantia");
                 while (resultado.next()) {
 
-// Simulamos cargar datos para el informe
-                    Map<String, Object> datosInforme = cargarDatosInforme(resultado.getString("id_pasantia"), "Pasantia",
+                    // Simulamos cargar datos para el informe
+                    Map<String, Object> datosInforme = cargarDatosInforme(numR,resultado.getString("id_pasantia"), "Pasantia",
                             resultado.getString("tutor_academico"), resultado.getString("cedula_tutor"), resultado.getString("razon_social"),
                             resultado.getString("codigo"));
 
@@ -114,7 +120,7 @@ try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, no
                 while (resultado.next()) {
 
 // Simulamos cargar datos para el informe
-                    Map<String, Object> datosInforme = cargarDatosInforme(resultado.getString("id_diseno"), "Diseño",
+                    Map<String, Object> datosInforme = cargarDatosInforme(numR,resultado.getString("id_diseno"), "Diseño",
                             resultado.getString("tutor_academico"), resultado.getString("cedula_tutor"), resultado.getString("razon_social"),
                             resultado.getString("codigo"));
 
@@ -146,13 +152,15 @@ try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, no
         setVisible(true);
     }
 
-    private Map<String, Object> cargarDatosInforme(String id, String tipo, String nombret, String cedulat, String titulo, String codigoTrabajo) {
+    private Map<String, Object> cargarDatosInforme(String numR,String id, String tipo, String nombret, String cedulat, String titulo, String codigoTrabajo) {
         Map<String, Object> datosInforme = new HashMap<>();
 
         try {
-            String numR = "";
-
+            /*String numR = "";
+            numR = JOptionPane.showInputDialog(null, "Ingrese el numero de reunion:");*/
+            
             // Consultar el valor actual en la tabla Reunion
+            /*
             try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, valor FROM Reunion")) {
                 if (rst.next()) {
                     int rowCount = rst.getInt("count");
@@ -162,7 +170,7 @@ try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, no
                     }
                 }
             }
-            
+            */
 
             ResultSet resultado = null;
             if (tipo.equals("Trabajo de grado")) {
@@ -217,25 +225,25 @@ try (ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, no
             datosInforme.put("fechalarga", fechaLarga);
             datosInforme.put("fechacorta", fechaCorta);
             if(escuela.equals("Arquitectura")){
-                            datosInforme.put("Ingeniero","Arquitecto(a)");
+                            datosInforme.put("Ingeniero","Arquitecto)");
 
             }if(escuela.equals("Computación")){
-                            datosInforme.put("Ingeniero","Ingeniero(a) en computación");
+                            datosInforme.put("Ingeniero","Ingeniero en computación");
 
             }if(escuela.equals("Mecánica")){
-                            datosInforme.put("Ingeniero","Ingeniero(a) mecánico");
+                            datosInforme.put("Ingeniero","Ingeniero mecánico");
 
             }if(escuela.equals("Telecomunicaciones")){
-                            datosInforme.put("Ingeniero","Ingeniero(a) en telecomunicaciones");
+                            datosInforme.put("Ingeniero","Ingeniero en telecomunicaciones");
 
             }if(escuela.equals("Civil")){
-                            datosInforme.put("Ingeniero","Ingeniero(a) civil");
+                            datosInforme.put("Ingeniero","Ingeniero civil");
 
             }if(escuela.equals("Industrial")){
-                            datosInforme.put("Ingeniero","Ingeniero(a) industrial");
+                            datosInforme.put("Ingeniero","Ingeniero industrial");
 
             }if(escuela.equals("Electrónica")){
-                            datosInforme.put("Ingeniero","Ingeniero(a) electronico");
+                            datosInforme.put("Ingeniero","Ingeniero electronico");
 
             }
             datosInforme.put("Tutor", nombret);

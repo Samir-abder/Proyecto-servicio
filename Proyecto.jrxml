@@ -127,7 +127,7 @@
 				<textElement>
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Presentado por usted(es) como requisito para optar al título de "+$P{Ingeniero}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Presentado por usted como requisito para optar al título de "+$P{Ingeniero}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -145,7 +145,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="12"/>
 				</textElement>
-				<text><![CDATA[Decano(a) de la Facultad de Ingeniería]]></text>
+				<text><![CDATA[Decano de la Facultad de Ingeniería]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="190" y="60" width="180" height="20" uuid="71ba3328-65ac-404a-bac2-07c532b6e6f1"/>
