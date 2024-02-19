@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package programa;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
@@ -22,6 +23,7 @@ import static org.apache.poi.ss.usermodel.CellType.BLANK;
 import static org.apache.poi.ss.usermodel.CellType.BOOLEAN;
 import static org.apache.poi.ss.usermodel.CellType.NUMERIC;
 import static org.apache.poi.ss.usermodel.CellType.STRING;
+
 /**
  *
  * @author USUARIO
@@ -31,8 +33,28 @@ public class cargaM extends javax.swing.JPanel {
     /**
      * Creates new form cargaM
      */
+    ArrayList<String> errores;
+    int numExito = 0;
+
     public cargaM() {
         initComponents();
+        new TextPrompt("Nombre de la hoja", jTextField1);
+         String peri = "2023-2CR";
+        conexion habana = new conexion();
+        ResultSet rst = habana.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+        try {
+            if (rst.next()) {
+                int rowCountP = rst.getInt("count");
+                if (rowCountP != 0) {
+                    peri = rst.getString("periodo");
+                    periodoLabel.setText("Periodo: "+ peri);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+        habana.cerrarConexion();
+        }
     }
 
     /**
@@ -51,12 +73,18 @@ public class cargaM extends javax.swing.JPanel {
         btnCargar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        periodoLabel = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel33.setText("Carga Masiva");
-        add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 69, 132, -1));
+        add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, 132, -1));
 
         arch.setText("Escoger archivo");
         arch.addActionListener(new java.awt.event.ActionListener() {
@@ -64,13 +92,13 @@ public class cargaM extends javax.swing.JPanel {
                 archActionPerformed(evt);
             }
         });
-        add(arch, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 135, -1, -1));
+        add(arch, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         comboEscuela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escuela", "Computación", "Arquitectura", "Mecanica", "Civil","Electronica","Telecomunicaciones","Industrial" }));
-        add(comboEscuela, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 113, -1));
+        add(comboEscuela, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 113, -1));
 
         rutaLabel.setText("Ruta");
-        add(rutaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(187, 138, 268, -1));
+        add(rutaLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 268, -1));
 
         btnCargar.setText("Efectuar Carga Masiva");
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -78,13 +106,32 @@ public class cargaM extends javax.swing.JPanel {
                 btnCargarActionPerformed(evt);
             }
         });
-        add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, -1, -1));
+        add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, -1, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semestre","9vno", "10mo"}));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, -1));
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo", "Trabajo de grado", "Pasantia", "Diseño", "Sin asignar" }));
-        add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 190, -1, -1));
+        add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 150, -1, -1));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 60, 330, 300));
+
+        jLabel1.setText("Registro");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        jLabel3.setText("*Nota: Dejar el nombre de la hoja vacio seleccionara la primera hoja del excel");
+        jLabel3.setToolTipText("");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
+        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 170, -1));
+
+        periodoLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        periodoLabel.setText("Periodo:");
+        add(periodoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 200, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void archActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_archActionPerformed
@@ -108,30 +155,25 @@ public class cargaM extends javax.swing.JPanel {
         String valorSeleccionado = (String) comboEscuela.getSelectedItem();
         String semestre = (String) jComboBox1.getSelectedItem();
         String tipo = (String) jComboBox2.getSelectedItem();
-        
         if (valorSeleccionado == "Escuela" || rutaLabel.getText() == "Ruta" || semestre == "Semestre" || tipo == "Tipo") {
             JOptionPane.showMessageDialog(null, "Por favor llene los campos");
-        } 
-        
-        else {
-            
-            // Mostrar mensaje de carga
-            JOptionPane.showMessageDialog(
-                    this,
-                    "Cargando, por favor espere...",
-                    "Carga en progreso",
-                    JOptionPane.INFORMATION_MESSAGE); // Reemplaza con la ruta de tu imagen de carga
+        } else {
+            jTextArea1.setText("Cargando ...");
+
+            // Reemplaza con la ruta de tu imagen de carga
             try {
-                analizarArchivoExcel(rutaLabel.getText(), valorSeleccionado, semestre, tipo);
+            if(tipo.equals("Sin asignar")){
+            tipo= "-";
+            }
+
+                analizarArchivoExcel(rutaLabel.getText(), jTextField1.getText(), valorSeleccionado, semestre, tipo);
             } catch (SQLException ex) {
                 Logger.getLogger(cargaM.class.getName()).log(Level.SEVERE, null, ex);
                 System.out.println("mensaje carga");
             }
             // Ocultar el mensaje de carga al finalizar la operación (puedes añadir un retraso para simular mejor)
             JOptionPane.getRootFrame().dispose();
-            
-            
-            
+
 //            try {
 //                analizarArchivoExcel(rutaLabel.getText(), valorSeleccionado, semestre, tipo);
 //            } 
@@ -140,23 +182,28 @@ public class cargaM extends javax.swing.JPanel {
 //            }
         }
     }//GEN-LAST:event_btnCargarActionPerformed
-private void analizarArchivoExcel(String rutaArchivo, String Escuela, String Semestre, String Tipo) throws SQLException {
-    Alumnosside nose = new Alumnosside();
+    private void analizarArchivoExcel(String rutaArchivo, String NombreHoja, String Escuela, String Semestre, String Tipo) throws SQLException {
+        errores = new ArrayList<>();
         try {
-             // Verificar si la extensión del archivo es .xlsx (Excel)
-        if (!rutaArchivo.toLowerCase().endsWith(".xlsx")) {
-            // Mostrar un mensaje de error en caso de que no sea un archivo Excel
-            JOptionPane.showMessageDialog(null, "El archivo seleccionado no es un archivo Excel (.xlsx)", "Error", JOptionPane.ERROR_MESSAGE);
-            return; // Salir del método
-        }
+            // Verificar si la extensión del archivo es .xlsx (Excel)
+            if (!rutaArchivo.toLowerCase().endsWith(".xlsx")) {
+                // Mostrar un mensaje de error en caso de que no sea un archivo Excel
+                JOptionPane.showMessageDialog(null, "El archivo seleccionado no es un archivo Excel (.xlsx)", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método
+            }
             // Especifica la ubicación del archivo Excel
             FileInputStream archivoExcel = new FileInputStream(new File(rutaArchivo));
 
             // Crea un libro de trabajo de Excel
             Workbook workbook = new XSSFWorkbook(archivoExcel);
+            Sheet hoja = null;
+            if (!NombreHoja.isEmpty()) {
+                hoja = workbook.getSheet(NombreHoja);
+            } else {
+                hoja = workbook.getSheetAt(0);
 
+            }
             // Obtiene la primera hoja del libro (puedes cambiar el índice si necesitas otra hoja)
-            Sheet hoja = workbook.getSheetAt(0);
             ArrayList<String> datos = new ArrayList();
             // Itera a través de las filas y columnas para leer los datos
             for (Row fila : hoja) {
@@ -167,12 +214,12 @@ private void analizarArchivoExcel(String rutaArchivo, String Escuela, String Sem
                             datos.add(celda.getStringCellValue());
                             break;
                         case NUMERIC:
-                           if (celda.getNumericCellValue() % 1 == 0) {
+                            if (celda.getNumericCellValue() % 1 == 0) {
                                 // El valor es un número entero
                                 int valorEntero = (int) celda.getNumericCellValue();
                                 System.out.print(valorEntero + "\t");
                                 datos.add(Integer.toString(valorEntero));
-                           }
+                            }
                             break;
                         case BOOLEAN:
                             System.out.print(celda.getBooleanCellValue() + "\t");
@@ -184,59 +231,178 @@ private void analizarArchivoExcel(String rutaArchivo, String Escuela, String Sem
                             System.out.print("DEFAULT\t");
                     }
                 }
-                if(datos.size()>=2){
-                conexion objConexion = new conexion();
-                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-                Date creacion = new Date();
-                String hoy = formato.format(creacion);
-                String valor = datos.get(1);
-                String[] valoresDivididos = valor.split(",");
-                if (valoresDivididos.length >= 2) {
+                if (datos.size() >= 2) {
+                    conexion objConexion = new conexion();
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                    Date creacion = new Date();
+                    String hoy = formato.format(creacion);
+                    String valor = datos.get(1);
+                    String[] valoresDivididos = valor.split(",");
+                    if (valoresDivididos.length >= 2) {
 
 //                    String addSql = String.format("INSERT INTO estudiantes (Nombre, Apellido, Cedula, Facultad, Escuela, fecha_registro, Nivel) VALUES"
 //                            + "('" + valoresDivididos[1].substring(1) + "','" + valoresDivididos[0] + "','" + datos.get(0) + "','" + "Ingeniería"
 //                            + "','" + Escuela + "','" + hoy + "','" + Semestre + "') ");
 //                    objConexion.ejecutarSentenciaSQl(addSql);
-                    nose.codigoAlumno(valoresDivididos[1].substring(1), valoresDivididos[0], datos.get(0), Escuela, hoy, Semestre, Tipo, "Pareja"); // Cambia de línea después de cada fila
+                        codigoAlumno(valoresDivididos[1].substring(1), valoresDivididos[0], datos.get(0), Escuela, hoy, Semestre, Tipo, "Pareja"); // Cambia de línea después de cada fila
 
-                    datos.clear();
-                    objConexion.cerrarConexion();
-                    
-                    // Realiza las operaciones necesarias con estos valores
-                } else {
-                    // Maneja el caso en el que no hay suficientes valores separados por comas
-                    // Puedes imprimir un mensaje de advertencia o realizar otra acción apropiada
+                        datos.clear();
+                        objConexion.cerrarConexion();
+                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder.append("Estudiantes registrados exitosamente: ").append(numExito).append("\n");
+                        for (String error : errores) {
+                            stringBuilder.append(error).append("\n");
+                        }
+                        jTextArea1.setText(stringBuilder.toString());
+
+                        // Realiza las operaciones necesarias con estos valores
+                    } else {
+                        // Maneja el caso en el que no hay suficientes valores separados por comas
+                        // Puedes imprimir un mensaje de advertencia o realizar otra acción apropiada
+                    }
+
                 }
-
-            }
             }
             // Cierra el archivo Excel
             archivoExcel.close();
             // Muestra un mensaje de éxito con JOptionPane
-        
-            JOptionPane.showMessageDialog(null, "Los datos se han procesado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        while (Alumnos.modeloa.getRowCount() > 0) {
-            Alumnos.modeloa.removeRow(0);
-        }
-        try {
-            conexion objConexion = new conexion();
-            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
-            while (resultado.next()) {
-                Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),resultado.getString("Facultad")
-                    , resultado.getString("Escuela")};
 
-                Alumnos.modeloa.addRow(UsuarioD);
-                
-//                objConexion.cerrarConexion();
+            JOptionPane.showMessageDialog(null, "Los datos se han procesado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            while (Alumnos.modeloa.getRowCount() > 0) {
+                Alumnos.modeloa.removeRow(0);
             }
-        } catch (SQLException e) {
-          JOptionPane.showMessageDialog(null, "Error" + e);
-        }
+            try {
+                conexion objConexion = new conexion();
+                ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
+                while (resultado.next()) {
+                    Object[] UsuarioD = {resultado.getString("Cedula"), resultado.getString("Nombre"),
+                        resultado.getString("Apellido"), resultado.getString("Facultad"),
+                         resultado.getString("Escuela")};
+
+                    Alumnos.modeloa.addRow(UsuarioD);
+
+//                objConexion.cerrarConexion();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error" + e);
+            }
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error de E/S: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    
+
             e.printStackTrace();
+        }
+    }
+
+    private void codigoAlumno(String nombre, String apellido, String cedula, String escuela, String fecha, String nivel, String tipo, String modo) {
+        try {
+
+            conexion objConexion = new conexion();
+            String peri = "2023-2CR";
+            ResultSet rst = objConexion.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+            if (rst.next()) {
+                int rowCount = rst.getInt("count");
+                if (rowCount != 0) {
+                    peri = rst.getString("periodo");
+                }
+            }
+            String sql = "select count(*) FROM estudiantes WHERE Tipo = '" + tipo + "' AND Escuela = '" + escuela + "'";
+
+            ResultSet count = objConexion.consultaRegistros(sql);
+            int resultado = 0;
+            if (count.next()) {
+
+                resultado = Integer.parseInt(count.getString(1)) + 1;
+
+            }
+
+            String formatonum = "%03d";
+            String resultadoC = String.format(formatonum, resultado);
+            boolean existeEstudiante = estudianteExiste(cedula);
+            if (existeEstudiante) {
+                errores.add("ERROR: El estudiante CI " + cedula + " ya se encuentra registrado");
+
+            } else {
+                String addSql = String.format("INSERT INTO estudiantes (Nombre, Apellido, Cedula, Facultad, Escuela, fecha_registro, periodo, num_est, Nivel, Tipo, Modo) VALUES"
+                        + "('" + nombre
+                        + "','" + apellido + "','" + cedula + "','" + "Ingeniería"
+                        + "','" + escuela + "','" + fecha + "','" + peri + "','" + resultadoC + "','" + nivel + "','" + tipo + "','" + modo + "') ");
+                objConexion.ejecutarSentenciaSQl(addSql);
+                numExito += 1;
+            }
+//              
+
+            String sql2 = "SELECT num_est, periodo, Escuela FROM estudiantes WHERE Cedula = '" + cedula + "'";
+            ResultSet rs = objConexion.consultaRegistros(sql2);
+
+            // Obtener los valores de las columnas y guardarlos en variables
+            String num_est = rs.getString("num_est");
+            String periodo = rs.getString("periodo");
+            String escuela1 = rs.getString("Escuela");
+
+            switch (escuela1) {
+                case "Computación":
+
+                    escuela1 = "C";
+                    break;
+                case "Industrial":
+                    escuela1 = "I";
+                    break;
+                case "Civil":
+                    escuela1 = "L";
+                    break;
+                case "Electrónica":
+                    escuela1 = "Et";
+                    break;
+                case "Telecomunicaciones":
+                    escuela1 = "T";
+                    break;
+                case "Mecánica":
+                    escuela1 = "N";
+                    break;
+                case "Arquitectura":
+                    escuela1 = "Q";
+                    break;
+                default:
+                // código que se ejecuta si no se cumple ninguna de las opciones anteriores
+                }
+            String cod = "FI-" + escuela1 + "-" + resultadoC + "-" + peri + "-" + "";
+            if (tipo == "Trabajo de grado") {
+                cod = "FI-" + escuela1 + "-" + resultadoC + "-" + peri + "-" + "TG";
+            } else if (tipo == "Pasantia") {
+                cod = "FI-" + escuela1 + "-" + resultadoC + "-" + peri + "-" + "PS";
+            } else if (tipo == "Diseño" && nivel == "9vno") {
+                cod = "FI-" + escuela1 + "-" + resultadoC + "-" + peri + "-" + "DIX";
+            } else {
+                cod = "FI-" + escuela1 + "-" + resultadoC + "-" + peri + "-" + "DX";
+            }
+            String sql3 = String.format("UPDATE estudiantes SET codigo = '%s' WHERE Cedula = '" + cedula + "'",
+                    cod);
+            objConexion.ejecutarSentenciaSQl(sql3);
+            objConexion.cerrarConexion();
+
+        } catch (SQLException ex) {
+            System.out.println("errororor");
+            Logger.getLogger(Alumnosside.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private boolean estudianteExiste(String cedula) {
+        conexion objConexion = new conexion();
+        String sql = "SELECT 1 FROM estudiantes WHERE Cedula = ?";
+
+        try {
+
+            ResultSet resultado = objConexion.consultaRegistros("SELECT 1 FROM estudiantes WHERE Cedula = '" + cedula + "'");
+
+            boolean existe = resultado.next(); // true si se encuentra al menos un registro
+            resultado.close();
+            return existe;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            objConexion.cerrarConexion();
         }
     }
 
@@ -246,7 +412,13 @@ private void analizarArchivoExcel(String rutaArchivo, String Escuela, String Sem
     private javax.swing.JComboBox<String> comboEscuela;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel periodoLabel;
     private javax.swing.JLabel rutaLabel;
     // End of variables declaration//GEN-END:variables
 }

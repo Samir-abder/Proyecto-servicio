@@ -162,8 +162,8 @@ public class Presentacion extends javax.swing.JPanel {
         int filaSeleccionada = tablaPresentacion.getSelectedRow();
 //        EntrevistaEdit.nombrentrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 2));
 //        EntrevistaEdit.cientrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 3));
-        EntrevistaEdit.hora.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 4));
-        EntrevistaEdit.lugarentrevista.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 5));
+        PresentacionEdit.hora.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 4));
+        PresentacionEdit.lugarpresentacion.setText((String) tablaPresentacion.getValueAt(filaSeleccionada, 5));
         
 
         

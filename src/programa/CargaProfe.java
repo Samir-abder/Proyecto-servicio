@@ -35,8 +35,27 @@ public class CargaProfe extends javax.swing.JPanel {
     /**
      * Creates new form CargaProfe
      */
+    ArrayList<String> errores;
+    int numExito = 0;
+
     public CargaProfe() {
         initComponents();
+         String peri = "2023-2CR";
+        conexion habana = new conexion();
+        ResultSet rst = habana.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+        try {
+            if (rst.next()) {
+                int rowCountP = rst.getInt("count");
+                if (rowCountP != 0) {
+                    peri = rst.getString("periodo");
+                    periodoLabel.setText("Periodo: "+ peri);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+        habana.cerrarConexion();
+        }
     }
 
     /**
@@ -54,6 +73,11 @@ public class CargaProfe extends javax.swing.JPanel {
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        periodoLabel = new javax.swing.JLabel();
 
         jButton4.setText("Escoger archivo");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -67,8 +91,6 @@ public class CargaProfe extends javax.swing.JPanel {
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel33.setText("Carga Masiva de Profesores");
 
-        jTextField1.setText("Datos Docentes");
-
         jLabel1.setText("Nombre de la hoja");
 
         jButton1.setText("Efectuar Carga");
@@ -78,44 +100,86 @@ public class CargaProfe extends javax.swing.JPanel {
             }
         });
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel2.setText("Registro");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 8)); // NOI18N
+        jLabel3.setText("*Nota: Dejar el nombre de la hoja vacio seleccionara la primera hoja del excel");
+        jLabel3.setToolTipText("");
+
+        periodoLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        periodoLabel.setText("Periodo:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(253, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton4)
-                                .addComponent(jLabel1))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(rutaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jButton1)
-                            .addGap(24, 24, 24)))
-                    .addComponent(jLabel33))
-                .addContainerGap(245, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton4)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(rutaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                                    .addComponent(jTextField1)))
+                            .addComponent(jLabel33)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(47, 47, 47))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(periodoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(rutaLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(31, 31, 31)
-                .addComponent(jButton1)
-                .addContainerGap(244, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton4)
+                            .addComponent(rutaLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(jLabel2)
+                                .addGap(4, 4, 4))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(periodoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -140,7 +204,7 @@ public class CargaProfe extends javax.swing.JPanel {
 
         String NombreHoja = jTextField1.getText();
         if (rutaLabel.getText() == "Ruta") {
-            JOptionPane.showMessageDialog(null, "Por favor escoja un arschivo");
+            JOptionPane.showMessageDialog(null, "Por favor escoja un archivo");
         } else {
             try {
                 analizarArchivoExcel(rutaLabel.getText(), NombreHoja);
@@ -150,6 +214,8 @@ public class CargaProfe extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     private void analizarArchivoExcel(String rutaArchivo, String NombreHoja) throws SQLException {
+        errores = new ArrayList<>();
+
         try {
             // Verificar si la extensión del archivo es .xlsx (Excel)
             if (!rutaArchivo.toLowerCase().endsWith(".xlsx")) {
@@ -164,7 +230,13 @@ public class CargaProfe extends javax.swing.JPanel {
             Workbook workbook = new XSSFWorkbook(archivoExcel);
 
             // Obtiene la hoja del libro por el nombre
-            Sheet hoja = workbook.getSheet(NombreHoja);
+            Sheet hoja = null;
+            if (!NombreHoja.isEmpty()) {
+                hoja = workbook.getSheet(NombreHoja);
+            } else {
+                hoja = workbook.getSheetAt(0);
+
+            }
             ArrayList<String> datos = new ArrayList();
             boolean primeraFila = true;
             // Itera a través de las filas y columnas para leer los datos
@@ -206,14 +278,24 @@ public class CargaProfe extends javax.swing.JPanel {
                     String valor = datos.get(1);
                     String[] valoresDivididos = valor.split(",");
                     if (valoresDivididos.length >= 2) {
+                        if (profesorExiste(datos.get(0))) {
+                            errores.add("ERROR: El docente CI " + datos.get(0) + " ya se encuentra registrado");
 
-                        String addSql = String.format("INSERT INTO Docentes (Nombre, Apellido, Cedula, Profesion) VALUES"
-                                + "('" + valoresDivididos[1].substring(1) + "','" + valoresDivididos[0] + "','" + datos.get(0) + "','" + datos.get(2) + "') ");
-                        objConexion.ejecutarSentenciaSQl(addSql);
+                        } else {
+                            String addSql = String.format("INSERT INTO Docentes (Nombre, Apellido, Cedula, Profesion) VALUES"
+                                    + "('" + valoresDivididos[1].substring(1) + "','" + valoresDivididos[0] + "','" + datos.get(0) + "','" + datos.get(2) + "') ");
+                            objConexion.ejecutarSentenciaSQl(addSql);
 
-                        datos.clear();
-                        objConexion.cerrarConexion();
-
+                            datos.clear();
+                            objConexion.cerrarConexion();
+                            numExito += 1;
+                        }
+                        StringBuilder stringBuilder = new StringBuilder();
+                        stringBuilder.append("Docentes registrados exitosamente: ").append(numExito).append("\n");
+                        for (String error : errores) {
+                            stringBuilder.append(error).append("\n");
+                        }
+                        jTextArea1.setText(stringBuilder.toString());
                         // Realiza las operaciones necesarias con estos valores
                     } else {
                         // Maneja el caso en el que no hay suficientes valores separados por comas
@@ -227,19 +309,44 @@ public class CargaProfe extends javax.swing.JPanel {
             // Muestra un mensaje de éxito con JOptionPane
 
             JOptionPane.showMessageDialog(null, "Los datos se han procesado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-           
+
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error de E/S: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 
             e.printStackTrace();
         }
     }
+
+    private boolean profesorExiste(String cedula) {
+        conexion objConexion = new conexion();
+        String sql = "SELECT 1 FROM Docentes WHERE Cedula = ?";
+
+        try {
+
+            ResultSet resultado = objConexion.consultaRegistros("SELECT 1 FROM Docentes WHERE Cedula = '" + cedula + "'");
+
+            boolean existe = resultado.next(); // true si se encuentra al menos un registro
+            resultado.close();
+            return existe;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            objConexion.cerrarConexion();
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel periodoLabel;
     private javax.swing.JLabel rutaLabel;
     // End of variables declaration//GEN-END:variables
 }

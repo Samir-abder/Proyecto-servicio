@@ -396,12 +396,16 @@ public class Base extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-           Estadisticas stats = new Estadisticas();
+       try {
+           registro stats = new registro();
            
            Fondo.removeAll();
            Fondo.add(stats);
            Fondo.revalidate();
            Fondo.repaint();
+       } catch (SQLException ex) {
+           Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     public static void cargar() {

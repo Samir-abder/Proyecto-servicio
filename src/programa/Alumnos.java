@@ -55,6 +55,22 @@ public class Alumnos extends javax.swing.JPanel {
             botonEditar.setVisible(true);
             botonEliminar.setVisible(true);
         }
+        String peri = "2023-2CR";
+        conexion habana = new conexion();
+        ResultSet rst = habana.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+        try {
+            if (rst.next()) {
+                int rowCountP = rst.getInt("count");
+                if (rowCountP != 0) {
+                    peri = rst.getString("periodo");
+                    periodoLabel.setText("Periodo: "+ peri);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+        habana.cerrarConexion();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -74,6 +90,7 @@ public class Alumnos extends javax.swing.JPanel {
         TGmodo = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        periodoLabel = new javax.swing.JLabel();
         paneltablaAlumnos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -174,6 +191,10 @@ public class Alumnos extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, -1, -1));
+
+        periodoLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        periodoLabel.setText("Periodo:");
+        jPanel2.add(periodoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, 200, 40));
 
         baseAlumnos.add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
@@ -319,21 +340,19 @@ public class Alumnos extends javax.swing.JPanel {
         aux.add(alsi, gbc1);
         paneltablaAlumnos.add(aux);
         //se reajusta el frame
-        
+
         Base base = (Base) this.getRootPane().getParent();
         base.setMinimumSize(new Dimension(1000, 600));
         base.setLocationRelativeTo(null);
         base.repaint();
         base.revalidate();
-        
+
         //En esta parte se le da la funcion de editar
         //se toman algunos valores de la tabla prestados
-        
         int filaSeleccionada = jTable1.getSelectedRow();
         cedula = String.valueOf(jTable1.getValueAt(filaSeleccionada, 0));
-        
+
         //se agregan los valores de la tabla al panel de alumnosside
-        
         Alumnosside.cedulaEst.setText(cedula);
         Alumnosside.nombreEst.setText((String) jTable1.getValueAt(filaSeleccionada, 1));
         Alumnosside.apellidoEst.setText((String) jTable1.getValueAt(filaSeleccionada, 2));
@@ -342,48 +361,47 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.tipo.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 4));
         Alumnosside.escuelaEC = (String) jTable1.getValueAt(filaSeleccionada, 5);
         Alumnosside.tipoEC = (String) jTable1.getValueAt(filaSeleccionada, 4);
-        
+
         //Se verifica que el estudiante haya echo la vaina solo
         conexion objConexion = new conexion();
-            try {
-                String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
-                ResultSet resulta = objConexion.consultaRegistros(sql);
-                Alumnosside.ComboModo.setSelectedItem(resulta.getString("Modo"));
+        try {
+            String sql = "SELECT * FROM estudiantes WHERE Cedula = '" + cedula + "'";
+            ResultSet resulta = objConexion.consultaRegistros(sql);
+            Alumnosside.ComboModo.setSelectedItem(resulta.getString("Modo"));
 
-            } catch (Exception ex) {
-                System.out.println("Error de la base de datos");
-            } finally {
-                objConexion.cerrarConexion();
-            }
-        
-        
+        } catch (Exception ex) {
+            System.out.println("Error de la base de datos");
+        } finally {
+            objConexion.cerrarConexion();
+        }
+
         if (Alumnosside.tipo.getSelectedItem().equals("Trabajo de grado")) { //si se selecciona el trabajo de grado
 
             if (Alumnosside.ComboModo.getSelectedIndex() == 0) {//trabajo de grado individual
-                
+
                 //se coloca el panel de tg
                 panelTg();
                 Tg.cedulacompi.setEnabled(false);
                 Tg.jButton2.setEnabled(false);
                 Tg.companeros.setEnabled(false);
-                
+
                 //se tiene que completar el nombre del trabajo de grado si lo tiene
                 Alumnos.mostrarProfesTg();
                 conexion objConex = new conexion();
                 try {
-                    
+
                     String sql = "SELECT * FROM trabajo_grado WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' OR cedula_estudiante =  '" + Alumnosside.cedulaEst.getText() + "' ";
                     ResultSet resulta2 = objConex.consultaRegistros(sql);
-                    
-                    if(!resulta2.next()){
+
+                    if (!resulta2.next()) {
                         JOptionPane.showMessageDialog(null, "Al estudiante seleccionado no se le ha agregado un trabajo de grado");
- 
-                    }else{
+
+                    } else {
                         Tg.titulop.setText(resulta2.getString("titulo"));
                         Tg.nombreTutor.setText(resulta2.getString("tutor"));
                         Tg.citutor.setText(resulta2.getString("cedula_tutor"));
                     }
-                        
+
                 } catch (Exception ex) {
                     System.out.println("Error de la base de datos");
                 } finally {
@@ -394,31 +412,29 @@ public class Alumnos extends javax.swing.JPanel {
                 base.revalidate();
 
             } else if (Alumnosside.ComboModo.getSelectedIndex() == 1) {//trabajo de grado en pareja
-                
+
                 //se coloca el panel de tg
                 panelTg();
 
                 try {
-                    
+
                     conexion objConex = new conexion();
                     //esta sentencia busca la cedula del estudiante seleccionado en la tabla de trabajo de grado
                     String sql = "SELECT * FROM trabajo_grado WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' OR cedula_estudiante2 =  '" + Alumnosside.cedulaEst.getText() + "' ";
                     ResultSet resulta2 = objConex.consultaRegistros(sql);
-                    
 
-                    
-                    if(!resulta2.next()){//se verifica que tenga un trabajo de grado
+                    if (!resulta2.next()) {//se verifica que tenga un trabajo de grado
                         JOptionPane.showMessageDialog(null, "Al estudiante seleccionado no se le ha agregado un trabajo de grado");
- 
-                    }else{//como tiene trabajo de grado se verifica si seleccionamos al estudiante1 o estudiante2 
-                        
+
+                    } else {//como tiene trabajo de grado se verifica si seleccionamos al estudiante1 o estudiante2 
+
                         Tg.titulop.setText(resulta2.getString("titulo"));
                         Tg.nombreTutor.setText(resulta2.getString("tutor"));
                         Tg.citutor.setText(resulta2.getString("cedula_tutor"));
 
-                        if(Alumnosside.cedulaEst.getText().equals(resulta2.getString("cedula_estudiante"))){
+                        if (Alumnosside.cedulaEst.getText().equals(resulta2.getString("cedula_estudiante"))) {
                             //Si entramos aqui significa que el estudiante que seleccionamos es el estudiante 1
-                            
+
                             conexion objCon = new conexion();
                             try {
                                 //buscamos el nombre del estudiante 2 en la tabla de estudiantes
@@ -433,10 +449,10 @@ public class Alumnos extends javax.swing.JPanel {
                                 objCon.cerrarConexion();
                             }
                             Tg.CiCompa.setText(resulta2.getString("cedula_estudiante2"));
-                            
-                        }else if(Alumnosside.cedulaEst.getText().equals(resulta2.getString("cedula_estudiante2"))){
-                            
-                           conexion objCon = new conexion();
+
+                        } else if (Alumnosside.cedulaEst.getText().equals(resulta2.getString("cedula_estudiante2"))) {
+
+                            conexion objCon = new conexion();
                             try {
                                 //buscamos el nombre del estudiante 1 en la tabla de estudiantes
                                 String sql2 = "SELECT * FROM estudiantes WHERE Cedula = '" + resulta2.getString("cedula_estudiante") + "'";
@@ -453,7 +469,7 @@ public class Alumnos extends javax.swing.JPanel {
                         }
 
                     }
-                       
+
                 } catch (Exception ex) {
                     System.out.println("Error de la base de datos");
                 } finally {
@@ -488,7 +504,7 @@ public class Alumnos extends javax.swing.JPanel {
             base.repaint();
             base.revalidate();
         } else if (Alumnosside.tipo.getSelectedItem().equals("Diseño")) {//si se selecciona diseño
-            
+
             System.out.println("diseno");
             Diseno ds = new Diseno();
             ds.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 400);
@@ -722,7 +738,7 @@ public class Alumnos extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+
         jas ventana = new jas();
         ventana.setVisible(true);
 
@@ -1019,16 +1035,16 @@ public class Alumnos extends javax.swing.JPanel {
         }
 
     }
-    public void panelTg(){
-    
+
+    public void panelTg() {
+
         Tg tg = new Tg();
         tg.setBounds(1, 1, Alumnosside.baseSide.getWidth(), 475);
         Alumnosside.baseSide.add(tg);
         Base base = (Base) this.getRootPane().getParent();
         base.setMinimumSize(new Dimension(1000, 600));
         base.setLocationRelativeTo(null);
-    
-    
+
     }
 
 
@@ -1047,6 +1063,7 @@ public class Alumnos extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     public javax.swing.JPanel paneltablaAlumnos;
+    private javax.swing.JLabel periodoLabel;
     public static javax.swing.JComboBox<String> semestre;
     public static javax.swing.JComboBox<String> tipoDeProyecto;
     // End of variables declaration//GEN-END:variables

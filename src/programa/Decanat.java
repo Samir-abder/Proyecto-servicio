@@ -29,7 +29,24 @@ public class Decanat extends javax.swing.JPanel {
         }
         basedatos.cerrarConexion();
         name.setText(nombre);
+        String peri = "2023-2CR";
+        conexion habana = new conexion();
+        ResultSet rst = habana.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+        try {
+            if (rst.next()) {
+                int rowCountP = rst.getInt("count");
+                if (rowCountP != 0) {
+                    peri = rst.getString("periodo");
+                    periodoLabel.setText("Periodo: " + peri);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            habana.cerrarConexion();
+        }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,6 +65,7 @@ public class Decanat extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         editar = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
+        periodoLabel = new javax.swing.JLabel();
 
         jPanel1.setPreferredSize(new java.awt.Dimension(400, 300));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -82,6 +100,10 @@ public class Decanat extends javax.swing.JPanel {
             }
         });
         jPanel1.add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, -1, -1));
+
+        periodoLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        periodoLabel.setText("Periodo:");
+        jPanel1.add(periodoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 200, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -154,5 +176,6 @@ public class Decanat extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField name;
+    private javax.swing.JLabel periodoLabel;
     // End of variables declaration//GEN-END:variables
 }
