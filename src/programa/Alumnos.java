@@ -363,19 +363,25 @@ public class Alumnos extends javax.swing.JPanel {
                 
                 //se coloca el panel de tg
                 panelTg();
+                Tg.cedulacompi.setEnabled(false);
+                Tg.jButton2.setEnabled(false);
+                Tg.companeros.setEnabled(false);
                 
                 //se tiene que completar el nombre del trabajo de grado si lo tiene
                 Alumnos.mostrarProfesTg();
                 conexion objConex = new conexion();
                 try {
                     
-                    String sql = "SELECT * FROM trabajo_grado WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                    String sql = "SELECT * FROM trabajo_grado WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' OR cedula_estudiante =  '" + Alumnosside.cedulaEst.getText() + "' ";
                     ResultSet resulta2 = objConex.consultaRegistros(sql);
                     
-                    if(!resulta2.next()) {
-                        System.out.println("Al estudiante seleccionado no se le ha agregado un trabajo de grado");
+                    if(!resulta2.next()){
+                        JOptionPane.showMessageDialog(null, "Al estudiante seleccionado no se le ha agregado un trabajo de grado");
+ 
                     }else{
                         Tg.titulop.setText(resulta2.getString("titulo"));
+                        Tg.nombreTutor.setText(resulta2.getString("tutor"));
+                        Tg.citutor.setText(resulta2.getString("cedula_tutor"));
                     }
                         
                 } catch (Exception ex) {
@@ -391,12 +397,63 @@ public class Alumnos extends javax.swing.JPanel {
                 
                 //se coloca el panel de tg
                 panelTg();
+
                 try {
+                    
                     conexion objConex = new conexion();
-                    String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
-                    ResultSet resulta = objConex.consultaRegistros(sql);
-                    //Pasantiab.razontext.setText(resulta.getString("razon_social"));
-                    //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+                    //esta sentencia busca la cedula del estudiante seleccionado en la tabla de trabajo de grado
+                    String sql = "SELECT * FROM trabajo_grado WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' OR cedula_estudiante2 =  '" + Alumnosside.cedulaEst.getText() + "' ";
+                    ResultSet resulta2 = objConex.consultaRegistros(sql);
+                    
+
+                    
+                    if(!resulta2.next()){//se verifica que tenga un trabajo de grado
+                        JOptionPane.showMessageDialog(null, "Al estudiante seleccionado no se le ha agregado un trabajo de grado");
+ 
+                    }else{//como tiene trabajo de grado se verifica si seleccionamos al estudiante1 o estudiante2 
+                        
+                        Tg.titulop.setText(resulta2.getString("titulo"));
+                        Tg.nombreTutor.setText(resulta2.getString("tutor"));
+                        Tg.citutor.setText(resulta2.getString("cedula_tutor"));
+
+                        if(Alumnosside.cedulaEst.getText().equals(resulta2.getString("cedula_estudiante"))){
+                            //Si entramos aqui significa que el estudiante que seleccionamos es el estudiante 1
+                            
+                            conexion objCon = new conexion();
+                            try {
+                                //buscamos el nombre del estudiante 2 en la tabla de estudiantes
+                                String sql2 = "SELECT * FROM estudiantes WHERE Cedula = '" + resulta2.getString("cedula_estudiante2") + "'";
+                                ResultSet resulta = objCon.consultaRegistros(sql2);
+                                String nom = resulta.getString("Nombre") + " " + resulta.getString("Apellido");
+                                Tg.NomCompa.setText(nom);
+
+                            } catch (Exception ex) {
+                                System.out.println("Error de la base de datos");
+                            } finally {
+                                objCon.cerrarConexion();
+                            }
+                            Tg.CiCompa.setText(resulta2.getString("cedula_estudiante2"));
+                            
+                        }else if(Alumnosside.cedulaEst.getText().equals(resulta2.getString("cedula_estudiante2"))){
+                            
+                           conexion objCon = new conexion();
+                            try {
+                                //buscamos el nombre del estudiante 1 en la tabla de estudiantes
+                                String sql2 = "SELECT * FROM estudiantes WHERE Cedula = '" + resulta2.getString("cedula_estudiante") + "'";
+                                ResultSet resulta = objCon.consultaRegistros(sql2);
+                                String nom = resulta.getString("Nombre") + " " + resulta.getString("Apellido");
+                                Tg.NomCompa.setText(nom);
+
+                            } catch (Exception ex) {
+                                System.out.println("Error de la base de datos");
+                            } finally {
+                                objCon.cerrarConexion();
+                            }
+                            Tg.CiCompa.setText(resulta2.getString("cedula_estudiante"));
+                        }
+
+                    }
+                       
                 } catch (Exception ex) {
                     System.out.println("Error de la base de datos");
                 } finally {
@@ -421,6 +478,7 @@ public class Alumnos extends javax.swing.JPanel {
                 ResultSet resulta = objConex.consultaRegistros(sql);
                 Pasantiab.razontext.setText(resulta.getString("razon_social"));
                 Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+                Pasantiab.cedulatuto.setText(resulta.getString("cedula_tutor"));
             } catch (Exception ex) {
                 System.out.println("Error de la base de datos");
             } finally {
@@ -441,10 +499,11 @@ public class Alumnos extends javax.swing.JPanel {
             Alumnos.mostrarProfesDiseno();
             try {
                 conexion objConex = new conexion();
-                String sql = "SELECT * FROM Pasantia WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
+                String sql = "SELECT * FROM Diseno WHERE cedula_estudiante = '" + Alumnosside.cedulaEst.getText() + "' ";
                 ResultSet resulta = objConex.consultaRegistros(sql);
-                //Pasantiab.razontext.setText(resulta.getString("razon_social"));
-                //Pasantiab.tutorAcad.setText(resulta.getString("tutor_academico"));
+                Diseno.razontext.setText(resulta.getString("razon_social"));
+                Diseno.tutorA.setText(resulta.getString("tutor_academico"));
+                Diseno.cedulatuto.setText(resulta.getString("cedula_tutor"));
             } catch (Exception ex) {
                 System.out.println("Error de la base de datos");
             } finally {

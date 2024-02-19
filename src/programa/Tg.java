@@ -46,7 +46,7 @@ public class Tg extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         nombreTutor = new javax.swing.JTextField();
         aSave = new javax.swing.JButton();
-        aEdit = new javax.swing.JButton();
+        Eliminar = new javax.swing.JButton();
         aDelete = new javax.swing.JButton();
         cedulacompi = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
@@ -76,21 +76,23 @@ public class Tg extends javax.swing.JPanel {
 
         jLabel15.setText("Titulo proyecto");
 
-        aSave.setText("Save");
+        nombreTutor.setEditable(false);
+
+        aSave.setText("Guardar");
         aSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aSaveActionPerformed(evt);
             }
         });
 
-        aEdit.setText("Edit");
-        aEdit.addActionListener(new java.awt.event.ActionListener() {
+        Eliminar.setText("Editar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aEditActionPerformed(evt);
+                EliminarActionPerformed(evt);
             }
         });
 
-        aDelete.setText("Delete");
+        aDelete.setText("Borrar");
         aDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aDeleteActionPerformed(evt);
@@ -151,7 +153,7 @@ public class Tg extends javax.swing.JPanel {
 
         jLabel3.setText("Nombre ");
 
-        NomCompa.setEnabled(false);
+        NomCompa.setEditable(false);
         NomCompa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NomCompaActionPerformed(evt);
@@ -194,7 +196,7 @@ public class Tg extends javax.swing.JPanel {
 
         jLabel4.setText("Cedula");
 
-        CiCompa.setEnabled(false);
+        CiCompa.setEditable(false);
         CiCompa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CiCompaActionPerformed(evt);
@@ -202,6 +204,8 @@ public class Tg extends javax.swing.JPanel {
         });
 
         jLabel5.setText("Cedula");
+
+        citutor.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -212,10 +216,10 @@ public class Tg extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
-                        .addComponent(aEdit)
-                        .addGap(28, 28, 28)
+                        .addComponent(Eliminar)
+                        .addGap(47, 47, 47)
                         .addComponent(aSave)
-                        .addGap(54, 54, 54)
+                        .addGap(35, 35, 35)
                         .addComponent(aDelete))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,7 +301,7 @@ public class Tg extends javax.swing.JPanel {
                     .addComponent(citutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(aEdit)
+                    .addComponent(Eliminar)
                     .addComponent(aDelete)
                     .addComponent(aSave))
                 .addContainerGap(64, Short.MAX_VALUE))
@@ -540,7 +544,7 @@ public class Tg extends javax.swing.JPanel {
         //find.ejecutarSentenciaSQl(addSql);
     }//GEN-LAST:event_aSaveActionPerformed
 
-    private void aEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aEditActionPerformed
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
         String cedula1 = Alumnosside.cedulaEst.getText();
         String cedula2 = CiCompa.getText();
@@ -573,7 +577,7 @@ public class Tg extends javax.swing.JPanel {
 
         }
         habana.cerrarConexion();
-    }//GEN-LAST:event_aEditActionPerformed
+    }//GEN-LAST:event_EliminarActionPerformed
 
     private void aDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aDeleteActionPerformed
         // TODO add your handling code here:
@@ -862,19 +866,19 @@ public class Tg extends javax.swing.JPanel {
         habana.cerrarConexion();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CiCompa;
-    private javax.swing.JTextField NomCompa;
+    public static javax.swing.JTextField CiCompa;
+    private javax.swing.JButton Eliminar;
+    public static javax.swing.JTextField NomCompa;
     private javax.swing.JButton aDelete;
-    private javax.swing.JButton aEdit;
     private javax.swing.JButton aSave;
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonAgregar1;
     private javax.swing.JTextField cedulaTutor;
-    private javax.swing.JTextField cedulacompi;
-    private javax.swing.JTextField citutor;
+    public static javax.swing.JTextField cedulacompi;
+    public static javax.swing.JTextField citutor;
     public static javax.swing.JTable companeros;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    public static javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -884,7 +888,7 @@ public class Tg extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField nombreTutor;
+    public static javax.swing.JTextField nombreTutor;
     public static javax.swing.JTable profes;
     public static javax.swing.JTextField titulop;
     // End of variables declaration//GEN-END:variables

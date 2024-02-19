@@ -48,7 +48,7 @@ public class Diseno extends javax.swing.JPanel {
         botonAgregar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
-        anteEdit1.setText("Edit");
+        anteEdit1.setText("Editar");
         anteEdit1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anteEdit1ActionPerformed(evt);
@@ -57,7 +57,7 @@ public class Diseno extends javax.swing.JPanel {
 
         jLabel26.setText("Tutor Académico");
 
-        tutorA.setEnabled(false);
+        tutorA.setEditable(false);
 
         jLabel1.setText("Tutor");
 
@@ -69,6 +69,8 @@ public class Diseno extends javax.swing.JPanel {
         });
 
         jLabel2.setText("Cedula");
+
+        cedulatuto.setEditable(false);
 
         profes.setAutoCreateRowSorter(true);
         profes.setModel(new javax.swing.table.DefaultTableModel(
@@ -95,12 +97,14 @@ public class Diseno extends javax.swing.JPanel {
         jScrollPane1.setViewportView(profes);
 
         razontext.setColumns(20);
+        razontext.setLineWrap(true);
         razontext.setRows(5);
+        razontext.setWrapStyleWord(true);
         jScrollPane2.setViewportView(razontext);
 
         jLabel24.setText("Titulo del proyecto");
 
-        anteSave1.setText("Save");
+        anteSave1.setText("Guardar");
         anteSave1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anteSave1ActionPerformed(evt);
@@ -165,8 +169,8 @@ public class Diseno extends javax.swing.JPanel {
                         .addComponent(jLabel24))
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cedulaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -491,7 +495,7 @@ public class Diseno extends javax.swing.JPanel {
     private javax.swing.JButton anteSave1;
     private javax.swing.JButton botonAgregar;
     private javax.swing.JTextField cedulaT;
-    private javax.swing.JTextField cedulatuto;
+    public static javax.swing.JTextField cedulatuto;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

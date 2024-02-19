@@ -98,7 +98,6 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         jLabel7.setText("(00:00 AM/PM)");
 
         botonAgregar.setText("agregar");
-        botonAgregar.setEnabled(false);
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarActionPerformed(evt);
@@ -106,7 +105,6 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         });
 
         jurado1.setEditable(false);
-        jurado1.setEnabled(false);
 
         jLabel1.setText("Entrevistadores");
 
@@ -141,8 +139,9 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tutores);
 
+        jurado2.setEditable(false);
+
         botonAgregar1.setText("agregar");
-        botonAgregar1.setEnabled(false);
         botonAgregar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregar1ActionPerformed(evt);
@@ -154,49 +153,60 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(jLabel1))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(cedulaTutor2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addComponent(jButton2))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jurado1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jurado2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
-                .addComponent(botonAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel3)
-                .addGap(11, 11, 11)
-                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
-                .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(lugarentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(guardarEntre)
-                .addGap(8, 8, 8)
-                .addComponent(jButton3))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lugarentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(guardarEntre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(154, 154, 154)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(cedulaTutor2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(jButton2))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(40, 40, 40)
+                                    .addComponent(jurado1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(90, 90, 90)
+                                    .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(29, 29, 29)
+                                    .addComponent(jurado2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(75, 75, 75)
+                                    .addComponent(botonAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,26 +214,32 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                     .addComponent(jButton2))
                 .addGap(7, 7, 7)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jurado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jurado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonAgregar)
-                    .addComponent(botonAgregar1))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jurado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(8, 8, 8)
+                                .addComponent(botonAgregar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jurado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(botonAgregar1)))
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(hora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
-                    .addComponent(lugarentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(guardarEntre)
-                    .addComponent(jButton3)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton3)
+                        .addComponent(guardarEntre)
+                        .addComponent(lugarentrevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -254,51 +270,31 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                 + "WHERE Cedula = '" +  Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0) + "'",
                     Vector[1], 
                     Vector[0],
-                datestg + " / "+ hora.getText(),
+                datestg + "/"+ hora.getText(),
                 lugarentrevista.getText());
         
         objConexion.ejecutarSentenciaSQl(sql);
-        //cientrevistador.setText("");
-        //nombrentrevistador.setText("");
+        date.setDate(null);
         hora.setText("");
         lugarentrevista.setText("");
-        
-        try {
-            while (Entrevistas.modeloEntre.getRowCount() > 0) {
-               Entrevistas.modeloEntre.removeRow(0);
-            }                     
-            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM Estudiantes");
-            while (resultado.next()) {
-                 String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
-                Object[] UsuarioD = {resultado.getString("Cedula"),
-                    nombreCompleto,
-                    resultado.getString("nombrejurado1"),
-                    resultado.getString("ci_jurado1"),
-                    resultado.getString("fecha_hora_entrevista"),
-                    resultado.getString("lugar_entrevista")
-                };
-            Entrevistas.modeloEntre.addRow(UsuarioD);
-            }
-            }catch (SQLException e) {
-                System.out.println("este es " + e);
-            }
-         
-         objConexion.cerrarConexion();
+        jurado1.setText("");
+        jurado2.setText("");
+
         }  
          else{
              //conexion objConexion = new conexion();
         
          //if(Agenda.comboTipo.getSelectedItem().toString().equals("Pasantia")){
              
-             Object[] Vector = jurado1.getText().split(",");
-             Object[] Vector1 = jurado2.getText().split(",");
+            Object[] Vector = jurado1.getText().split(",");
+            Object[] Vector1 = jurado2.getText().split(",");
              
         String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s', ci_jurado2 = '%s', nombrejurado2 = '%s', fecha_hora_entrevista = '%s', lugar_entrevista = '%s' WHERE Cedula = '%s'",
         Vector[1],
         Vector[0],
         Vector1[1],
         Vector1[0],
-        datestg + " / " + hora.getText(),
+        datestg + "/" + hora.getText(),
         lugarentrevista.getText(),
         Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0));
              System.out.println(sql);
@@ -306,22 +302,34 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         objConexion.ejecutarSentenciaSQl(sql);
         //cientrevistador.setText("");
         //nombrentrevistador.setText("");
+        date.setDate(null);
         hora.setText("");
         lugarentrevista.setText("");
-        
+        jurado1.setText("");
+        jurado2.setText("");
+        objConexion.cerrarConexion();
+       
+         
+        }
+        //Se actualiza la tabla nuevamente 
+        conexion conex = new conexion();
         try {
             while (Entrevistas.modeloEntre.getRowCount() > 0) {
                Entrevistas.modeloEntre.removeRow(0);
-            }                     
-            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM Estudiantes");
+            }
+            
+            String escuela = (String) Agenda.comboEscuela.getSelectedItem();
+            String tipo = (String) Agenda.comboTipo.getSelectedItem();
+            ResultSet resultado = conex.consultaRegistros("SELECT * FROM Estudiantes WHERE Escuela='"+escuela+"' AND Tipo = '"+tipo+"' AND Nivel = '9vno'");
             while (resultado.next()) {
                  String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
-                Object[] UsuarioD = {resultado.getString("Cedula"),
+                Object[] UsuarioD = {
+                    resultado.getString("Cedula"),
                     nombreCompleto,
                     resultado.getString("nombrejurado1"),
                     resultado.getString("ci_jurado1"),
-                    resultado.getString("nombrejurado2"),
-                    resultado.getString("ci_jurado2"),
+                    //resultado.getString("nombrejurado2"),
+                    //resultado.getString("ci_jurado2"),
                     resultado.getString("fecha_hora_entrevista"),
                     resultado.getString("lugar_entrevista")
                 };
@@ -329,34 +337,12 @@ public class EntrevistaEdit extends javax.swing.JPanel {
             }
             }catch (SQLException e) {
                 System.out.println("este es " + e);
+            }finally{
+                conex.cerrarConexion();
             }
          
-         objConexion.cerrarConexion();
-        }
          
-         
-         
-//        try {
-//            while (Entrevistas.modeloEntre.getRowCount() > 0) {
-//               Entrevistas.modeloEntre.removeRow(0);
-//            }                     
-//            ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM Estudiantes");
-//            while (resultado.next()) {
-//                 String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
-//                Object[] UsuarioD = {resultado.getString("Cedula"),
-//                    nombreCompleto,
-//                    resultado.getString("nombrejurado1"),
-//                    resultado.getString("ci_jurado1"),
-//                    resultado.getString("fecha_hora_entrevista"),
-//                    resultado.getString("lugar_entrevista")
-//                };
-//            Entrevistas.modeloEntre.addRow(UsuarioD);
-//            }
-//            }catch (SQLException e) {
-//                System.out.println("este es " + e);
-//            }
-//         
-//         objConexion.cerrarConexion();    
+   
     }//GEN-LAST:event_guardarEntreActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -439,7 +425,7 @@ public class EntrevistaEdit extends javax.swing.JPanel {
     public javax.swing.JButton botonAgregar;
     public javax.swing.JButton botonAgregar1;
     private javax.swing.JTextField cedulaTutor2;
-    private com.toedter.calendar.JDateChooser date;
+    public static com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton guardarEntre;
     public static javax.swing.JTextField hora;
     private javax.swing.JButton jButton2;
@@ -449,8 +435,8 @@ public class EntrevistaEdit extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jurado1;
-    private javax.swing.JTextField jurado2;
+    public static javax.swing.JTextField jurado1;
+    public static javax.swing.JTextField jurado2;
     public static javax.swing.JTextField lugarentrevista;
     public static javax.swing.JTable tutores;
     // End of variables declaration//GEN-END:variables

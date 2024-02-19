@@ -501,7 +501,7 @@ public class Alumnosside extends javax.swing.JPanel {
             
         } 
             catch (SQLException ex) {
-            System.out.println("errororor");
+            System.out.println("error");
             Logger.getLogger(Alumnosside.class.getName()).log(Level.SEVERE, null, ex);
         }
         

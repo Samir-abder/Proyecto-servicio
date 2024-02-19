@@ -43,14 +43,14 @@ public class Pasantiab extends javax.swing.JPanel {
 
         jLabel24.setText("Titulo del proyecto");
 
-        anteSave1.setText("Save");
+        anteSave1.setText("Guardar");
         anteSave1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anteSave1ActionPerformed(evt);
             }
         });
 
-        anteEdit1.setText("Edit");
+        anteEdit1.setText("Editar");
         anteEdit1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anteEdit1ActionPerformed(evt);
@@ -59,7 +59,7 @@ public class Pasantiab extends javax.swing.JPanel {
 
         jLabel26.setText("Tutor Académico");
 
-        tutorAcad.setEnabled(false);
+        tutorAcad.setEditable(false);
 
         jLabel1.setText("Tutor");
 
@@ -112,6 +112,8 @@ public class Pasantiab extends javax.swing.JPanel {
 
         jLabel2.setText("Cedula");
 
+        cedulatuto.setEditable(false);
+
         jLabel3.setText("Pasantia");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -162,8 +164,8 @@ public class Pasantiab extends javax.swing.JPanel {
                         .addComponent(jLabel24))
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cedulaTutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -495,7 +497,7 @@ try {
     private javax.swing.JButton anteSave1;
     private javax.swing.JButton botonAgregar;
     private javax.swing.JTextField cedulaTutor;
-    private javax.swing.JTextField cedulatuto;
+    public static javax.swing.JTextField cedulatuto;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

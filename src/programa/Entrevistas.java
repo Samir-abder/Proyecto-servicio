@@ -4,9 +4,14 @@
  */
 package programa;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
@@ -64,7 +69,7 @@ public class Entrevistas extends javax.swing.JPanel {
             }
         });
 
-        baseEntrevista.setBackground(new java.awt.Color(102, 204, 0));
+        baseEntrevista.setBackground(new java.awt.Color(255, 255, 255));
         baseEntrevista.setLayout(new java.awt.BorderLayout());
 
         paneltablaEntrevista.setBackground(new java.awt.Color(255, 51, 102));
@@ -97,7 +102,7 @@ public class Entrevistas extends javax.swing.JPanel {
         paneltablaEntrevista.setLayout(paneltablaEntrevistaLayout);
         paneltablaEntrevistaLayout.setHorizontalGroup(
             paneltablaEntrevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
         );
         paneltablaEntrevistaLayout.setVerticalGroup(
             paneltablaEntrevistaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,20 +139,16 @@ public class Entrevistas extends javax.swing.JPanel {
     private void boton_editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_editActionPerformed
         
         
-        EntrevistaEdit pred = new EntrevistaEdit(); 
-        
-        
-        
+        EntrevistaEdit pred = new EntrevistaEdit();
         String tipo = Agenda.comboTipo.getSelectedItem().toString();
-        System.out.println("blah blah" + tipo);
+        
         
         if (tipo.equals("Trabajo de grado")) {
-            System.out.println("ENTRETO AL IIIIIIIIIIIF");
             pred.botonAgregar.setEnabled(true);
             pred.botonAgregar1.setEnabled(true);
         }
         else {
-            System.out.println("Else" + tipo);
+            
             pred.botonAgregar.setEnabled(true);
             pred.botonAgregar1.setEnabled(false);
         }
@@ -170,12 +171,46 @@ public class Entrevistas extends javax.swing.JPanel {
         base.revalidate();
         
         int filaSeleccionada = agendaEntrevista.getSelectedRow();
-//        EntrevistaEdit.nombrentrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 2));
-//        EntrevistaEdit.cientrevistador.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 3));
-        EntrevistaEdit.hora.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 4));
-        EntrevistaEdit.lugarentrevista.setText((String) agendaEntrevista.getValueAt(filaSeleccionada, 5));
-        
-        
+        conexion entrevista = new conexion();
+        try{
+            
+            String sql = "SELECT * FROM estudiantes WHERE Cedula = '"+ agendaEntrevista.getValueAt(filaSeleccionada, 0)+"'";
+            ResultSet resultado = entrevista.consultaRegistros(sql);
+            String fh=resultado.getString("fecha_hora_entrevista");
+            
+            
+            if (fh != null){
+                String[] partes = fh.split("/");
+                String fecha = partes[0]+"/"+partes[1]+"/"+partes[2];
+                String hora = partes[3];
+                EntrevistaEdit.hora.setText(hora);
+                SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    // Convierte la cadena de texto a un objeto Date
+                    Date fechaconvertida = formato.parse(fecha);
+
+                    // Agrega la fecha al JDateChooser
+                    EntrevistaEdit.date.setDate(fechaconvertida);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                
+            }
+            if(resultado.getString("lugar_entrevista")!=null){
+                EntrevistaEdit.lugarentrevista.setText(resultado.getString("lugar_entrevista"));
+            }
+            if(resultado.getString("nombrejurado1")!=null){
+                EntrevistaEdit.jurado1.setText(resultado.getString("nombrejurado1")+", "+resultado.getString("ci_jurado1"));
+            }
+            if(resultado.getString("nombrejurado2")!=null){
+                EntrevistaEdit.jurado2.setText(resultado.getString("nombrejurado2")+", "+resultado.getString("ci_jurado2"));
+            }
+            
+        }catch(SQLException e){
+            System.out.println("este es " + e);
+        }finally{
+            entrevista.cerrarConexion();
+        }
 
         
     }//GEN-LAST:event_boton_editActionPerformed

@@ -79,10 +79,9 @@ public class Agenda extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addComponent(botonEntrevistas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addComponent(botonPresentaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(baseAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(17, 17, 17))
+                .addComponent(botonPresentaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(baseAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,7 +93,7 @@ public class Agenda extends javax.swing.JPanel {
                     .addComponent(botonEntrevistas)
                     .addComponent(botonPresentaciones))
                 .addGap(5, 5, 5)
-                .addComponent(baseAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(baseAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -102,7 +101,10 @@ public class Agenda extends javax.swing.JPanel {
         
         
         Entrevistas entr = new Entrevistas();
-        baseAgenda.removeAll();baseAgenda.add(entr);baseAgenda.revalidate();baseAgenda.repaint();
+        baseAgenda.removeAll();
+        baseAgenda.add(entr);
+        baseAgenda.revalidate();
+        baseAgenda.repaint();
         
         while (Entrevistas.modeloEntre.getRowCount() > 0) { //tabla de entrevistas
             Entrevistas.modeloEntre.removeRow(0);
@@ -115,22 +117,11 @@ public class Agenda extends javax.swing.JPanel {
         String tipo = comboTipo.getSelectedItem().toString();
         
         if(escuela != "Seleccione una escuela" && tipo != "Tipo"){
-//            EntrevistaEdit a = new EntrevistaEdit();
-//            if(tipo == "Pasantia") {
-//                
-//                
-//                a.botonAgregar.setEnabled(true);
-//                a.botonAgregar1.setEnabled(false);
-//            }
-//            else{
-//                a.botonAgregar.setEnabled(true);
-//                a.botonAgregar1.setEnabled(true);
-//            }
+  
             
-            
-            
-            try {
             conexion objConexion = new conexion();
+            try {
+            
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes WHERE Escuela = '"+escuela+"' AND Tipo = '"+tipo+"' AND Nivel = '9vno'");
             
                 System.out.println("SELECT * FROM estudiantes WHERE Escuela = '"+escuela+"' AND Tipo = '"+tipo+"' AND Nivel = '9vno'");
@@ -146,13 +137,15 @@ public class Agenda extends javax.swing.JPanel {
                     resultado.getString("fecha_hora_entrevista"),
                     resultado.getString("lugar_entrevista")};
 
-                Entrevistas.modeloEntre.addRow(UsuarioD);
-//                
+                Entrevistas.modeloEntre.addRow(UsuarioD);                
             }
-            objConexion.cerrarConexion();
-        } catch (SQLException e) {
-            System.out.println("este es " + e);
-        }
+            
+            } catch (SQLException e) {
+                System.out.println("este es " + e);
+            }finally{
+                objConexion.cerrarConexion();
+            }
+          
         }
         else{
             JOptionPane.showMessageDialog(null, "Asegurese de seleccionar Escuela y tipo");
@@ -216,7 +209,7 @@ public class Agenda extends javax.swing.JPanel {
     private javax.swing.JPanel baseAgenda;
     private javax.swing.JButton botonEntrevistas;
     private javax.swing.JButton botonPresentaciones;
-    private javax.swing.JComboBox<String> comboEscuela;
+    public static javax.swing.JComboBox<String> comboEscuela;
     public static javax.swing.JComboBox<String> comboTipo;
     // End of variables declaration//GEN-END:variables
 }
