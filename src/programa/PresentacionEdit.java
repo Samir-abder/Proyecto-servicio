@@ -23,6 +23,10 @@ public class PresentacionEdit extends javax.swing.JPanel {
         jurados = (DefaultTableModel) this.tutores.getModel();
         ListSelectionModel modeloSeleccion = tutores.getSelectionModel();
         modeloSeleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        new TextPrompt("  Buscar jurados", cedulaTutor2);
+        new TextPrompt("  1er Jurado", jurado1);
+        new TextPrompt("  2do Jurado", jurado2);
+        new TextPrompt("00:00 AM/PM", hora);
     }
 
     @SuppressWarnings("unchecked")
@@ -85,10 +89,10 @@ public class PresentacionEdit extends javax.swing.JPanel {
                 horaActionPerformed(evt);
             }
         });
-        add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 86, -1));
+        add(hora, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 86, -1));
 
         jLabel7.setText("(00:00 AM/PM)");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 80, 20));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 80, 20));
 
         botonAgregar.setText("agregar");
         botonAgregar.setEnabled(false);
@@ -136,7 +140,7 @@ public class PresentacionEdit extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tutores);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 370, 100));
-        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, -1, -1));
+        add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 100, -1));
         add(jurado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 180, -1));
         add(cedulaTutor2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 203, -1));
 

@@ -268,28 +268,42 @@ public class Base extends javax.swing.JFrame {
     private void semestreActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_semestreActualActionPerformed
 
 
+String nuevaRuta = "database.s3db";
+            conexion miConexion = new conexion(); // Crear una instancia de conexion
+        miConexion.setConexionDB(nuevaRuta);
+        Alumnos alumnos = new Alumnos();
+        alumnos.setLocation(0,0);
+   
+        Fondo.removeAll();
+        Fondo.add(alumnos);
+        Fondo.revalidate();
+        Fondo.repaint();
+        this.setMinimumSize(new Dimension(900,600));
+        this.setLocationRelativeTo(null);
+
+       
         while (Alumnos.modeloa.getRowCount() > 0) {
             Alumnos.modeloa.removeRow(0);
         }
+        conexion objConexion = new conexion();
         try {
-            conexion objConexion = new conexion();
+            
             ResultSet resultado = objConexion.consultaRegistros("SELECT * FROM estudiantes");
             while (resultado.next()) {
-                Object[] UsuarioD = {
-                    resultado.getString("Cedula"),
-                    resultado.getString("Nombre"), 
-                    resultado.getString("Apellido"),
-                    resultado.getString("Nivel"),
-                    resultado.getString("Tipo"),
-                    resultado.getString("Escuela"),
+                Object[] UsuarioD = {resultado.getString("Cedula"),resultado.getString("Nombre"), 
+                    resultado.getString("Apellido"),resultado.getString("Nivel")
+                    , resultado.getString("Tipo"), resultado.getString("Escuela"),
                     Boolean.parseBoolean(resultado.getString("Estado"))};
 
                 Alumnos.modeloa.addRow(UsuarioD);
-//              objConexion.cerrarConexion();
+//                objConexion.cerrarConexion();
             }
         } catch (SQLException e) {
             System.out.println("este es " + e);
+        }finally{
+            objConexion.cerrarConexion();
         }
+        Alumnos.cargar();
     }//GEN-LAST:event_semestreActualActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -396,12 +410,16 @@ public class Base extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-           Estadisticas stats = new Estadisticas();
+       try {
+           registro stats = new registro();
            
            Fondo.removeAll();
            Fondo.add(stats);
            Fondo.revalidate();
            Fondo.repaint();
+       } catch (SQLException ex) {
+           Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     public static void cargar() {

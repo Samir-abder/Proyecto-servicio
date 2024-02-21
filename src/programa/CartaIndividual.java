@@ -243,8 +243,28 @@ public class CartaIndividual extends JFrame {
             datosInforme.put("Codigo", codigoTrabajo);
             datosInforme.put("NombreProyecto", titulo);
             datosInforme.put("fechalarga", fechaLarga);
-            datosInforme.put("fechacorta", fechaCorta);
-            datosInforme.put("Ingeniero", escuela);
+            datosInforme.put("fechacorta", fechaCorta);if(escuela.equals("Arquitectura")){
+                            datosInforme.put("Ingeniero","Arquitecto");
+
+            }if(escuela.equals("Computación")){
+                            datosInforme.put("Ingeniero","Ingeniero en computación");
+
+            }if(escuela.equals("Mecánica")){
+                            datosInforme.put("Ingeniero","Ingeniero mecánico");
+
+            }if(escuela.equals("Telecomunicaciones")){
+                            datosInforme.put("Ingeniero","Ingeniero en telecomunicaciones");
+
+            }if(escuela.equals("Civil")){
+                            datosInforme.put("Ingeniero","Ingeniero civil");
+
+            }if(escuela.equals("Industrial")){
+                            datosInforme.put("Ingeniero","Ingeniero industrial");
+
+            }if(escuela.equals("Electrónica")){
+                            datosInforme.put("Ingeniero","Ingeniero electronico");
+
+            }
             datosInforme.put("Tutor", nombret);
             datosInforme.put("Cedulatutor", cedulat);
             datosInforme.put("decano", decano);

@@ -11,7 +11,6 @@ import java.util.Date;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-
 /**
  *
  * @author lujop
@@ -25,17 +24,21 @@ public class EntrevistaEdit extends javax.swing.JPanel {
     int filaAnterior = -1;
     int filaActual = -2;
     //bot.botonAgregar.setEnabled(true);
-     //   bot.botonAgregar1.setEnabled(true);
-    
+    //   bot.botonAgregar1.setEnabled(true);
+
     public EntrevistaEdit() {
         initComponents();
         jurados = (DefaultTableModel) this.tutores.getModel();
         ListSelectionModel modeloSeleccion = tutores.getSelectionModel();
         modeloSeleccion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        new TextPrompt("  Buscar jurados", cedulaTutor2);
+        new TextPrompt("  1er Jurado", jurado1);
+        new TextPrompt("  2do Jurado", jurado2);
+        new TextPrompt("00:00 AM/PM", hora);
         
+
+
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -249,80 +252,75 @@ public class EntrevistaEdit extends javax.swing.JPanel {
 
     private void guardarEntreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarEntreActionPerformed
         conexion objConexion = new conexion();
-        
-        
-         int filaSeleccionada = Entrevistas.agendaEntrevista.getSelectedRow();
-        
-         Date selectedDate = date.getDate();
 
-    //fecha como una cadena antes de guardarla en la base de datos
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");      
+        int filaSeleccionada = Entrevistas.agendaEntrevista.getSelectedRow();
+
+        Date selectedDate = date.getDate();
+
+        //fecha como una cadena antes de guardarla en la base de datos
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String datestg = sdf.format(selectedDate);
         //System.out.println("Fecha formateada: " + datestg);
-         
 
-         if(Agenda.comboTipo.getSelectedItem().toString().equals("Pasantia")){
-             
-             Object[] Vector = jurado1.getText().split(",");
-             
-        String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s',"
-                + " fecha_hora_entrevista = '%s', lugar_entrevista = '%s' "
-                + "WHERE Cedula = '" +  Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0) + "'",
-                    Vector[1], 
+        if (Agenda.comboTipo.getSelectedItem().toString().equals("Pasantia")) {
+
+            Object[] Vector = jurado1.getText().split(",");
+
+            String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s',"
+                    + " fecha_hora_entrevista = '%s', lugar_entrevista = '%s' "
+                    + "WHERE Cedula = '" + Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0) + "'",
+                    Vector[1],
                     Vector[0],
-                datestg + "/"+ hora.getText(),
-                lugarentrevista.getText());
-        
-        objConexion.ejecutarSentenciaSQl(sql);
-        date.setDate(null);
-        hora.setText("");
-        lugarentrevista.setText("");
-        jurado1.setText("");
-        jurado2.setText("");
+                    datestg + "/" + hora.getText(),
+                    lugarentrevista.getText());
 
-        }  
-         else{
-             //conexion objConexion = new conexion();
-        
-         //if(Agenda.comboTipo.getSelectedItem().toString().equals("Pasantia")){
-             
+            objConexion.ejecutarSentenciaSQl(sql);
+            date.setDate(null);
+            hora.setText("");
+            lugarentrevista.setText("");
+            jurado1.setText("");
+            jurado2.setText("");
+
+        } else {
+            //conexion objConexion = new conexion();
+
+            //if(Agenda.comboTipo.getSelectedItem().toString().equals("Pasantia")){
             Object[] Vector = jurado1.getText().split(",");
             Object[] Vector1 = jurado2.getText().split(",");
-             
-        String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s', ci_jurado2 = '%s', nombrejurado2 = '%s', fecha_hora_entrevista = '%s', lugar_entrevista = '%s' WHERE Cedula = '%s'",
-        Vector[1],
-        Vector[0],
-        Vector1[1],
-        Vector1[0],
-        datestg + "/" + hora.getText(),
-        lugarentrevista.getText(),
-        Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0));
-             System.out.println(sql);
-        
-        objConexion.ejecutarSentenciaSQl(sql);
-        //cientrevistador.setText("");
-        //nombrentrevistador.setText("");
-        date.setDate(null);
-        hora.setText("");
-        lugarentrevista.setText("");
-        jurado1.setText("");
-        jurado2.setText("");
-        objConexion.cerrarConexion();
-       
-         
+
+            String sql = String.format("UPDATE Estudiantes SET ci_jurado1 = '%s', nombrejurado1 = '%s', ci_jurado2 = '%s', nombrejurado2 = '%s', fecha_hora_entrevista = '%s', lugar_entrevista = '%s' WHERE Cedula = '%s'",
+                    Vector[1],
+                    Vector[0],
+                    Vector1[1],
+                    Vector1[0],
+                    datestg + "/" + hora.getText(),
+                    lugarentrevista.getText(),
+                    Entrevistas.agendaEntrevista.getValueAt(filaSeleccionada, 0));
+            System.out.println(sql);
+
+            objConexion.ejecutarSentenciaSQl(sql);
+            //cientrevistador.setText("");
+            //nombrentrevistador.setText("");
+            date.setDate(null);
+            hora.setText("");
+            lugarentrevista.setText("");
+            jurado1.setText("");
+            jurado2.setText("");
+            objConexion.cerrarConexion();
+
         }
         //Se actualiza la tabla nuevamente 
         conexion conex = new conexion();
         try {
             while (Entrevistas.modeloEntre.getRowCount() > 0) {
-               Entrevistas.modeloEntre.removeRow(0);
+                Entrevistas.modeloEntre.removeRow(0);
             }
-            
+
             String escuela = (String) Agenda.comboEscuela.getSelectedItem();
             String tipo = (String) Agenda.comboTipo.getSelectedItem();
-            ResultSet resultado = conex.consultaRegistros("SELECT * FROM Estudiantes WHERE Escuela='"+escuela+"' AND Tipo = '"+tipo+"' AND Nivel = '9vno'");
+            ResultSet resultado = conex.consultaRegistros("SELECT * FROM Estudiantes WHERE Escuela='" + escuela + "' AND Tipo = '" + tipo + "' AND Nivel = '9vno'");
             while (resultado.next()) {
-                 String nombreCompleto = resultado.getString("Nombre") + " "  + resultado.getString("Apellido");
+                String nombreCompleto = resultado.getString("Nombre") + " " + resultado.getString("Apellido");
                 Object[] UsuarioD = {
                     resultado.getString("Cedula"),
                     nombreCompleto,
@@ -333,16 +331,15 @@ public class EntrevistaEdit extends javax.swing.JPanel {
                     resultado.getString("fecha_hora_entrevista"),
                     resultado.getString("lugar_entrevista")
                 };
-            Entrevistas.modeloEntre.addRow(UsuarioD);
+                Entrevistas.modeloEntre.addRow(UsuarioD);
             }
-            }catch (SQLException e) {
-                System.out.println("este es " + e);
-            }finally{
-                conex.cerrarConexion();
-            }
-         
-         
-   
+        } catch (SQLException e) {
+            System.out.println("este es " + e);
+        } finally {
+            conex.cerrarConexion();
+        }
+
+
     }//GEN-LAST:event_guardarEntreActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -354,20 +351,20 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         String cedula = String.valueOf(tutores.getValueAt(filaSeleccionada, 0));
         String nombre = String.valueOf(tutores.getValueAt(filaSeleccionada, 1));
         //cedulatuto.setText(cedula);
-        jurado1.setText(nombre +", "+ cedula);
+        jurado1.setText(nombre + ", " + cedula);
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         conexion busquedaProf = new conexion();
         String busqueda = cedulaTutor2.getText();
-        String SQL = "SELECT * FROM Docentes WHERE Nombre LIKE '%"+ busqueda +"%' OR Apellido LIKE '%"+ busqueda +"%' OR Cedula LIKE '%"+ busqueda +"%'";
+        String SQL = "SELECT * FROM Docentes WHERE Nombre LIKE '%" + busqueda + "%' OR Apellido LIKE '%" + busqueda + "%' OR Cedula LIKE '%" + busqueda + "%'";
         while (jurados.getRowCount() > 0) {
             jurados.removeRow(0);
         }
 
         try {
             ResultSet AgregarProf = busquedaProf.consultaRegistros(SQL);
-            while(AgregarProf.next()){
+            while (AgregarProf.next()) {
                 String Nombre = AgregarProf.getString("Nombre") + " " + AgregarProf.getString("Apellido");
                 Object[] search = {
                     AgregarProf.getString("Cedula"),
@@ -379,7 +376,7 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         } catch (SQLException e) {
             // Manejar excepciones de SQL
             e.printStackTrace();
-        }finally{
+        } finally {
             busquedaProf.cerrarConexion();
         }
 
@@ -387,13 +384,9 @@ public class EntrevistaEdit extends javax.swing.JPanel {
 
     private void tutoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tutoresMouseClicked
 
-       
-
         int filaSeleccionada = tutores.getSelectedRow();
 
         // Si la fila seleccionada es la misma que la fila anterior, deseleccionarla
-        
-        
         if (filaAnterior == filaActual) {
             if (filaSeleccionada == filaAnterior) {
                 tutores.clearSelection();
@@ -417,7 +410,7 @@ public class EntrevistaEdit extends javax.swing.JPanel {
         String cedula = String.valueOf(tutores.getValueAt(filaSeleccionada, 0));
         String nombre = String.valueOf(tutores.getValueAt(filaSeleccionada, 1));
         //cedulatuto.setText(cedula);
-        jurado2.setText(nombre +", "+ cedula);
+        jurado2.setText(nombre + ", " + cedula);
     }//GEN-LAST:event_botonAgregar1ActionPerformed
 
 

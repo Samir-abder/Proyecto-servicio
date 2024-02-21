@@ -7,6 +7,10 @@ package programa;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonModel;
 import javax.swing.JOptionPane;
 //import javax.swing.JOptionPane;
@@ -47,6 +51,22 @@ public class Profesores extends javax.swing.JPanel {
             botonAgProf.setVisible(true);
             profbo.setVisible(true);
         }
+                 String peri = "2023-2CR";
+        conexion habana = new conexion();
+        ResultSet rst = habana.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
+        try {
+            if (rst.next()) {
+                int rowCountP = rst.getInt("count");
+                if (rowCountP != 0) {
+                    peri = rst.getString("periodo");
+                    periodoLabel.setText("Periodo: "+ peri);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Alumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+        habana.cerrarConexion();
+        }
 
     }
 
@@ -62,6 +82,7 @@ public class Profesores extends javax.swing.JPanel {
         botonAgProf = new javax.swing.JButton();
         profed = new javax.swing.JButton();
         profbo = new javax.swing.JButton();
+        periodoLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(685, 483));
@@ -137,6 +158,9 @@ public class Profesores extends javax.swing.JPanel {
             }
         });
 
+        periodoLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        periodoLabel.setText("Periodo:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -148,16 +172,19 @@ public class Profesores extends javax.swing.JPanel {
                 .addComponent(profed)
                 .addGap(18, 18, 18)
                 .addComponent(profbo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addComponent(periodoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAgProf)
                     .addComponent(profed)
-                    .addComponent(profbo))
+                    .addComponent(profbo)
+                    .addComponent(periodoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -298,6 +325,7 @@ public class Profesores extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel paneltablaProfes;
+    private javax.swing.JLabel periodoLabel;
     public static javax.swing.JButton profbo;
     public static javax.swing.JButton profed;
     // End of variables declaration//GEN-END:variables

@@ -225,7 +225,7 @@ try (
             datosInforme.put("fechalarga", fechaLarga);
             datosInforme.put("fechacorta", fechaCorta);
             if(escuela.equals("Arquitectura")){
-                            datosInforme.put("Ingeniero","Arquitecto)");
+                            datosInforme.put("Ingeniero","Arquitecto");
 
             }if(escuela.equals("Computación")){
                             datosInforme.put("Ingeniero","Ingeniero en computación");
