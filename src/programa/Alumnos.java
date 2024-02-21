@@ -361,6 +361,7 @@ public class Alumnos extends javax.swing.JPanel {
         Alumnosside.tipo.setSelectedItem(jTable1.getValueAt(filaSeleccionada, 4));
         Alumnosside.escuelaEC = (String) jTable1.getValueAt(filaSeleccionada, 5);
         Alumnosside.tipoEC = (String) jTable1.getValueAt(filaSeleccionada, 4);
+        Alumnosside.nivelEC = (String) jTable1.getValueAt(filaSeleccionada, 3);
 
         //Se verifica que el estudiante haya echo la vaina solo
         conexion objConexion = new conexion();
@@ -378,12 +379,23 @@ public class Alumnos extends javax.swing.JPanel {
         if (Alumnosside.tipo.getSelectedItem().equals("Trabajo de grado")) { //si se selecciona el trabajo de grado
 
             if (Alumnosside.ComboModo.getSelectedIndex() == 0) {//trabajo de grado individual
-
+System.out.println("te entra como te gusta?");
                 //se coloca el panel de tg
                 panelTg();
                 Tg.cedulacompi.setEnabled(false);
                 Tg.jButton2.setEnabled(false);
-                Tg.companeros.setEnabled(false);
+                Tg.cedulacompi.setVisible(false);
+                        Tg.botonAgregar1.setVisible(false);
+                        Tg.jLabel30.setVisible(false);
+
+                        Tg.jButton2.setVisible(false);
+                        Tg.jScrollPane2.setVisible(false);
+                        Tg.jLabel3.setVisible(false);
+                        Tg.NomCompa.setVisible(false);
+
+                        Tg.jLabel4.setVisible(false);
+
+                        Tg.CiCompa.setVisible(false);
 
                 //se tiene que completar el nombre del trabajo de grado si lo tiene
                 Alumnos.mostrarProfesTg();
@@ -682,6 +694,7 @@ public class Alumnos extends javax.swing.JPanel {
         } else {
             System.out.println("La Eliminación del registro ha sido cancelado por el Usuario");
         }
+        cargar();
     }//GEN-LAST:event_botonEliminarActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed

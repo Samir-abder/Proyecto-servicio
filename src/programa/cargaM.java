@@ -40,6 +40,13 @@ public class cargaM extends javax.swing.JPanel {
     public cargaM() {
         initComponents();
         //UIManager.setLookAndFeel(newLookAndFeel);
+         if (!conexion.strconexionDB.equals("database.s3db")) {
+            btnCargar.setVisible(false);
+            
+        } else {
+            btnCargar.setVisible(true);
+            
+        }
         new TextPrompt("Nombre de la hoja", jTextField1);
          String peri = "2023-2CR";
         conexion habana = new conexion();

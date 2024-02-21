@@ -48,18 +48,25 @@ public class Diseno extends javax.swing.JPanel {
         botonAgregar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         anteEdit1.setText("Editar");
         anteEdit1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anteEdit1ActionPerformed(evt);
             }
         });
+        add(anteEdit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 313, -1, -1));
 
         jLabel26.setText("Tutor Académico");
+        add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 276, -1, -1));
 
         tutorA.setEditable(false);
+        add(tutorA, new org.netbeans.lib.awtextra.AbsoluteConstraints(121, 273, 185, -1));
+        add(cedulaT, new org.netbeans.lib.awtextra.AbsoluteConstraints(64, 92, 203, -1));
 
         jLabel1.setText("Tutor");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 95, -1, -1));
 
         jButton1.setText("buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -67,10 +74,13 @@ public class Diseno extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 92, -1, -1));
 
         jLabel2.setText("Cedula");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(312, 276, -1, -1));
 
         cedulatuto.setEditable(false);
+        add(cedulatuto, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 273, 121, -1));
 
         profes.setAutoCreateRowSorter(true);
         profes.setModel(new javax.swing.table.DefaultTableModel(
@@ -96,13 +106,18 @@ public class Diseno extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(profes);
 
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 121, -1, 134));
+
         razontext.setColumns(20);
         razontext.setLineWrap(true);
         razontext.setRows(5);
         razontext.setWrapStyleWord(true);
         jScrollPane2.setViewportView(razontext);
 
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 36, 452, 50));
+
         jLabel24.setText("Titulo del proyecto");
+        add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 14, 120, -1));
 
         anteSave1.setText("Guardar");
         anteSave1.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +125,7 @@ public class Diseno extends javax.swing.JPanel {
                 anteSave1ActionPerformed(evt);
             }
         });
+        add(anteSave1, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 313, -1, -1));
 
         botonAgregar.setText("agregar");
         botonAgregar.setEnabled(false);
@@ -118,78 +134,10 @@ public class Diseno extends javax.swing.JPanel {
                 botonAgregarActionPerformed(evt);
             }
         });
+        add(botonAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(404, 92, -1, -1));
 
         jLabel3.setText("Diseno");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel26)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tutorA, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cedulatuto))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cedulaT, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(12, 12, 12)
-                                    .addComponent(jButton1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(botonAgregar))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(69, 69, 69)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(anteEdit1)
-                        .addGap(35, 35, 35)
-                        .addComponent(anteSave1)))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel24))
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cedulaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1)
-                    .addComponent(botonAgregar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26)
-                    .addComponent(tutorA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(cedulatuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(anteEdit1)
-                    .addComponent(anteSave1))
-                .addGap(55, 55, 55))
-        );
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 0, 79, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void anteEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anteEdit1ActionPerformed
@@ -403,6 +351,8 @@ public class Diseno extends javax.swing.JPanel {
                                             // Actualizar la tabla estudiantes con el ID generado
                                             String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_diseno = %d WHERE Cedula = '%s'", idGenerado, cedula1);
                                             habana.ejecutarSentenciaSQl(updateEstudiantesSql);
+                                            JOptionPane.showMessageDialog(null, "El proyecto de diseño fue registrado exitosamente");
+
 
                                         }
 

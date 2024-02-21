@@ -18,11 +18,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 public class Alumnosside extends javax.swing.JPanel {
 
     public static String tipoEC;
     public static String escuelaEC;
+    public static String nivelEC;
 
     public Alumnosside() {
         initComponents();
@@ -155,12 +155,12 @@ public class Alumnosside extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        
+
         int tip = Alumnos.tipoDeProyecto.getSelectedIndex();
         int esc = Alumnos.escf.getSelectedIndex();
         int semes = Alumnos.semestre.getSelectedIndex();
         int TGmod = Alumnos.semestre.getSelectedIndex();
-        
+
         Alumnos.botonAgr.setEnabled(true);
         nombreEst.setText("");
         apellidoEst.setText("");
@@ -180,15 +180,14 @@ public class Alumnosside extends javax.swing.JPanel {
         alumnos.setSize(Fondo.getWidth(), Fondo.getHeight());
         alumnos.setLocation(0, 0);
         Fondo.add(alumnos, BorderLayout.CENTER);
-        
+
         //recargar la tabla
-            
         Alumnos.tipoDeProyecto.setSelectedIndex(tip);
         Alumnos.escf.setSelectedIndex(esc);
         Alumnos.semestre.setSelectedIndex(semes);
         Alumnos.semestre.setSelectedIndex(TGmod);
         Alumnos.cargarFiltros();
-       
+
         // Validar y repintar el panel Fondo
         Fondo.revalidate();
         Fondo.repaint();
@@ -250,62 +249,75 @@ public class Alumnosside extends javax.swing.JPanel {
 //                ComboModo.setEnabled(false);
 //                agregarEstudiante.setEnabled(false);
                 objConexion.cerrarConexion();
-                
-            if (tipo.getSelectedIndex() == 1) { //si se selecciona el trabajo de grado
 
-            if (ComboModo.getSelectedIndex() == 0) {//si se trabaja individual
+                if (tipo.getSelectedItem().equals("Trabajo de grado")) { //si se selecciona el trabajo de grado
 
-                baseSide.removeAll();
-                Tg tg = new Tg();
-                tg.setBounds(0, 0, baseSide.getWidth(), 400);
-                baseSide.add(tg);
-                Base bas = (Base) this.getRootPane().getParent();
-                bas.setMinimumSize(new Dimension(1000, 600));
-                bas.setLocationRelativeTo(null);
-                Alumnos.mostrarProfesTg();
-                bas.repaint();
-                bas.revalidate();
+                    if (ComboModo.getSelectedIndex() == 0) {//si se trabaja individual
 
-            } else if (ComboModo.getSelectedIndex() == 1) {//si se trabaja en pareja
+                        baseSide.removeAll();
+                        Tg tg = new Tg();
+                        tg.cedulacompi.setVisible(false);
+                        tg.botonAgregar1.setVisible(false);
+                        tg.jLabel30.setVisible(false);
 
-                baseSide.removeAll();
-                Tg tg = new Tg();
-                tg.setBounds(0, 0, baseSide.getWidth(), 400);
-                baseSide.add(tg);
-                Base bas = (Base) this.getRootPane().getParent();
-                bas.setMinimumSize(new Dimension(1000, 600));
-                bas.setLocationRelativeTo(null);
-                Alumnos.mostrarProfesTg();
-                bas.repaint();
-                bas.revalidate();
+                        tg.jButton2.setVisible(false);
+                        tg.jScrollPane2.setVisible(false);
+                        tg.jLabel3.setVisible(false);
+                        tg.NomCompa.setVisible(false);
 
-            }
-        } else if (tipo.getSelectedIndex() == 2) {//si se selecciona las pasantias
-            
-            baseSide.removeAll();
-            Pasantiab ps = new Pasantiab();
-            ps.setBounds(0, 0, baseSide.getWidth(), 400);
-            baseSide.add(ps);
-            Base bas = (Base) this.getRootPane().getParent();
-            bas.setMinimumSize(new Dimension(1000, 600));
-            bas.setLocationRelativeTo(null);
-            //se cargan los profesores
-            Alumnos.mostrarProfesPasantia();
-            
-            bas.repaint();
-            bas.revalidate(); 
-            
-        } else if (tipo.getSelectedIndex() == 3) {//si se selecciona diseño
-            baseSide.removeAll();
-            Diseno ps = new Diseno();
-            ps.setBounds(0, 0, baseSide.getWidth(), 600);
-            baseSide.add(ps);
-            Base bas = (Base) this.getRootPane().getParent();
-            bas.setMinimumSize(new Dimension(1000, 600));
-            bas.setLocationRelativeTo(null);
-            bas.repaint();
-            bas.revalidate();
-        }
+                        tg.jLabel4.setVisible(false);
+
+                        tg.CiCompa.setVisible(false);
+
+                        tg.setBounds(0, 0, baseSide.getWidth(), 400);
+                        baseSide.add(tg);
+                        Base bas = (Base) this.getRootPane().getParent();
+                        bas.setMinimumSize(new Dimension(1000, 600));
+                        bas.setLocationRelativeTo(null);
+                        Alumnos.mostrarProfesTg();
+                        bas.repaint();
+                        bas.revalidate();
+
+                    } else if (ComboModo.getSelectedIndex() == 1) {//si se trabaja en pareja
+
+                        baseSide.removeAll();
+                        Tg tg = new Tg();
+                        tg.setBounds(0, 0, baseSide.getWidth(), 400);
+                        baseSide.add(tg);
+                        Base bas = (Base) this.getRootPane().getParent();
+                        bas.setMinimumSize(new Dimension(1000, 600));
+                        bas.setLocationRelativeTo(null);
+                        Alumnos.mostrarProfesTg();
+                        bas.repaint();
+                        bas.revalidate();
+
+                    }
+                } else if (tipo.getSelectedItem().equals("Pasantia")) {//si se selecciona las pasantias
+
+                    baseSide.removeAll();
+                    Pasantiab ps = new Pasantiab();
+                    ps.setBounds(0, 0, baseSide.getWidth(), 400);
+                    baseSide.add(ps);
+                    Base bas = (Base) this.getRootPane().getParent();
+                    bas.setMinimumSize(new Dimension(1000, 600));
+                    bas.setLocationRelativeTo(null);
+                    //se cargan los profesores
+                    Alumnos.mostrarProfesPasantia();
+
+                    bas.repaint();
+                    bas.revalidate();
+
+                } else if (tipo.getSelectedItem().equals("Diseño")) {//si se selecciona diseño
+                    baseSide.removeAll();
+                    Diseno ps = new Diseno();
+                    ps.setBounds(0, 0, baseSide.getWidth(), 600);
+                    baseSide.add(ps);
+                    Base bas = (Base) this.getRootPane().getParent();
+                    bas.setMinimumSize(new Dimension(1000, 600));
+                    bas.setLocationRelativeTo(null);
+                    bas.repaint();
+                    bas.revalidate();
+                }
             } else {
 
                 //System.out.println("Asegurese de llenar todos los campos del formulario correctamente");
@@ -333,7 +345,47 @@ public class Alumnosside extends javax.swing.JPanel {
         if (!nombreEst.getText().isEmpty() && !apellidoEst.getText().isEmpty()
                 && cedulaEst.getText().matches("\\d{8}")
                 && escuelaEst.getSelectedItem() != "Default" && nivel.getSelectedItem() != "Tipo" && tipo.getSelectedItem() != "Semestre") {
-            try {
+
+//            if (!escuelaEst.getSelectedItem().equals(escuelaEC) || !tipo.getSelectedItem().equals(tipoEC)) {
+//                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este registro?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+//
+//                if (confirmacion == JOptionPane.YES_OPTION) {
+//                    String TIPO = tipoEC;
+//                    if (TIPO.equals("Diseño")) {
+//                        System.out.println("no lo entendi");
+//                        String dsql = "DELETE FROM Diseno WHERE cedula_estudiante = '" + Alumnos.cedula + "'";
+//                        objConexion.ejecutarSentenciaSQl(dsql);
+//try {
+//                                int num = 0;
+//                                ResultSet rst = objConexion.consultaRegistros("SELECT * FROM Diseno");
+//                                while (rst.next()) {
+//                                    String idTrabajo = rst.getString("id_diseno");
+//                                    String codigoActual = rst.getString("codigo");
+//                                    // Extraer el número después del segundo guion "-"
+//                                    String[] partesCodigo = codigoActual.split("-");
+//                                    if (partesCodigo.length >= 3) {
+//                                        String numeroActual = num + "";
+//                                        num = +1;
+//                                        // Incrementar el número y formar el nuevo código
+//                                        int nuevoNumero = Integer.parseInt(numeroActual) + 1;
+//                                        String nuevoCodigo = partesCodigo[0] + "-" + partesCodigo[1] + "-" + String.format("%03d", nuevoNumero) + "-"
+//                                                + partesCodigo[3] + "-" + partesCodigo[4] + "-" + partesCodigo[5];
+//                                        // Actualizar el campo "codigo" en la base de datos
+//                                        String updateSql = "UPDATE Diseno SET codigo = '" + nuevoCodigo + "' WHERE id_diseno = '" + idTrabajo + "'";
+//                                        objConexion.ejecutarSentenciaSQl(updateSql);
+//                                    }
+//                                }
+//                                objConexion.cerrarConexion();
+//                            } catch (SQLException e) {
+//                                // Manejar la excepción, por ejemplo, mostrar un mensaje de error
+//                                e.printStackTrace();
+//                            }
+//                    }
+//                }
+//            }
+//objConexion = new conexion();
+
+        try {
                 String updateSql = String.format("UPDATE estudiantes SET Nombre = '%s', Apellido = '%s', Escuela = '%s', Nivel = '%s', Tipo = '%s', Cedula = '%s', Modo = '%s' WHERE Cedula = '" + Alumnos.cedula + "'",
                         nombreEst.getText(),
                         apellidoEst.getText(),
@@ -400,7 +452,7 @@ public class Alumnosside extends javax.swing.JPanel {
     }//GEN-LAST:event_editBActionPerformed
 
     private void tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoActionPerformed
-        if(escuelaEst.getSelectedIndex()!=1){
+        if (escuelaEst.getSelectedIndex() != 1) {
             if (tipo.getSelectedIndex() == 1) {
                 // Si es el ítem 1, activa el botón
                 ComboModo.setEnabled(true);
@@ -439,8 +491,7 @@ public class Alumnosside extends javax.swing.JPanel {
             boolean existeEstudiante = estudianteExiste(cedula);
             if (existeEstudiante) {
                 JOptionPane.showMessageDialog(null, "El estudiante con la cedula " + cedula + " ya existe en la base de datos");
-            } 
-            else {
+            } else {
                 String addSql = String.format("INSERT INTO estudiantes (Nombre, Apellido, Cedula, Facultad, Escuela, fecha_registro, periodo, num_est, Nivel, Tipo, Modo) VALUES"
                         + "('" + nombre
                         + "','" + apellido + "','" + cedula + "','" + "Ingeniería"
@@ -453,9 +504,12 @@ public class Alumnosside extends javax.swing.JPanel {
             ResultSet rs = objConexion.consultaRegistros(sql2);
 
             // Obtener los valores de las columnas y guardarlos en variables
-            String num_est = rs.getString("num_est");
-            String periodo = rs.getString("periodo");
-            String escuela1 = rs.getString("Escuela");
+            String periodo = "";
+            String escuela1 = "";
+            if (rs.next()) {
+                periodo = rs.getString("periodo");
+                escuela1 = rs.getString("Escuela");
+            }
 
             switch (escuela1) {
                 case "Computación":
@@ -497,14 +551,12 @@ public class Alumnosside extends javax.swing.JPanel {
                     cod);
             objConexion.ejecutarSentenciaSQl(sql3);
             objConexion.cerrarConexion();
-            
-            
-        } 
-            catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             System.out.println("error");
             Logger.getLogger(Alumnosside.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     public boolean estudianteExiste(String cedula) {

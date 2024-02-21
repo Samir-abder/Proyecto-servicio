@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
 import static programa.Alumnosside.apellidoEst;
 import static programa.Alumnosside.cedulaEst;
 import static programa.Alumnosside.nombreEst;
@@ -190,15 +191,25 @@ public class Semestre extends javax.swing.JPanel {
                 JOptionPane.OK_CANCEL_OPTION);
 
         if (result == JOptionPane.OK_OPTION) {
-            String rutaCarpeta = "Historial de semestres";
-            String nombreArchivo = peri + ".s3db";
-            // Crear el archivo de destino en la carpeta "Historial semestres"
-            File archivoDestino = new File(rutaCarpeta, nombreArchivo);
-            // Guardar la base de datos en el archivo de destino
-            guardarBaseDeDatos(archivoDestino);
-            Actualizar();
-            Base base = new Base();
-            base.cerrarVentana();
+            try {
+                String rutaCarpeta = "Historial de semestres";
+                String nombreArchivo = peri + ".s3db";
+                // Crear el archivo de destino en la carpeta "Historial semestres"
+                File archivoDestino = new File(rutaCarpeta, nombreArchivo);
+                // Guardar la base de datos en el archivo de destino
+                guardarBaseDeDatos(archivoDestino);
+                Actualizar();
+                Base base = new Base();
+                base.cerrarVentana();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (UnsupportedLookAndFeelException ex) {
+                Logger.getLogger(Semestre.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (result == JOptionPane.CANCEL_OPTION) {
             System.out.println("Cancelar pulsado");
         }

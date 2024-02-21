@@ -372,6 +372,7 @@ if (!razonSocial.isEmpty() && !tutorAcademico.isEmpty() && !cedulaEstudiante.isE
                             String sql3 = String.format("UPDATE estudiantes SET codigo = '%s', tipo = 'Pasantia' WHERE Cedula = '%s'", cod, Alumnosside.cedulaEst.getText());
 
                             habana.ejecutarSentenciaSQl(sql3);
+                            JOptionPane.showMessageDialog(null, "La pasantia fue registrado exitosamente");
                             }
                             } catch (SQLException ex) {
 

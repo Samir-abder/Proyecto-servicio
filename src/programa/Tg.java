@@ -421,6 +421,7 @@ public class Tg extends javax.swing.JPanel {
                                     String updateEstudiantesSql = String.format("UPDATE estudiantes SET id_trabajo = %d WHERE Cedula = '%s'", idGenerado, cedula1);
                                     habana.ejecutarSentenciaSQl(updateEstudiantesSql);
                                     habana.cerrarConexion();
+                                    JOptionPane.showMessageDialog(null, "El trabajo de grado fue registrado exitosamente");
                                 }
 //                                codigo(cedulacompi.getText());
                             }
@@ -872,7 +873,7 @@ public class Tg extends javax.swing.JPanel {
     private javax.swing.JButton aDelete;
     private javax.swing.JButton aSave;
     private javax.swing.JButton botonAgregar;
-    private javax.swing.JButton botonAgregar1;
+    public static javax.swing.JButton botonAgregar1;
     private javax.swing.JTextField cedulaTutor;
     public static javax.swing.JTextField cedulacompi;
     public static javax.swing.JTextField citutor;
@@ -882,12 +883,12 @@ public class Tg extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel4;
+    public static javax.swing.JLabel jLabel3;
+    public static javax.swing.JLabel jLabel30;
+    public static javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    public static javax.swing.JScrollPane jScrollPane2;
     public static javax.swing.JTextField nombreTutor;
     public static javax.swing.JTable profes;
     public static javax.swing.JTextField titulop;

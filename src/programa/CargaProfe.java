@@ -42,6 +42,13 @@ public class CargaProfe extends javax.swing.JPanel {
         initComponents();
          String peri = "2023-2CR";
         conexion habana = new conexion();
+        if (!conexion.strconexionDB.equals("database.s3db")) {
+            jButton1.setVisible(false);
+            
+        } else {
+            jButton1.setVisible(true);
+            
+        }
         ResultSet rst = habana.consultaRegistros("SELECT COUNT(*) AS count, periodo FROM Periodos");
         try {
             if (rst.next()) {

@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 
@@ -21,9 +23,10 @@ public class Base extends javax.swing.JFrame {
     /**
      * Creates new form Base
      */
-   public Base() {
+   public Base() throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
 
         super("Coordinacion de trabajos de grado y pasantias");
+UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 
         initComponents();
         this.setMinimumSize(new Dimension(800, 650));
@@ -516,7 +519,17 @@ String nuevaRuta = "database.s3db";
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Base().setVisible(true);
+                try {
+                    new Base().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (InstantiationException ex) {
+                    Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedLookAndFeelException ex) {
+                    Logger.getLogger(Base.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
